@@ -3,17 +3,10 @@ package tp.pr4.control;
 import java.util.Scanner;
 
 import tp.pr4.Resources.Resources;
-import tp.pr4.logic.ComplicaRules;
-import tp.pr4.logic.Connect4Move;
-import tp.pr4.logic.Connect4Rules;
 import tp.pr4.logic.Counter;
 import tp.pr4.logic.Game;
-import tp.pr4.logic.GravityMove;
-import tp.pr4.logic.GravityRules;
 import tp.pr4.logic.InvalidMove;
 import tp.pr4.logic.Move;
-import tp.pr4.logic.ComplicaMove;
-import tp.pr4.logic.Rules;
 
 public class Controller {
 	private Game game;
@@ -21,8 +14,7 @@ public class Controller {
 	private Player[] players; 
 	private int currentPlayer;
 	private GameTypeFactory gameType;
-	private Counter[] c = { Counter.WHITE, Counter.BLACK }; 	
-	private Rules rules;
+	private Counter[] c = { Counter.WHITE, Counter.BLACK };
 	
 	public Controller(GameTypeFactory f, Game g, java.util.Scanner in) {
 		this.gameType = f;
@@ -34,7 +26,6 @@ public class Controller {
 	}
 
 	public void initGame() {
-		this.gameType = gameType;
 		game.reset(gameType.createRules());
 		players[0] = gameType.createHumanPlayerAtConsole(in);
 		players[1] = gameType.createHumanPlayerAtConsole(in);

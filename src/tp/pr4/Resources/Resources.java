@@ -3,12 +3,9 @@ package tp.pr4.Resources;
 import java.util.Scanner;
 
 import tp.pr4.logic.Board;
-import tp.pr4.logic.ComplicaRules;
-import tp.pr4.logic.Connect4Rules;
 import tp.pr4.logic.Counter;
 import tp.pr4.logic.Game; 
 import tp.pr4.logic.GravityMove;
-import tp.pr4.logic.GravityRules;
 
 public class Resources {
 	public static final int MAX_STACK = 100;

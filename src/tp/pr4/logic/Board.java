@@ -7,6 +7,7 @@ public class Board {
 	private int width;
 	private Counter [][] board;
 	private boolean full;
+	private int occupiedCells;
 	
 	public Board(int tx, int ty) {  // Constructor for the Board
 		
@@ -20,6 +21,7 @@ public class Board {
 		
 		board = new Counter[height][width];
 		emptyCells(); // restart the board
+		occupiedCells = 0;
 	}
 
 	// Getters and setters for private attributes
@@ -58,21 +60,8 @@ public class Board {
 	// Methods for checking if a board neither column is full or not.
 	
 	public boolean isFull() {
-		int x, y = 1;
-		boolean fullB = true;
-		
-		while ((y <= height) && (fullB)) {
-			x = 1;
-			while(x <= width && (fullB)) {
-				if (getPosition(x, y) == Counter.EMPTY) {
-					fullB = false;
-				}
-				x++;
-			}
-			y++;
-		}
-		this.full = fullB;
-		return fullB;
+		int x, y = 1, boardDim = width * height; 
+		return  occupiedCells == boardDim;
 	}
 	
 	public boolean isFullColumn(int Column) {
@@ -151,7 +140,12 @@ public class Board {
 	
 	public void setPosition(int tx, int ty, Counter counter){
 		if ((tx >= 1 && tx <= width) || (ty >= 1 && ty <= height)) {
+			if(board[tx-1][ty-1] == counter.EMPTY && counter != Counter.EMPTY)
+				occupiedCells++;
+			else if (board[tx-1][ty-1] != counter.EMPTY && counter == Counter.EMPTY)
+				occupiedCells--;
 			board[ty - 1][tx - 1] = counter;
+			
 		}
 	}
 	

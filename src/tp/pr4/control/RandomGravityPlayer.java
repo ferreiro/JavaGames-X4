@@ -1,7 +1,5 @@
 package tp.pr4.control;
 
-import java.util.Random;
-
 import tp.pr4.Resources.Resources;
 import tp.pr4.logic.Board;
 import tp.pr4.logic.Counter;

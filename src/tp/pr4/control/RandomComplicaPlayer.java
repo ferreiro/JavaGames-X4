@@ -6,7 +6,6 @@ import tp.pr4.logic.Counter;
 import tp.pr4.logic.Move;
 import tp.pr4.Resources.Resources;
 
-import java.util.Random;
 
 public class RandomComplicaPlayer implements Player{
 

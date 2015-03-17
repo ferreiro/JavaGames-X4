@@ -2,7 +2,6 @@ package tp.pr4.control;
 
 import java.util.Scanner;
 
-import tp.pr4.Resources.Resources;
 import tp.pr4.logic.Counter;
 import tp.pr4.logic.GameRules;
 import tp.pr4.logic.GravityMove;

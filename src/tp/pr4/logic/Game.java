@@ -3,9 +3,7 @@ package tp.pr4.logic;
 import java.util.ArrayDeque;
 import java.util.Deque;
 
-import tp.pr4.control.GameTypeFactory;
 import tp.pr4.logic.Counter;
-import tp.pr4.Resources.Resources;
 import tp.pr4.logic.Board;
 import tp.pr4.logic.Move;
 
