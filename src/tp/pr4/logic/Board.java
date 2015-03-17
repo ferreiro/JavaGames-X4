@@ -145,7 +145,6 @@ public class Board {
 			else if (board[tx-1][ty-1] != counter.EMPTY && counter == Counter.EMPTY)
 				occupiedCells--;
 			board[ty - 1][tx - 1] = counter;
-			
 		}
 	}
 	
