@@ -2,7 +2,7 @@ package tp.pr4.logic;
 
 import tp.pr4.logic.Counter;
 
-public class Board {
+public class Board implements ReadOnlyBoard{
 	private int height;
 	private int width;
 	private Counter [][] board;
@@ -29,9 +29,13 @@ public class Board {
 	public int getWidth() {
 		return width;
 	}
-	public int getLength() {
-		return width;
-	}
+	
+	//creo que no se usa en ningun lado
+	
+//	public int getLength() { 
+//		return width;
+//	}
+	
 	public int getHeight() {
 		return height;
 	} 
@@ -60,7 +64,7 @@ public class Board {
 	// Methods for checking if a board neither column is full or not.
 	
 	public boolean isFull() {
-		int x, y = 1, boardDim = width * height; 
+		int boardDim = width * height; 
 		return  occupiedCells == boardDim;
 	}
 	
@@ -140,9 +144,9 @@ public class Board {
 	
 	public void setPosition(int tx, int ty, Counter counter){
 		if ((tx >= 1 && tx <= width) || (ty >= 1 && ty <= height)) {
-			if(board[tx-1][ty-1] == counter.EMPTY && counter != Counter.EMPTY)
+			if(board[tx-1][ty-1] == Counter.EMPTY && counter != Counter.EMPTY)
 				occupiedCells++;
-			else if (board[tx-1][ty-1] != counter.EMPTY && counter == Counter.EMPTY)
+			else if (board[tx-1][ty-1] != Counter.EMPTY && counter == Counter.EMPTY)
 				occupiedCells--;
 			board[ty - 1][tx - 1] = counter;
 		}

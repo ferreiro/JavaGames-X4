@@ -1,12 +1,16 @@
 package tp.pr4.views.window;
 
-import javax.swing.JFrame;
+import javax.swing.*;
 
 import tp.pr4.logic.Counter;
 import tp.pr4.logic.GameObserver;
 import tp.pr4.logic.ReadOnlyBoard;
 
 public class MainWindow extends JFrame implements GameObserver {
+	
+	public MainWindow(){
+		
+	}
 
 	@Override
 	public void moveExecFinished(ReadOnlyBoard board, Counter player, Counter nextPlayer) {
