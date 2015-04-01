@@ -7,7 +7,7 @@ import tp.pr4.logic.Counter;
 import tp.pr4.logic.Board;
 import tp.pr4.logic.Move;
 
-public class Game {
+public class Game implements Observable<GameObserver>{
 
 	private Board board;
 	private Counter winner;
@@ -113,6 +113,18 @@ public class Game {
 	
 	public GameRules getRules(){
 		return rules;
+	}
+
+	@Override
+	public void addObserver(GameObserver o) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void removeObserver(GameObserver o) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }
