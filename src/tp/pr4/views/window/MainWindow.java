@@ -22,15 +22,19 @@ public class MainWindow extends JFrame implements GameObserver {
 	private void initGUI(){
 		JPanel mainPanel = new JPanel(new BorderLayout());
 		
+		//bottom of the borderLayout
 		JPanel bottomPanel = createPanel(new Color(200,230, 150), 70,70);
 		mainPanel.add(bottomPanel, BorderLayout.PAGE_END);
 		
 		//en este el top podriamos añadir un logo y hacerlo un poquico mas grande
-		JPanel topPanel = createPanel(Color.BLUE, 10,10);
+		JPanel topPanel = createPanel(Color.WHITE, 10,10);
 		mainPanel.add(topPanel, BorderLayout.PAGE_START);
 		
+		//centre of the borderLayout
 		JPanel centrePanel = new JPanel(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
+		
+		
 		
 		//dark inside centre panel
 		JPanel dark = new JPanel(new GridBagLayout());
@@ -38,7 +42,7 @@ public class MainWindow extends JFrame implements GameObserver {
 		dark.setPreferredSize(new Dimension(50,50));
 		
 		//the top panel inside dark one
-		JPanel topDark = createPanel(Color.white, 10,10);
+		JPanel topDark = createPanel(Color.blue, 10,10);
 		c.fill = GridBagConstraints.BOTH;
 		c.gridx = 0;
 		c.gridy = 0;
@@ -46,6 +50,7 @@ public class MainWindow extends JFrame implements GameObserver {
 		c.weighty = 1;
 		dark.add(topDark,c);
 		
+		//the bottom panel inside dark one
 		JPanel botDark = createPanel(Color.red, 50,50);
 		c.fill = GridBagConstraints.BOTH;
 		c.gridx = 0;
@@ -53,7 +58,6 @@ public class MainWindow extends JFrame implements GameObserver {
 		c.weightx = 1;
 		c.weighty = 1;
 		dark.add(botDark,c);
-		
 		
 		
 		//the characteristics of dark in general
@@ -82,7 +86,6 @@ public class MainWindow extends JFrame implements GameObserver {
 		this.setSize(400, 400);
 		this.setMinimumSize(new Dimension(400, 400));
 		this.setVisible(true);
-		
 		
 	}
 	
