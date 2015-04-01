@@ -24,6 +24,8 @@ public class MainWindow extends JFrame implements GameObserver {
 		JComboBox<String> Cbox;
 		String names[] = {"Connect4", "Complica", "Gravity"}; 
 		
+		
+		
 		JPanel mainPanel = new JPanel(new BorderLayout());
 		
 		//bottom of the borderLayout
@@ -40,13 +42,39 @@ public class MainWindow extends JFrame implements GameObserver {
 		
 		
 		
+		
+		
 		//dark inside centre panel
 		JPanel dark = new JPanel(new GridBagLayout());
 		dark.setBackground(new Color(146,146,146));
-		dark.setPreferredSize(new Dimension(50,50));
+		dark.setPreferredSize(new Dimension(60,60));
 		
 		//the top panel inside dark one
-		JPanel topDark = createPanel(Color.blue, 10,10);
+		JPanel topDark = new JPanel(new GridBagLayout());
+		topDark.setBackground(Color.blue);
+		topDark.setPreferredSize(new Dimension(10,10));
+		
+		//UNDOBUTTON
+		JButton undoButton = new JButton("Undo");
+		undoButton.setIcon(new ImageIcon("src/icons/undo.png"));
+		c.fill = GridBagConstraints.NONE;
+		c.gridx = 0;
+		c.gridy = 0;
+		c.weightx = 0.1;
+		c.weighty = 0.1;
+		topDark.add(undoButton,c);
+		
+		//UNDOBUTTON
+		JButton resetButton = new JButton("Reset");
+		resetButton.setIcon(new ImageIcon("src/icons/reset.png"));
+		c.fill = GridBagConstraints.NONE;
+		c.gridx = 1;
+		c.gridy = 0;
+		c.weightx = 0.1;
+		c.weighty = 0.1;
+		topDark.add(resetButton,c);
+		
+		//characteristics of the topDark part
 		c.fill = GridBagConstraints.BOTH;
 		c.gridx = 0;
 		c.gridy = 0;
@@ -109,7 +137,7 @@ public class MainWindow extends JFrame implements GameObserver {
 		
 		
 		//creating the light one
-		JPanel light = createPanel(Color.LIGHT_GRAY, 170,170);
+		JPanel light = createPanel(Color.LIGHT_GRAY, 120,120);
 		c.fill = GridBagConstraints.BOTH;
 		c.gridx = 0;
 		c.gridy = 0;
