@@ -22,7 +22,7 @@ public class MainWindow extends JFrame implements GameObserver {
 	private void initGUI(){
 		JPanel mainPanel = new JPanel(new BorderLayout());
 		
-		JPanel bottomPanel = createPanel(new Color(200,255, 150), 70,70);
+		JPanel bottomPanel = createPanel(new Color(200,230, 150), 70,70);
 		mainPanel.add(bottomPanel, BorderLayout.PAGE_END);
 		
 		//en este el top podriamos añadir un logo y hacerlo un poquico mas grande
@@ -32,21 +32,47 @@ public class MainWindow extends JFrame implements GameObserver {
 		JPanel centrePanel = new JPanel(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
 		
-		JPanel greenRight = createPanel(Color.GRAY, 50,50);
-		c.fill = GridBagConstraints.BOTH;
-		c.gridx = 1;
-		c.gridy = 0;
-		c.weightx = 1;
-		c.weighty = 1;
-		centrePanel.add(greenRight, c);
+		//dark inside centre panel
+		JPanel dark = new JPanel(new GridBagLayout());
+		dark.setBackground(new Color(146,146,146));
+		dark.setPreferredSize(new Dimension(50,50));
 		
-		JPanel pinkLeft = createPanel(Color.LIGHT_GRAY, 150,150);
+		//the top panel inside dark one
+		JPanel topDark = createPanel(Color.white, 10,10);
 		c.fill = GridBagConstraints.BOTH;
 		c.gridx = 0;
 		c.gridy = 0;
 		c.weightx = 1;
 		c.weighty = 1;
-		centrePanel.add(pinkLeft, c);
+		dark.add(topDark,c);
+		
+		JPanel botDark = createPanel(Color.red, 50,50);
+		c.fill = GridBagConstraints.BOTH;
+		c.gridx = 0;
+		c.gridy = 1;
+		c.weightx = 1;
+		c.weighty = 1;
+		dark.add(botDark,c);
+		
+		
+		
+		//the characteristics of dark in general
+		c.fill = GridBagConstraints.BOTH;
+		c.gridx = 1;
+		c.gridy = 0;
+		c.weightx = .75;
+		c.weighty = .75;
+		centrePanel.add(dark, c);
+		
+		
+		//creating the light one
+		JPanel light = createPanel(Color.LIGHT_GRAY, 170,170);
+		c.fill = GridBagConstraints.BOTH;
+		c.gridx = 0;
+		c.gridy = 0;
+		c.weightx = 1;
+		c.weighty = 1;
+		centrePanel.add(light, c);
 		
 		mainPanel.add(centrePanel, BorderLayout.CENTER);
 		
