@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Point;
 
 import javax.swing.*;
 
@@ -20,6 +21,9 @@ public class MainWindow extends JFrame implements GameObserver {
 	}
 	
 	private void initGUI(){
+		JComboBox<String> Cbox;
+		String names[] = {"Connect4", "Complica", "Gravity"}; 
+		
 		JPanel mainPanel = new JPanel(new BorderLayout());
 		
 		//bottom of the borderLayout
@@ -27,7 +31,7 @@ public class MainWindow extends JFrame implements GameObserver {
 		mainPanel.add(bottomPanel, BorderLayout.PAGE_END);
 		
 		//en este el top podriamos añadir un logo y hacerlo un poquico mas grande
-		JPanel topPanel = createPanel(Color.WHITE, 10,10);
+		JPanel topPanel = createPanel(new Color(200,230, 150), 10,10);
 		mainPanel.add(topPanel, BorderLayout.PAGE_START);
 		
 		//centre of the borderLayout
@@ -51,7 +55,42 @@ public class MainWindow extends JFrame implements GameObserver {
 		dark.add(topDark,c);
 		
 		//the bottom panel inside dark one
-		JPanel botDark = createPanel(Color.red, 50,50);
+		JPanel botDark = new JPanel(new GridBagLayout());
+		botDark.setBackground(Color.red);
+		botDark.setPreferredSize(new Dimension(50,50));
+		
+		//COMBOBOX
+		Cbox = new JComboBox<String>(names);
+		Cbox.setSelectedIndex(0);
+		c.fill = GridBagConstraints.NONE;
+		c.gridx = 0;
+		c.gridy = 0;
+		c.weightx = 0.1;
+		c.weighty = 0.1;
+		botDark.add(Cbox,c);
+		
+		//Space in between
+		JPanel blankPanel = new JPanel();
+		blankPanel.setBackground(Color.red);
+		blankPanel.setVisible(true);
+		c.fill = GridBagConstraints.BOTH;
+		c.gridx = 0;
+		c.gridy = 1;
+		c.weightx = .70;
+		c.weighty = .70;
+		botDark.add(blankPanel,c);
+		
+		//BUTTON FOR CHANGING
+		JButton changeButton = new JButton("Change");
+		changeButton.setIcon(new ImageIcon("src/icons/check.png"));
+		c.fill = GridBagConstraints.NONE;
+		c.gridx = 0;
+		c.gridy = 2;
+		c.weightx = 0.1;
+		c.weighty = 0.1;
+		botDark.add(changeButton,c);
+		
+		//for the bottom of the dark side panel
 		c.fill = GridBagConstraints.BOTH;
 		c.gridx = 0;
 		c.gridy = 1;
