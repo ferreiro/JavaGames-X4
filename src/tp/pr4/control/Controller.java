@@ -7,6 +7,7 @@ import tp.pr4.logic.Counter;
 import tp.pr4.logic.Game;
 import tp.pr4.logic.InvalidMove;
 import tp.pr4.logic.Move;
+import tp.pr4.logic.GameType;
 
 public class Controller {
 	private Game game;
@@ -30,6 +31,19 @@ public class Controller {
 		players[0] = gameType.createHumanPlayerAtConsole(in);
 		players[1] = gameType.createHumanPlayerAtConsole(in);
 		currentPlayer = 0;
+	}
+	
+	void changeG(GameType gameType, int x, int y){
+		if (gameType == GameType.connect4){
+			this.gameType = new Connect4Factory();
+		}
+		else if(gameType == GameType.complica){
+			this.gameType = new ComplicaFactory();
+		}
+		else if(gameType == GameType.Gravity){
+			this.gameType = new GravityFactory(x, y);
+		}
+		initGame();
 	}
 	
 	public void changePlayer() {
@@ -169,6 +183,9 @@ public class Controller {
 	}
 	public Counter[] getCounter() {
 		return this.c;
+	}
+	public Game getGame(){
+		return this.game;
 	}
 	
 }

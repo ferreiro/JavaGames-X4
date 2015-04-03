@@ -2,18 +2,22 @@ package tp.pr4.views.window;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.awt.Point;
 
 import javax.swing.*;
 
+import tp.pr4.Resources.Resources;
 import tp.pr4.logic.Counter;
 import tp.pr4.logic.GameObserver;
 import tp.pr4.logic.ReadOnlyBoard;
 
 public class MainWindow extends JFrame implements GameObserver {
+	
 	
 	public MainWindow(){
 		super();
@@ -40,19 +44,15 @@ public class MainWindow extends JFrame implements GameObserver {
 		JPanel centrePanel = new JPanel(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
 		
-		
-		
-		
-		
 		//dark inside centre panel
 		JPanel dark = new JPanel(new GridBagLayout());
 		dark.setBackground(new Color(146,146,146));
 		dark.setPreferredSize(new Dimension(60,60));
 		
 		//the top panel inside dark one
-		JPanel topDark = new JPanel(new GridBagLayout());
-		topDark.setBackground(Color.blue);
-		topDark.setPreferredSize(new Dimension(10,10));
+		JPanel UndoAndReset = new JPanel(new GridBagLayout());
+		UndoAndReset.setBackground(Color.blue);
+		UndoAndReset.setPreferredSize(new Dimension(10,10));
 		
 		//UNDOBUTTON
 		JButton undoButton = new JButton("Undo");
@@ -62,7 +62,7 @@ public class MainWindow extends JFrame implements GameObserver {
 		c.gridy = 0;
 		c.weightx = 0.1;
 		c.weighty = 0.1;
-		topDark.add(undoButton,c);
+		UndoAndReset.add(undoButton,c);
 		
 		//UNDOBUTTON
 		JButton resetButton = new JButton("Reset");
@@ -72,7 +72,7 @@ public class MainWindow extends JFrame implements GameObserver {
 		c.gridy = 0;
 		c.weightx = 0.1;
 		c.weighty = 0.1;
-		topDark.add(resetButton,c);
+		UndoAndReset.add(resetButton,c);
 		
 		//characteristics of the topDark part
 		c.fill = GridBagConstraints.BOTH;
@@ -80,12 +80,12 @@ public class MainWindow extends JFrame implements GameObserver {
 		c.gridy = 0;
 		c.weightx = 1;
 		c.weighty = 1;
-		dark.add(topDark,c);
+		dark.add(UndoAndReset,c);
 		
 		//the bottom panel inside dark one
-		JPanel botDark = new JPanel(new GridBagLayout());
-		botDark.setBackground(Color.red);
-		botDark.setPreferredSize(new Dimension(50,50));
+		JPanel ComboAndChangeButton = new JPanel(new GridBagLayout());
+		ComboAndChangeButton.setBackground(Color.red);
+		ComboAndChangeButton.setPreferredSize(new Dimension(50,50));
 		
 		//COMBOBOX
 		Cbox = new JComboBox<String>(names);
@@ -95,7 +95,7 @@ public class MainWindow extends JFrame implements GameObserver {
 		c.gridy = 0;
 		c.weightx = 0.1;
 		c.weighty = 0.1;
-		botDark.add(Cbox,c);
+		ComboAndChangeButton.add(Cbox,c);
 		
 		//Space in between
 		JPanel blankPanel = new JPanel();
@@ -106,7 +106,7 @@ public class MainWindow extends JFrame implements GameObserver {
 		c.gridy = 1;
 		c.weightx = .70;
 		c.weighty = .70;
-		botDark.add(blankPanel,c);
+		ComboAndChangeButton.add(blankPanel,c);
 		
 		//BUTTON FOR CHANGING
 		JButton changeButton = new JButton("Change");
@@ -116,7 +116,7 @@ public class MainWindow extends JFrame implements GameObserver {
 		c.gridy = 2;
 		c.weightx = 0.1;
 		c.weighty = 0.1;
-		botDark.add(changeButton,c);
+		ComboAndChangeButton.add(changeButton,c);
 		
 		//for the bottom of the dark side panel
 		c.fill = GridBagConstraints.BOTH;
@@ -124,7 +124,7 @@ public class MainWindow extends JFrame implements GameObserver {
 		c.gridy = 1;
 		c.weightx = 1;
 		c.weighty = 1;
-		dark.add(botDark,c);
+		dark.add(ComboAndChangeButton,c);
 		
 		
 		//the characteristics of dark in general
@@ -136,14 +136,21 @@ public class MainWindow extends JFrame implements GameObserver {
 		centrePanel.add(dark, c);
 		
 		
-		//creating the light one
-		JPanel light = createPanel(Color.LIGHT_GRAY, 120,120);
+		//creating the tablePane one hay que cambiar el hecho de que conjja c4, complica o gravity
+		JPanel tablePane = new JPanel(new GridLayout(Resources.DIMX_CONNECT4, Resources.DIMX_CONNECT4, 2, 2));
+		tablePane.setBackground(Color.LIGHT_GRAY);
+		tablePane.setSize(120,120);
+	
+		
+		
+		
+		//table part
 		c.fill = GridBagConstraints.BOTH;
 		c.gridx = 0;
 		c.gridy = 0;
 		c.weightx = 1;
 		c.weighty = 1;
-		centrePanel.add(light, c);
+		centrePanel.add(tablePane, c);
 		
 		mainPanel.add(centrePanel, BorderLayout.CENTER);
 		

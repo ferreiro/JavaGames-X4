@@ -1,40 +1,54 @@
-package tp.pr4.control;
+package tp.pr4.control;																																							
 
+import tp.pr4.Resources.Resources;
 import tp.pr4.logic.Counter;
 import tp.pr4.logic.Game;
 import tp.pr4.logic.GameType;
+import tp.pr4.views.window.MainWindow;
 
-public class WindowController {
+public class WindowController extends Controller{
+	static java.util.Scanner in;
 	
 	public WindowController(GameTypeFactory factory, Game g) {
+		
+		super(factory,g, in);
 		// Constructor
 	}
 	
-	void changeGame(GameType gameType, int dimX, int dimY) {
-		// Change to a new game.
+	public void changeGame(GameType gameType, int dimX, int dimY) {
+		if (gameType == gameType.Gravity){
+			Resources.setGravityDimX(dimX);
+			Resources.setGravityDimY(dimY);
+		}
+		changeG(gameType, dimX, dimY);
+		
 	}
-	void makeMove(int col, int row, Counter turn) {
+	public void makeMove(int col, int row, Counter turn) {
 		
 	}
 	
-	void randomMove(Counter player) {
+	public void randomMove(Counter player) {
 		// Make a random move.
 	}
 	
-	void requestQuit() {
+	public void requestQuit() {
 		// Quit the application.
 	}
 	
-	void reset() {
-		// Reset the current game.
+	public void reset() {
+		initGame();
 	}
 	
-	void run() {
-		// Creates the window view.
+	public void run() {
+		MainWindow window = new MainWindow();
 	}
 	
-	void undo() {
-		// Undo the last move of the currently played game.
+	public void undo() {
+		boolean undo = false;
+		undo = getGame().undo();
+		if (undo){
+			changePlayer(); // Change Current player
+		}
 	}
 	
 }
