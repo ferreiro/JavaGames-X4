@@ -143,7 +143,7 @@ public class Board implements ReadOnlyBoard{
 	
 	
 	public void setPosition(int tx, int ty, Counter counter){
-		if ((tx >= 1 && tx <= width) || (ty >= 1 && ty <= height)) {
+		if ((tx >= 1 && tx <= width) && (ty >= 1 && ty <= height)) {
 			if(board[tx-1][ty-1] == Counter.EMPTY && counter != Counter.EMPTY)
 				occupiedCells++;
 			else if (board[tx-1][ty-1] != Counter.EMPTY && counter == Counter.EMPTY)
