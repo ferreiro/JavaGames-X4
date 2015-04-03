@@ -30,12 +30,6 @@ public class Board implements ReadOnlyBoard{
 		return width;
 	}
 	
-	//creo que no se usa en ningun lado
-	
-//	public int getLength() { 
-//		return width;
-//	}
-	
 	public int getHeight() {
 		return height;
 	} 
@@ -52,12 +46,22 @@ public class Board implements ReadOnlyBoard{
 	public void setFull(Boolean full) {
 		this.full = full; // indicates if a board is full or not.
 	}
-	 
+	
 	public void emptyCells() {
 		for (int y = 0; y < height; y++) {
 			for (int x = 0; x < width; x++) {
 				board[y][x] = Counter.EMPTY; // Reset the board with empty Cells
 			}
+		}
+	}
+		
+	public void setPosition(int tx, int ty, Counter counter){
+		if ((tx >= 1 && tx <= width) && (ty >= 1 && ty <= height)) {
+			if(board[tx-1][ty-1] == Counter.EMPTY && counter != Counter.EMPTY)
+				occupiedCells++;
+			else if (board[tx-1][ty-1] != Counter.EMPTY && counter == Counter.EMPTY)
+				occupiedCells--;
+			board[ty - 1][tx - 1] = counter;
 		}
 	}
 	
@@ -140,16 +144,6 @@ public class Board implements ReadOnlyBoard{
 		
 		return line;
 	}
-	
-	
-	public void setPosition(int tx, int ty, Counter counter){
-		if ((tx >= 1 && tx <= width) && (ty >= 1 && ty <= height)) {
-			if(board[tx-1][ty-1] == Counter.EMPTY && counter != Counter.EMPTY)
-				occupiedCells++;
-			else if (board[tx-1][ty-1] != Counter.EMPTY && counter == Counter.EMPTY)
-				occupiedCells--;
-			board[ty - 1][tx - 1] = counter;
-		}
-	}
+
 	
 }
