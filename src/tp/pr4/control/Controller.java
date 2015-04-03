@@ -188,4 +188,8 @@ public class Controller {
 		return this.game;
 	}
 	
+	public GameTypeFactory getGameTypeFactory(){
+		return gameType;
+	}
+	
 }
