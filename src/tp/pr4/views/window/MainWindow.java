@@ -17,7 +17,8 @@ import tp.pr4.logic.GameObserver;
 import tp.pr4.logic.ReadOnlyBoard;
 
 public class MainWindow extends JFrame implements GameObserver {
-	
+	private int dimX = Resources.DIMX_CONNECT4;
+	private int dimY = Resources.DIMY_CONNECT4;
 	
 	public MainWindow(){
 		super();
@@ -137,12 +138,10 @@ public class MainWindow extends JFrame implements GameObserver {
 		
 		
 		//creating the tablePane one hay que cambiar el hecho de que conjja c4, complica o gravity
-		JPanel tablePane = new JPanel(new GridLayout(Resources.DIMX_CONNECT4, Resources.DIMX_CONNECT4, 2, 2));
+		JPanel tablePane = new JPanel(new GridLayout(dimX, dimY, 2, 2));
 		tablePane.setBackground(Color.LIGHT_GRAY);
 		tablePane.setSize(120,120);
-	
-		
-		
+		//lo que es dibujar los circulos no es aqui en la inicialización
 		
 		//table part
 		c.fill = GridBagConstraints.BOTH;
@@ -201,7 +200,7 @@ public class MainWindow extends JFrame implements GameObserver {
 	}
 
 	@Override
-	public void reset(ReadOnlyBoard board, Counter player, Boolean undoPossible) {
+	public void reset(ReadOnlyBoard board, Counter player) {//, Boolean undoPossible
 		// TODO Auto-generated method stub
 	}
 

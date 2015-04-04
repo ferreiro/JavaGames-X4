@@ -192,4 +192,8 @@ public class Controller {
 		return gameType;
 	}
 	
+	public Player[] getPlayers(){
+		return players;
+	}
+	
 }

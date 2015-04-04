@@ -38,7 +38,7 @@ public class ConsoleView implements GameObserver{
 	}
 
 	@Override
-	public void reset(ReadOnlyBoard board, Counter player, Boolean undoPossible) {
+	public void reset(ReadOnlyBoard board, Counter player) {//, Boolean undoPossible
 		// TODO Auto-generated method stub
 	}
 
