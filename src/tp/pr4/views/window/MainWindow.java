@@ -20,6 +20,10 @@ public class MainWindow extends JFrame implements GameObserver {
 	private int dimX = Resources.DIMX_CONNECT4;
 	private int dimY = Resources.DIMY_CONNECT4;
 	
+	//all the panels
+	private JPanel mainPanel = null;
+	
+	
 	public MainWindow(){
 		super();
 		initGUI();
@@ -31,7 +35,7 @@ public class MainWindow extends JFrame implements GameObserver {
 		
 		
 		
-		JPanel mainPanel = new JPanel(new BorderLayout());
+		mainPanel = new JPanel(new BorderLayout());
 		
 		//bottom of the borderLayout
 		JPanel bottomPanel = createPanel(new Color(200,230, 150), 70,70);
@@ -46,9 +50,9 @@ public class MainWindow extends JFrame implements GameObserver {
 		GridBagConstraints c = new GridBagConstraints();
 		
 		//dark inside centre panel
-		JPanel dark = new JPanel(new GridBagLayout());
-		dark.setBackground(new Color(146,146,146));
-		dark.setPreferredSize(new Dimension(60,60));
+		JPanel right = new JPanel(new GridBagLayout());
+		right.setBackground(new Color(146,146,146));
+		right.setPreferredSize(new Dimension(60,60));
 		
 		//the top panel inside dark one
 		JPanel UndoAndReset = new JPanel(new GridBagLayout());
@@ -81,7 +85,7 @@ public class MainWindow extends JFrame implements GameObserver {
 		c.gridy = 0;
 		c.weightx = 1;
 		c.weighty = 1;
-		dark.add(UndoAndReset,c);
+		right.add(UndoAndReset,c);
 		
 		//the bottom panel inside dark one
 		JPanel ComboAndChangeButton = new JPanel(new GridBagLayout());
@@ -125,7 +129,7 @@ public class MainWindow extends JFrame implements GameObserver {
 		c.gridy = 1;
 		c.weightx = 1;
 		c.weighty = 1;
-		dark.add(ComboAndChangeButton,c);
+		right.add(ComboAndChangeButton,c);
 		
 		
 		//the characteristics of dark in general
@@ -134,7 +138,7 @@ public class MainWindow extends JFrame implements GameObserver {
 		c.gridy = 0;
 		c.weightx = .75;
 		c.weighty = .75;
-		centrePanel.add(dark, c);
+		centrePanel.add(right, c);
 		
 		
 		//creating the tablePane one hay que cambiar el hecho de que conjja c4, complica o gravity
@@ -181,7 +185,9 @@ public class MainWindow extends JFrame implements GameObserver {
 
 	@Override
 	public void onGameOver(ReadOnlyBoard board, Counter winner) {
-		// TODO Auto-generated method stub
+		
+		JFrame msgFrame = new JFrame();
+		JOptionPane.showMessageDialog(msgFrame, "The Winner is" + winner + ".");//TODO method toString and finish the function
 	}
 
 	@Override
