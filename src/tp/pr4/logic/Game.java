@@ -85,7 +85,6 @@ public class Game implements Observable<GameObserver>{
 		else {
 			System.err.println("Nothing to undo.");
 		}
-		
 		return success;
 	}
 	
@@ -99,32 +98,30 @@ public class Game implements Observable<GameObserver>{
 		return this.finished;
 	}
 	
-	public Counter getWinner(){
+	public Counter getWinner() {
 		return this.winner;
 	}
 	
-	public Board getBoard(){
+	public Board getBoard() {
 		return this.board;
 	}
 
-	public Counter getTurn(){
+	public Counter getTurn() {
 		return this.turn;
 	}
 	
-	public GameRules getRules(){
+	public GameRules getRules() {
 		return rules;
 	}
 
 	@Override
 	public void addObserver(GameObserver o) {
-		// TODO Auto-generated method stub
-		
+		// To be implemented	
 	}
 
 	@Override
 	public void removeObserver(GameObserver o) {
-		// TODO Auto-generated method stub
-		
+		// To be implemented	
 	}
 	
 }
