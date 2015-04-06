@@ -4,66 +4,86 @@ import tp.pr4.logic.Board;
 import tp.pr4.Resources.Resources;
 
 public class ComplicaRules implements GameRules {
-	private int dimX = Resources.DIMX_COMPLICA;
+	
+	private int whiteCounter, blackCounter;
+	private int	dimX = Resources.DIMX_COMPLICA;
 	private int dimY = Resources.DIMY_COMPLICA;
-	private Counter winner;
-	private int whiteCounter;
-	private int blackCounter;
+	private Counter winner;  
 
 	public ComplicaRules() {  
-		winner = Counter.EMPTY; 
+		winner = Counter.EMPTY; // Non winner when created
 	}
+		 
+	//  Basic methods
 	
 	public Board newBoard() {
-		return new Board(dimX, dimY);
+		return new Board(dimX, dimY); // Creates a new Board
 	}
- 
+	
 	public boolean isDraw(Counter lastMove, Board b) {
 		return false; // Nunca puede haber empate en complica.
 	}
- 
-	public Counter winningMove(Move lastMove, Board b) {
-		winner = Counter.EMPTY; // No ha ganado nadie
-		blackCounter = 0;
-		whiteCounter = 0;
-		
-		checkHorizontal(b);
-		checkVertical(b);
-		checkDiagonal1(b);		
-		checkDiagonal2(b);
-		complicaFinished();//actualiza despues de la ultima diagonal
-			
-		return this.winner; 
+	
+	public int intRules() {
+		return 1;
+	}
+
+	// Players method
+
+	public Counter initialPlayer() {
+		return Counter.WHITE;
 	}
 	
 	public Counter nextTurn(Counter lastMove, Board b) {
 		Counter nextTurn = Counter.EMPTY;
 		
-		if (lastMove == Counter.WHITE) {
+		if (lastMove == Counter.WHITE) 
 			nextTurn = Counter.BLACK;
-		}
-		else if (lastMove == Counter.BLACK) {
+		else if (lastMove == Counter.BLACK) 
 			nextTurn = Counter.WHITE;
-		}
 
 		return nextTurn;
 	}
 	
-	public Counter initialPlayer() {
-		return Counter.WHITE;
-	}
+	// Somebody wins or is finished? 
 
+	public Counter winningMove(Move lastMove, Board b) {
+		winner = Counter.EMPTY; // Nobody Wins
+		blackCounter = whiteCounter = 0;
+		
+		checkHorizontal(b);
+		checkVertical(b);
+		checkDiagonal1(b);		
+		checkDiagonal2(b);
+		complicaFinished(); // Updates Winner after all the checks
+		
+		return this.winner; 
+	}
+		
+	boolean complicaFinished() { // Checks if somebody Wins the game
+		boolean isWinner = false;
+		
+		if ((blackCounter > 0) && (whiteCounter > 0)) {
+			isWinner = false; 
+			winner = Counter.EMPTY; // Nadie gana si ambos tienen celdas formadas
+		}
+		else {
+			isWinner = true;
+			if ((blackCounter > 0) && (whiteCounter == 0))
+				winner = Counter.BLACK;
+			else if ((blackCounter == 0) && (whiteCounter > 0))
+				winner = Counter.WHITE;
+		}
+		
+		return isWinner;
+	}
 	
 	/*************************************/
 	/********* GETTERS / SETTERS *********/
 	/*************************************/
 
-	public int getDimX() {
-		return this.dimX;
-	}
-	public int getDimY() {
-		return this.dimY;
-	}
+	public int getDimX() { return this.dimX; }
+	public int getDimY() { return this.dimY; }
 	
 	/**************************************/
 	/************ EXTRA METHODS ***********/
@@ -332,27 +352,5 @@ public class ComplicaRules implements GameRules {
 				y--;
 			}			
 	}
-
-
-boolean complicaFinished(){
-	boolean isWinner = false;
 	
-	if ((blackCounter > 0) && (whiteCounter > 0)){
-		isWinner = false;
-		winner = Counter.EMPTY;
-	}
-	else if ((blackCounter > 0) && (whiteCounter == 0)){
-		isWinner = true;
-		winner = Counter.BLACK;
-	}
-	else if ((blackCounter == 0) && (whiteCounter > 0)){
-		isWinner = true;
-		winner = Counter.WHITE;
-	}	
-	return isWinner;
-}
-
-public int intRules() {
-	return 1;
-}
 }
