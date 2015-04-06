@@ -10,25 +10,35 @@ import tp.pr4.logic.Move;
 public class Game implements Observable<GameObserver>{
 
 	private Board board;
-	private Counter winner;
 	private Counter turn;
+	private Counter winner;
 	private boolean finished;
-	private Deque<Move> stack = new ArrayDeque<>();
+	
 	protected GameRules rules;
+	private Deque<Move> stack = new ArrayDeque<>();
 	
 	public Game(GameRules rules) { 
 		this.rules = rules; 
 		reset(rules);
 	}
 
+	public void reset(GameRules rules) { // Reset all the Game Rules
+		this.rules = rules;
+		board = rules.newBoard();
+		turn = rules.initialPlayer();
+		winner = Counter.EMPTY;
+		finished = false;
+		stack.clear();
+	}
+	
 	public boolean executeMove(Move mov) throws InvalidMove {  
-		Counter wonColor;
 		boolean valid = false, draw; 
+		Counter wonColor;
 		
 		if ((mov.getPlayer() == turn) && (!finished)) { // No puede permitir hacer movimientos fuera de turno o se ha terminado el juego
 			
-			winner = Counter.EMPTY;
 			finished = false;
+			winner = Counter.EMPTY;
 			valid = mov.executeMove(board);
 			
 			if (valid) { 
@@ -59,16 +69,8 @@ public class Game implements Observable<GameObserver>{
 		return valid;
 	}
 	
-	public void reset(GameRules rules) { // Reset all the Game Rules
-		this.rules = rules;
-		board = rules.newBoard();
-		turn = rules.initialPlayer();
-		winner = Counter.EMPTY;
-		finished = false;
-		stack.clear();
-	}
-	
 	//  Undo and stack 
+	
 	public boolean undo() {
 		boolean success = false;
 		Move previousMove;
