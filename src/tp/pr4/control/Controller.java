@@ -181,22 +181,12 @@ public class Controller {
 		 
 	}	
 
-	public int getCurrentPlayer() {
-		return this.currentPlayer;
-	}
-	public Counter[] getCounter() {
-		return this.c;
-	}
-	public Game getGame(){
-		return this.game;
-	}
+	// Getters and setters
 	
-	public GameTypeFactory getGameTypeFactory(){
-		return gameType;
-	}
-	
-	public Player[] getPlayers(){
-		return players;
-	}
-	
+	public Game getGame() { return this.game; }
+	public Player[] getPlayers() { return players; }
+	public Counter[] getCounter() { return this.c; }
+	public int getCurrentPlayer() { return this.currentPlayer; }
+	public GameTypeFactory getGameTypeFactory() { return gameType; }
+
 }

@@ -9,7 +9,7 @@ import tp.pr4.logic.Move;
 import tp.pr4.logic.ReadOnlyBoard;
 import tp.pr4.views.window.MainWindow;
 
-public class WindowController extends Controller{
+public class WindowController extends Controller {
 	static java.util.Scanner in;
 	private MainWindow window = null;
 	private ReadOnlyBoard BReadOnly = getGame().getBoard();

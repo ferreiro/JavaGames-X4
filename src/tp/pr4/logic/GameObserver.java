@@ -1,6 +1,7 @@
 package tp.pr4.logic;
 
 public interface GameObserver {
+	
 	// When the execution of a move finishes, the observer receives a notification through this method.
 	void moveExecFinished(ReadOnlyBoard board, Counter player, Counter nextPlayer);
 	
