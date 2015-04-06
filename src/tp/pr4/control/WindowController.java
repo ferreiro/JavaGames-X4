@@ -16,7 +16,6 @@ public class WindowController extends Controller {
 	
 	public WindowController(GameTypeFactory factory, Game g) {
 		super(factory,g, in);
-		// Constructor
 	}
 	
 	private void changeGame(GameType gameType, int dimX, int dimY) {
@@ -87,9 +86,7 @@ public class WindowController extends Controller {
 		}
 		else{
 			window.onUndoNotPossible();
-		}
-		
-		
+		}		
 	}
 	
 }

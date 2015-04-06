@@ -9,7 +9,7 @@ import tp.pr4.logic.InvalidMove;
 import tp.pr4.logic.Move;
 import tp.pr4.logic.GameType;
 
-public class Controller {
+public abstract class Controller {
 	private Game game;
 	private Scanner in;
 	private Player[] players; 
