@@ -2,47 +2,45 @@ package tp.pr4.logic;
 
 import tp.pr4.Resources.Resources;
 
-
 public class ComplicaMove extends Move {
 	protected Counter lostMove; //	Last lost movement 
 		
-	// Constructor for a single Movement on Complica
-	
 	public ComplicaMove(int column, Counter counter) {
 		super(counter, column); 
 	}
 
+	// Executes a single Mvement on Complica
+	
 	public boolean executeMove(Board board) throws InvalidMove {
-		boolean validMove = false;
 		int firstFreeRow = 1;
-		lostMove = Counter.EMPTY;
+		boolean validMove = false;
+
+		this.lostMove = Counter.EMPTY; // Suponemos Celda donde el usuario quiere poner ficha vacía. Así que guardamos el movimiento actual como empty
 
 		if ((column >= 1) && (column <= Resources.DIMX_COMPLICA)) {				
-			firstFreeRow = Resources.freeRowPosition(column, board); // hay que cambiar esto
+			
+			validMove = true;
+			firstFreeRow = Resources.freeRowPosition(column, board);
 
-			if (firstFreeRow > - 1) {
-				validMove = true;
+			if (firstFreeRow > -1) // Alguna celda está vacia. Así que ponemos la ficha en esa celda
 				board.setPosition(column, firstFreeRow, super.getPlayer());
-			}
-			else if (firstFreeRow == - 1) {
-				validMove = true;
-				lostMove = board.getPosition(column, board.getHeight()); 
+			
+			else // Columna llena: Guardar en lostMove la celda actual y mover fichas
+				this.lostMove = board.getPosition(column, board.getHeight()); 
 				Resources.moveColumnDown(board, column);
 				board.setPosition(column, 1, super.getPlayer());
-			}
 		}
 		else {
 			throw new InvalidMove("Invalid move: column number " + column + " is not on the board.");
 		}
-		
 		return validMove;
 	}
-
+	
+	// Do a single undo for a complica Move
+	
 	public void undo(Board board) {
-		int columnToUndo, rowToUndo;
+		int columnToUndo = column, rowToUndo;
 		
-		columnToUndo = column;
-
 		if (lostMove == Counter.EMPTY) {
 			rowToUndo = Resources.occupiedRowPosition(board, columnToUndo); 
 			board.setPosition(columnToUndo, rowToUndo, Counter.EMPTY);
