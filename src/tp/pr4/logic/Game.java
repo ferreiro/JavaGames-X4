@@ -18,7 +18,7 @@ public class Game implements Observable<GameObserver>{
 	
 	public Game(GameRules rules) { 
 		this.rules = rules; 
-		reset(rules); // Crea un primer juego del tipo conecta4. 
+		reset(rules);
 	}
 
 	public boolean executeMove(Move mov) throws InvalidMove {  
@@ -33,9 +33,8 @@ public class Game implements Observable<GameObserver>{
 			
 			if (valid) { 
  
-				wonColor = rules.winningMove(mov, board); // Importante! Primero hay que llamar a esta, para
-														  // que actualice el color del ganador!
-				draw = rules.isDraw(mov.getPlayer(), board); // Hay empate?
+				wonColor = rules.winningMove(mov, board); // Checks if there's a Counter Winner or not
+				draw = rules.isDraw(mov.getPlayer(), board);
 				
 				if (draw) {
 					finished = true; // hay empate, terminar
@@ -43,8 +42,8 @@ public class Game implements Observable<GameObserver>{
 				}
 				else {
 					if (wonColor == Counter.EMPTY) {
-						increaseStack(mov); // Si no gana nadie, guardar movimiento
-						turn = rules.nextTurn(mov.getPlayer(), board); // Cambiar el turno.
+						increaseStack(mov); // Nobody wins, increase stack
+						turn = rules.nextTurn(mov.getPlayer(), board); // Change turn
 					}
 					else {
 						this.winner = wonColor;
@@ -60,7 +59,7 @@ public class Game implements Observable<GameObserver>{
 		return valid;
 	}
 	
-	public void reset(GameRules rules) { // Reinicia las reglas del juego (los atributos de Game)
+	public void reset(GameRules rules) { // Reset all the Game Rules
 		this.rules = rules;
 		board = rules.newBoard();
 		turn = rules.initialPlayer();
@@ -70,7 +69,6 @@ public class Game implements Observable<GameObserver>{
 	}
 	
 	//  Undo and stack 
-	
 	public boolean undo() {
 		boolean success = false;
 		Move previousMove;
@@ -90,7 +88,7 @@ public class Game implements Observable<GameObserver>{
 	}
 	
 	public void increaseStack(Move movement) {
-			stack.addLast(movement);
+		stack.addLast(movement);
 	}
 	
 	// Getters and setters 
