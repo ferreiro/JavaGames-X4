@@ -59,7 +59,7 @@ public class MainWindow extends JFrame implements GameObserver {
 		UndoAndReset.setBackground(Color.blue);
 		UndoAndReset.setPreferredSize(new Dimension(10,10));
 		
-		//UNDOBUTTON
+		// UNDO BUTTON
 		JButton undoButton = new JButton("Undo");
 		undoButton.setIcon(new ImageIcon("src/icons/undo.png"));
 		c.fill = GridBagConstraints.NONE;
@@ -69,7 +69,7 @@ public class MainWindow extends JFrame implements GameObserver {
 		c.weighty = 0.1;
 		UndoAndReset.add(undoButton,c);
 		
-		//UNDOBUTTON
+		// RESET BUTTON
 		JButton resetButton = new JButton("Reset");
 		resetButton.setIcon(new ImageIcon("src/icons/reset.png"));
 		c.fill = GridBagConstraints.NONE;
@@ -158,7 +158,6 @@ public class MainWindow extends JFrame implements GameObserver {
 		mainPanel.add(centrePanel, BorderLayout.CENTER);
 		
 		this.setContentPane(mainPanel);
-		
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setSize(400, 400);
 		this.setMinimumSize(new Dimension(400, 400));
