@@ -17,8 +17,8 @@ public class Resources {
 	public static int DIMX_GRAVITY = 10, DIMY_GRAVITY = 10; // Is not final
 
 	public static int freeRowPosition(int col, Board board) {
-		int row = -1;
-		int y =  board.getHeight();
+		int row = -1,
+			y 	=  board.getHeight();
 		boolean empty = false;
 		
 		while ((!empty) && (y >= 1)) {
