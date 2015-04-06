@@ -9,15 +9,15 @@ public abstract class Move {
 		this.column = column;
 	}
 	
-	//ejecutaMovimiento(Tablero tab)
+	// ejecutaMovimiento(Tablero tab)
 	public abstract boolean executeMove(Board board) throws InvalidMove;
 	
-	//getJugador() devuelve el color del jugador al que pertenece el movimiento
+	// getJugador() devuelve el color del jugador al que pertenece el movimiento
 	public Counter getPlayer() {
 		return currentPlayer;
 	}
 	
-	//undo(Tablero tab) deshace el ultimo movimiento del tablero recibido como parametro
+	// undo(Tablero tab) deshace el ultimo movimiento del tablero recibido como parametro
 	public abstract void undo(Board board);
 	
 	public abstract int getColumn();

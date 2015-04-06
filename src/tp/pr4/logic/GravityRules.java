@@ -4,8 +4,7 @@ import tp.pr4.Resources.Resources;
 
 public class GravityRules implements GameRules{
 	
-	private int dimX;
-	private int dimY;
+	private int dimX, dimY;
 	private Counter winner;
 	
 	public GravityRules(int dimX, int dimY){
@@ -16,10 +15,9 @@ public class GravityRules implements GameRules{
 		winner = Counter.EMPTY; 
 	}
 	
-	public Board newBoard() {//este metodo yo creo que al final se puede borrar porque en el gravity se especifica de que tamaño se quiere crear la tabla
+	public Board newBoard() { // Este metodo yo creo que al final se puede borrar porque en el gravity se especifica de que tamaño se quiere crear la tabla
 		return new Board(dimX, dimY);
 	}
-	
 
 	public boolean isDraw(Counter lastMove, Board b) {
 		boolean isDraw = false;
@@ -40,16 +38,13 @@ public class GravityRules implements GameRules{
 		
 		won = checkHorizontal(b);
 		
-		if (!won) {
+		if (!won) 
 			won = checkVertical(b);
-			if (!won) {
+			if (!won) 
 				won = checkDiagonal1(b);
-				if (!won) {
+				if (!won) 
 					won = checkDiagonal2(b);
-				}
-			}
-		} 
-			
+
 		return this.winner; // El color del ganador lo actualizan las funciones: checkhorizontal, etc... Actualizan el atributo winner
 							// Devuelve Empty si no ha ganado nadie
 	}
