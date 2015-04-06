@@ -8,14 +8,20 @@ import tp.pr4.logic.Game;
 import tp.pr4.logic.GravityMove;
 
 public class Resources {
-	public static final int MAX_STACK = 100;
-	public static final int TILES_TO_WIN = 4;
-	public static final int DIMX_CONNECT4 = 7, DIMY_CONNECT4 = 6;
-	public static final int DIMX_COMPLICA = 4, DIMY_COMPLICA = 7;
-
 	
-	public static int DIMX_GRAVITY = 10, DIMY_GRAVITY = 10; // Is not final
+	// Global Variables and Constants 
+	
+	public static int 
+		DIMX_GRAVITY = 10, DIMY_GRAVITY = 10; // Is not final, cause we can modify it on the program
+	
+	public static final int 
+		MAX_STACK = 100,
+		TILES_TO_WIN = 4,
+		DIMX_CONNECT4 = 7, DIMY_CONNECT4 = 6,
+		DIMX_COMPLICA = 4, DIMY_COMPLICA = 7;
 
+	// Checks if there's an empty cell given a column
+	
 	public static int freeRowPosition(int col, Board board) {
 		int row = -1,
 			y 	=  board.getHeight();
