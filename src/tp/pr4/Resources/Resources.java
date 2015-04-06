@@ -59,8 +59,10 @@ public class Resources {
 		boolean valid = false;
 		
 		while (!valid) {
-
+			/*
+			 * This method is not used in the forth assigment
 			game.getBoard().printBoard();
+			*/
 			whoMoves(game);
 			System.out.print ("Please enter a command: ");
 

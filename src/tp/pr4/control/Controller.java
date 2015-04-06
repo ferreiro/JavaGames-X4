@@ -154,7 +154,10 @@ public class Controller {
 			
 			if (game.isFinished()) 
 			{
-				game.getBoard().printBoard();
+				/*
+				 * This method is not used in the fourth assigment
+				 * game.getBoard().printBoard();
+				 */
 				in.close();
 				Counter counterWinner = game.getWinner();
 				exit = true;
