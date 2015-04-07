@@ -55,131 +55,7 @@ public abstract class Controller {
 		}
 	}
 	
-	public void run() {
-		Move move = null;
-		int option;
-		boolean exit = false, valid, undo;
-		
-		do {
-			
-			option = Resources.menu(game, in);
-			
-			switch(option) {
-			case 0: 
-				
-				move = players[currentPlayer].getMove(game.getBoard(), c[currentPlayer]);
-				
-				try {
-					valid = game.executeMove(move);
-					if (valid) {
-						changePlayer(); // Change Current player
-					}
-				}
-				catch(InvalidMove e) {
-					System.err.println(e.getMessage());
-				} 
-				if (game.isFinished()) {
-					exit = true;
-				} 
-					
-				break;
-			case 1:
-				// Undo 
-				undo = false;
-				undo = game.undo();
-				if (undo){
-					changePlayer(); // Change Current player
-				}else{ 
-					System.out.println("Nothing to undo, please try again");
-				}
-
-				break;
-			case 2:
-				// Restart 
-				initGame(); // restart the game
-				System.out.println("Game restarted.");
-				break;
-				
-			case 3:
-				// Exit
-				exit = true;
-				System.out.println("Exit requested. ");
-				break;
-
-			case 4://c4
-				
-				gameType = new Connect4Factory();
-				initGame();
-				System.out.println("Game restarted.");
-				 
-				break;
-			case 5://co
-				
-				gameType = new ComplicaFactory();
-				initGame();
-				System.out.println("Game restarted.");
-				
-				break;
-			case 6: //gr
-				
-				gameType = new GravityFactory(Resources.DIMX_GRAVITY, Resources.DIMY_GRAVITY); 
-				initGame();
-				System.out.println("Game restarted.");
-
-				break;
-			case 7:
-				Resources.help();
-				break;
-			case 8:
-				// WHITE HUMAN
-				players[0] = gameType.createHumanPlayerAtConsole(in);
- 				
-				break;
-			case 9:
-				// WHITE RANDOM
-				players[0] = gameType.createRandomPlayer();
-
-				break;
-			case 10:
-				// BLACK HUMAN
-				players[1] = gameType.createHumanPlayerAtConsole(in);
-
-				break;
-			case 11:
-				// BLACK RANDOM
-				players[1] = gameType.createRandomPlayer();
-			}
-			 
-			// If it's finished. Then exit the loop.
-			
-			if (game.isFinished()) 
-			{
-				/*
-				 * This method is not used in the fourth assigment
-				 * game.getBoard().printBoard();
-				 */
-				in.close();
-				Counter counterWinner = game.getWinner();
-				exit = true;
-				
-				System.out.print("Game over."); 
-				if (counterWinner != Counter.EMPTY) {
-					if (counterWinner == Counter.WHITE) {
-						System.out.println("White wins"); 
-					}
-					if (counterWinner == Counter.BLACK) {
-						System.out.println("Black wins"); 
-					}
-				}
-				else {
-					System.out.println("Tie game, no winner");
-				}					
-			}  
-		} while(!exit);	
-		
-		System.out.println("Closing the game...  ");
-		 
-	}	
+	abstract public void run();
 
 	// Getters and setters
 	
@@ -188,5 +64,9 @@ public abstract class Controller {
 	public Counter[] getCounter() { return this.c; }
 	public int getCurrentPlayer() { return this.currentPlayer; }
 	public GameTypeFactory getGameTypeFactory() { return gameType; }
+	public Counter[] getC(){return c;}
+	public GameTypeFactory getGameType(){return gameType;}
+	public void setGameType(GameTypeFactory g){gameType = g;}
+	public void setPlayerInPosition(Player player,int pos){players[pos] = player;}
+	}
 
-}
