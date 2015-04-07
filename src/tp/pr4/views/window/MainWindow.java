@@ -81,47 +81,29 @@ public class MainWindow extends JFrame implements GameObserver {
 		//COMBOBOX
 		Cbox = new JComboBox<String>(names);
 		Cbox.setSelectedIndex(0);
-		c = configureConstraint(GridBagConstraints.NONE, 0,1, 0.1, 0.3); // gridX, gridY, weightX, weightY 
+		c = configureConstraint(GridBagConstraints.NONE, 0, 1, 0.1, 0.3); // gridX, gridY, weightX, weightY 
 		ComboAndChangeButton.add(Cbox,c);
 		
 		//Space in between
 		JPanel blankPanel = new JPanel();
 		blankPanel.setBackground(Color.red);
 		blankPanel.setVisible(true);
-		c.fill = GridBagConstraints.BOTH;
-		c.gridx = 0;
-		c.gridy = 1;
-		c.weightx = .70;
-		c.weighty = .70;
+		c = configureConstraint(GridBagConstraints.BOTH, 0, 1, .70, 0); // gridX, gridY, weightX, weightY 
 		ComboAndChangeButton.add(blankPanel,c);
 		
 		//BUTTON FOR CHANGING
 		JButton changeButton = new JButton("Change");
 		changeButton.setIcon(new ImageIcon("src/icons/check.png"));
-		c.fill = GridBagConstraints.NONE;
-		c.gridx = 0;
-		c.gridy = 2;
-		c.weightx = 0.1;
-		c.weighty = 0.1;
+		c = configureConstraint(GridBagConstraints.NONE, 0, 2, 0.1, 0.1); // gridX, gridY, weightX, weightY 
 		ComboAndChangeButton.add(changeButton,c);
 		
 		//for the bottom of the dark side panel
-		c.fill = GridBagConstraints.BOTH;
-		c.gridx = 0;
-		c.gridy = 1;
-		c.weightx = 1;
-		c.weighty = 1;
+		c = configureConstraint(GridBagConstraints.BOTH, 0, 1, 1, 1); // gridX, gridY, weightX, weightY 
 		right.add(ComboAndChangeButton,c);
 		
-		
 		//the characteristics of dark in general
-		c.fill = GridBagConstraints.BOTH;
-		c.gridx = 1;
-		c.gridy = 0;
-		c.weightx = .75;
-		c.weighty = .75;
+		c = configureConstraint(GridBagConstraints.BOTH, 1, 0, .75, .75); // gridX, gridY, weightX, weightY 
 		centrePanel.add(right, c);
-		
 		
 		//creating the tablePane one hay que cambiar el hecho de que conjja c4, complica o gravity
 		JPanel tablePane = new JPanel(new GridLayout(dimX, dimY, 2, 2));
@@ -130,11 +112,7 @@ public class MainWindow extends JFrame implements GameObserver {
 		//lo que es dibujar los circulos no es aqui en la inicialización
 		
 		//table part
-		c.fill = GridBagConstraints.BOTH;
-		c.gridx = 0;
-		c.gridy = 0;
-		c.weightx = 1;
-		c.weighty = 1;
+		c = configureConstraint(GridBagConstraints.BOTH, 0, 0, 1, 1); // gridX, gridY, weightX, weightY 
 		centrePanel.add(tablePane, c);
 		
 		mainPanel.add(centrePanel, BorderLayout.CENTER);
