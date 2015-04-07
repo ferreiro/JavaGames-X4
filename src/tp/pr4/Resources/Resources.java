@@ -14,6 +14,9 @@ public class Resources {
 	public static int 
 		DIMX_GRAVITY = 10, DIMY_GRAVITY = 10; // Is not final, cause we can modify it on the program
 	
+	public static final String 
+		RESOURCES_URL = "src/icons/";
+	
 	public static final int 
 		MAX_STACK = 100,
 		TILES_TO_WIN = 4,

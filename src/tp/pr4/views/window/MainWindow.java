@@ -69,7 +69,7 @@ public class MainWindow extends JFrame implements GameObserver {
 
 		// CHANGE COLOR
 		JButton changeColor = new JButton("");
-		changeColor = createButton("Change Color", "src/icons/undo.png", new Color(255,255,0));   
+		changeColor = createButton("Change Color", Resources.RESOURCES_URL + "undo.png", new Color(255,255,0));   
 		c = configureConstraint(GridBagConstraints.NONE, 0, 0, 0.1, 0.1); // gridX, gridY, weightX, weightY 
 		UndoAndReset.add(changeColor,c);
 
@@ -84,13 +84,13 @@ public class MainWindow extends JFrame implements GameObserver {
 		
 		// UNDO BUTTON
 		JButton undoButton = new JButton("Undo");
-		undoButton = createButton("Reset", "src/icons/undo.png", new Color(255,255,0));  
+		undoButton = createButton("Reset",  Resources.RESOURCES_URL + "undo.png", new Color(255,255,0));  
 		c = configureConstraint(GridBagConstraints.NONE, 1, 0, 0.1, 0.1); // gridX, gridY, weightX, weightY 
 		UndoAndReset.add(undoButton,c);
 		
 		// RESET BUTTON
 		JButton resetButton = new JButton();
-		resetButton = createButton("Reset", "src/icons/reset.png", new Color(255,255,0)); 
+		resetButton = createButton("Reset",  Resources.RESOURCES_URL + "reset.png", new Color(255,255,0)); 
 		c = configureConstraint(GridBagConstraints.NONE, 2, 0, 0.1, 0.1); // gridX, gridY, weightX, weightY 
 		UndoAndReset.add(resetButton,c);
 		
