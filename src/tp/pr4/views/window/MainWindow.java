@@ -21,6 +21,7 @@ import java.util.Locale;
 import javafx.scene.image.Image;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 
 import com.sun.glass.ui.Size;
 
@@ -198,7 +199,8 @@ public class MainWindow extends JFrame implements GameObserver, KeyListener {
 		//COMBOBOX
 		Cbox = new JComboBox<String>(names);
 		Cbox.setSelectedIndex(0); 
-		Cbox.setFont(new Font("Arial", Font.BOLD, 24));
+		Cbox.setFont(new Font("Arial", Font.BOLD, 24)); 
+		Cbox.setBorder(new EmptyBorder(10, 10, 10, 10));
 		c = configureConstraint(GridBagConstraints.NONE, 0, 1, 0.1, 0.3); // gridX, gridY, weightX, weightY 
 		ComboAndChangeButton.add(Cbox,c);
 		
