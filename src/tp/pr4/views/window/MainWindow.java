@@ -32,10 +32,10 @@ public class MainWindow extends JFrame implements GameObserver {
 		initGUI();
 	}
 	
-	private void initGUI(){
+	private void initGUI() {
 		JComboBox<String> Cbox;
 		String names[] = { "Connect4", "Complica", "Gravity" }; 
-		mainPanel = new JPanel(new BorderLayout());
+		mainPanel = new JPanel(new BorderLayout()); 
 		
 		/////////////////// HEADER AND BOTTOM //////////////////
 		
@@ -119,6 +119,7 @@ public class MainWindow extends JFrame implements GameObserver {
 				
 				JCheckBox d = new JCheckBox();
 				middlePanelRight.add(d, configureConstraint(GridBagConstraints.NONE, 1, 0, 0.1, 0.1)); // gridX, gridY, weightX, weightY );
+				initGUI();
 			}
 		});
 		
@@ -178,9 +179,9 @@ public class MainWindow extends JFrame implements GameObserver {
 		
 		this.setContentPane(mainPanel);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setSize(400, 400);
-		this.setMinimumSize(new Dimension(400, 400));
-		this.setVisible(true);	
+		this.setMinimumSize(new Dimension(800, 600)); 
+		this.setExtendedState(JFrame.MAXIMIZED_BOTH); 
+		this.setVisible(true);
 	}
 	
 	/**
