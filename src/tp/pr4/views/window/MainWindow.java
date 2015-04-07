@@ -8,6 +8,8 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Point;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
@@ -19,6 +21,7 @@ import tp.pr4.logic.ReadOnlyBoard;
 public class MainWindow extends JFrame implements GameObserver {
 	private int dimX = Resources.DIMX_CONNECT4;
 	private int dimY = Resources.DIMY_CONNECT4;
+	private JPanel topPanel, bottomPanel, right, centrePanel;
 	
 	//all the panels
 	private JPanel mainPanel = null;
@@ -41,39 +44,56 @@ public class MainWindow extends JFrame implements GameObserver {
 		
 		// HEADER AND BUTTOM 
 		
-		JPanel  topPanel 	= createPanel(new Color(255, 255, 255), 10, 70),
-				bottomPanel = createPanel(new Color(230, 230, 230), 70, 130);
+		topPanel	= createPanel(new Color(255, 255, 255), 10, 70);
+		bottomPanel = createPanel(new Color(230, 230, 230), 70, 130);
 
 		mainPanel.add(topPanel, BorderLayout.PAGE_START); 
 		mainPanel.add(bottomPanel, BorderLayout.PAGE_END);
 		
+		
 		// TODO Añadir logotipo 
 		
 		
+		
 		//centre of the borderLayout
-		JPanel centrePanel = new JPanel(new GridBagLayout());
+		centrePanel = new JPanel(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
 		
 		//dark inside centre panel
-		JPanel right = new JPanel(new GridBagLayout());
+		right = new JPanel(new GridBagLayout());
 		right.setBackground(new Color(146,146,146));
-		right.setPreferredSize(new Dimension(60,60));
+		right.setPreferredSize(new Dimension(20,60));
 		
 		//the top panel inside dark one
 		JPanel UndoAndReset = new JPanel(new GridBagLayout());
 		UndoAndReset.setBackground(Color.blue);
 		UndoAndReset.setPreferredSize(new Dimension(10,10));
+
+		// CHANGE COLOR
+		JButton changeColor = new JButton("Change Color");
+		changeColor.setIcon(new ImageIcon("src/icons/undo.png"));
+		c = configureConstraint(GridBagConstraints.NONE, 0, 0, 0.1, 0.1); // gridX, gridY, weightX, weightY 
+		UndoAndReset.add(changeColor,c);
+
+		changeColor.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				JColorChooser spinner = new JColorChooser();
+				topPanel.add(spinner);
+			}
+		});
 		
 		// UNDO BUTTON
 		JButton undoButton = new JButton("Undo");
 		undoButton.setIcon(new ImageIcon("src/icons/undo.png"));
-		c = configureConstraint(GridBagConstraints.NONE, 0, 0, 0.1, 0.1); // gridX, gridY, weightX, weightY 
+		c = configureConstraint(GridBagConstraints.NONE, 1, 0, 0.1, 0.1); // gridX, gridY, weightX, weightY 
 		UndoAndReset.add(undoButton,c);
 		
 		// RESET BUTTON
 		JButton resetButton = new JButton("Reset");
 		resetButton.setIcon(new ImageIcon("src/icons/reset.png"));
-		c = configureConstraint(GridBagConstraints.NONE, 1, 0, 0.1, 0.1); // gridX, gridY, weightX, weightY 
+		c = configureConstraint(GridBagConstraints.NONE, 2, 0, 0.1, 0.1); // gridX, gridY, weightX, weightY 
 		UndoAndReset.add(resetButton,c);
 		
 		//characteristics of the topDark part
@@ -104,6 +124,7 @@ public class MainWindow extends JFrame implements GameObserver {
 		c = configureConstraint(GridBagConstraints.NONE, 0, 2, 0.1, 0.1); // gridX, gridY, weightX, weightY 
 		ComboAndChangeButton.add(changeButton,c);
 		
+		
 		//for the bottom of the dark side panel
 		c = configureConstraint(GridBagConstraints.BOTH, 0, 1, 1, 1); // gridX, gridY, weightX, weightY 
 		right.add(ComboAndChangeButton,c);
@@ -125,10 +146,11 @@ public class MainWindow extends JFrame implements GameObserver {
 		mainPanel.add(centrePanel, BorderLayout.CENTER);
 		
 		this.setContentPane(mainPanel);
-		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setSize(400, 400);
 		this.setMinimumSize(new Dimension(400, 400));
 		this.setVisible(true);
+
 		
 	}
 	
@@ -177,7 +199,6 @@ public class MainWindow extends JFrame implements GameObserver {
 
 	@Override
 	public void onGameOver(ReadOnlyBoard board, Counter winner) {
-		
 		JFrame msgFrame = new JFrame();
 		JOptionPane.showMessageDialog(msgFrame, "The Winner is" + winner + ".");//TODO method toString and finish the function
 	}
@@ -199,7 +220,7 @@ public class MainWindow extends JFrame implements GameObserver {
 	}
 
 	@Override
-	public void reset(ReadOnlyBoard board, Counter player, Boolean undoPossible) {//, Boolean undoPossible
+	public void reset(ReadOnlyBoard board, Counter player, Boolean undoPossible) { 
 		// TODO Auto-generated method stub
 	}
 
