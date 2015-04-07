@@ -174,7 +174,6 @@ public class MainWindow extends JFrame implements GameObserver, KeyListener {
 		});
 		
 		// CHANGE COLOR // TODO : IDEA
-		
 		JButton changeColor = new JButton();
 		changeColor = createButton(100, 55, "Change Color", Resources.RESOURCES_URL + "undo.png", new Color(255,255,0), true);   
 		c = configureConstraint(GridBagConstraints.NONE, 3, 0, 0.1, 0.1); // gridX, gridY, weightX, weightY 

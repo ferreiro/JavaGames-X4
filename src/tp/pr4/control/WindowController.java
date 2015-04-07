@@ -51,7 +51,14 @@ public class WindowController extends Controller {
 	}
 	
 	public void run() {
-		game.createWindow();
+		/*while(!game.isFinished()) {
+			reset();
+			
+			
+			
+			
+		} 
+		*/
 	}
 	
 	public void undo() {
