@@ -29,8 +29,8 @@ public class Main {
 		Game g = new Game(r);	// The game is the model
 		GameTypeFactory factory = new Connect4Factory();
 
-		WindowController w = new WindowController(factory , g);
-		ConsoleController c = new ConsoleController(factory , g);
+		WindowController wController = new WindowController(factory , g);
+		ConsoleController cController = new ConsoleController(factory , g);
 		  
 		// Adding observers from the model (Game)
 		g.addObserver(new ConsoleView(g));
