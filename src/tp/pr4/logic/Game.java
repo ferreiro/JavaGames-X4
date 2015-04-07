@@ -1,5 +1,6 @@
 package tp.pr4.logic;
 
+import java.awt.Window;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -8,6 +9,7 @@ import java.util.Deque;
 import tp.pr4.logic.Counter;
 import tp.pr4.logic.Board;
 import tp.pr4.logic.Move;
+import tp.pr4.views.window.MainWindow;
 
 public class Game implements Observable<GameObserver> {
 
@@ -19,6 +21,7 @@ public class Game implements Observable<GameObserver> {
 	protected GameRules rules;
 	private Collection<GameObserver> obsList; // ArrayList of Observers (En este proyecto, vamos a tener observadores en la vista)
 	private Deque<Move> stack = new ArrayDeque<>();
+	private Window window;
 	
 	public Game(GameRules rules) { 
 		obsList = new ArrayList<GameObserver>();
@@ -84,6 +87,11 @@ public class Game implements Observable<GameObserver> {
 		return valid;
 	}
 	
+	// Create 
+	public void createWindow() {
+		window = new MainWindow();
+	}
+	 
 	// Next Player
 	
 	private Counter nextPlayer(Counter turn) {

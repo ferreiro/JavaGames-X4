@@ -27,7 +27,7 @@ public abstract class Controller {
 	}
 
 	public void initGame() {
-		game.reset(gameType.createRules());
+		game.reset(gameType.createRules()); // Reset a new game
 		players[0] = gameType.createHumanPlayerAtConsole(in);
 		players[1] = gameType.createHumanPlayerAtConsole(in);
 		currentPlayer = 0;
