@@ -12,14 +12,13 @@ import tp.pr4.views.window.MainWindow;
 public class WindowController extends Controller {
 	static java.util.Scanner in;
 	
-	
 	public WindowController(GameTypeFactory factory, Game g) {
 		super(factory,g, in);
 	}
 	
 	private void changeGame(GameType gameType, int dimX, int dimY) {
 		if (gameType == gameType.Gravity)
-			Resources.setGravityDimX(dimX);
+			Resources.setGravityDimX(dimX); 
 			Resources.setGravityDimY(dimY);
 		changeG(gameType, dimX, dimY);	
 	}
@@ -30,8 +29,7 @@ public class WindowController extends Controller {
 		try {
 			Move mov = getGameTypeFactory().createMove(col, row, turn);
 			valid = game.executeMove(mov);
-			if (valid) 
-				this.changePlayer();
+			if (valid) this.changePlayer();
 		}
 		catch (InvalidMove e) {
 			System.out.println(e.getMessage());
@@ -49,7 +47,7 @@ public class WindowController extends Controller {
 	
 	public void reset() {
 		initGame();	// Reset players, current player and 
-		game.resetGame();
+		game.resetGame(); // Notify the window that the reset is done
 	}
 	
 	public void run() {
@@ -57,9 +55,8 @@ public class WindowController extends Controller {
 	}
 	
 	public void undo() {
-		boolean undo = getGame().undo();
-		if (undo)
-			changePlayer(); // Change Current player 
+		boolean undo = game.undo();
+		if (undo) changePlayer(); // Change Current player 
 	}
 	
 }
