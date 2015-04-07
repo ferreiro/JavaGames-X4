@@ -197,13 +197,14 @@ public class MainWindow extends JFrame implements GameObserver, KeyListener {
 		
 		//COMBOBOX
 		Cbox = new JComboBox<String>(names);
-		Cbox.setSelectedIndex(0);
+		Cbox.setSelectedIndex(0); 
+		Cbox.setFont(new Font("Arial", Font.BOLD, 24));
 		c = configureConstraint(GridBagConstraints.NONE, 0, 1, 0.1, 0.3); // gridX, gridY, weightX, weightY 
 		ComboAndChangeButton.add(Cbox,c);
 		
 		//Space in between
 		JPanel blankPanel = new JPanel();
-		blankPanel.setBackground(Color.red);
+		blankPanel.setBackground(new Color(238, 238, 238, 50));
 		blankPanel.setVisible(true);
 		c = configureConstraint(GridBagConstraints.BOTH, 0, 1, .70, 0); // gridX, gridY, weightX, weightY 
 		ComboAndChangeButton.add(blankPanel,c);
