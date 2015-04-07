@@ -23,10 +23,7 @@ import tp.pr4.logic.ReadOnlyBoard;
 public class MainWindow extends JFrame implements GameObserver {
 	private int dimX = Resources.DIMX_CONNECT4;
 	private int dimY = Resources.DIMY_CONNECT4;
-	private JPanel topPanel, bottomPanel, right, centrePanel;
-	
-	//all the panels
-	private JPanel mainPanel = null;
+	private JPanel mainPanel, topPanel, bottomPanel, leftMargin, rightMargin, right, centrePanel;
 	
 	public MainWindow(){
 		super();
@@ -35,22 +32,37 @@ public class MainWindow extends JFrame implements GameObserver {
 	
 	private void initGUI(){
 		JComboBox<String> Cbox;
-		String names[] = {
-			"Connect4", 
-			"Complica", 
-			"Gravity"
-		}; 
-			
+		String names[] = { "Connect4", "Complica", "Gravity" }; 
 		mainPanel = new JPanel(new BorderLayout());
 		
-		// HEADER AND BUTTOM 
+		// HEADER AND BOTTOM
 		
-		topPanel	= createPanel(new Color(255, 255, 255), 10, 70);
-		bottomPanel = createPanel(new Color(230, 230, 230), 70, 130);
-
+		topPanel = createPanel(new Color(255, 255, 255), 10, 70);
 		mainPanel.add(topPanel, BorderLayout.PAGE_START); 
+
+		JButton logoHeader = new JButton(); // Logo
+		logoHeader = createButton(200,  50, "Logotipo", "", new Color(0,0,0,0), false );  
+		topPanel.add(logoHeader, configureConstraint(GridBagConstraints.NONE, 1, 2, 0.1, 0.1)); // gridX, gridY, weightX, weightY );
+
+		bottomPanel = createPanel(new Color(230, 230, 230), 70, 130);
 		mainPanel.add(bottomPanel, BorderLayout.PAGE_END);
-		// TODO Añadir logotipo 
+
+		// MARGINS
+		// LEFT MARGIN PANEL
+		leftMargin = new JPanel();
+		leftMargin.setSize(100, 10);
+		mainPanel.add(leftMargin, BorderLayout.LINE_START);
+		
+		// RIGHT MARGIN PANEL
+		rightMargin = new JPanel();
+		rightMargin.setSize(100, 10);
+		mainPanel.add(rightMargin, BorderLayout.LINE_END);
+		
+		 
+		
+		
+		
+		
 		
 		//centre of the borderLayout
 		centrePanel = new JPanel(new GridBagLayout());
@@ -68,13 +80,11 @@ public class MainWindow extends JFrame implements GameObserver {
 
 		// CHANGE COLOR
 		JButton changeColor = new JButton("");
-		changeColor = createButton("Change Color", Resources.RESOURCES_URL + "undo.png", new Color(255,255,0));   
+		changeColor = createButton(230, 55, "Change Color", Resources.RESOURCES_URL + "undo.png", new Color(255,255,0), true);   
 		c = configureConstraint(GridBagConstraints.NONE, 0, 0, 0.1, 0.1); // gridX, gridY, weightX, weightY 
 		UndoAndReset.add(changeColor,c);
 
 		changeColor.addActionListener(new ActionListener() {
-			
-			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				JColorChooser spinner = new JColorChooser();
 				topPanel.add(spinner);
@@ -83,15 +93,29 @@ public class MainWindow extends JFrame implements GameObserver {
 		
 		// UNDO BUTTON
 		JButton undoButton = new JButton("Undo");
-		undoButton = createButton("Reset",  Resources.RESOURCES_URL + "undo.png", new Color(255,255,0));  
+		undoButton = createButton(200,  50, "Reset", Resources.RESOURCES_URL + "undo.png", new Color(255,255,0), true);  
 		c = configureConstraint(GridBagConstraints.NONE, 1, 0, 0.1, 0.1); // gridX, gridY, weightX, weightY 
 		UndoAndReset.add(undoButton,c);
 		
 		// RESET BUTTON
 		JButton resetButton = new JButton();
-		resetButton = createButton("Reset",  Resources.RESOURCES_URL + "reset.png", new Color(255,255,0)); 
+		resetButton = createButton(200,  50, "Reset Game", Resources.RESOURCES_URL + "reset.png", new Color(255,255,0), true); 
 		c = configureConstraint(GridBagConstraints.NONE, 2, 0, 0.1, 0.1); // gridX, gridY, weightX, weightY 
 		UndoAndReset.add(resetButton,c);
+		
+		// TODO Hacer que aparezca una popup con el mensaje: Estás seguro de que quieres resetear?
+		resetButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("Clicked");
+ 
+				JCheckBox check = new JCheckBox();
+				JOptionPane.showMessageDialog(check, "Are you sure you want to close");//TODO method toString and finish the function
+
+				
+				JCheckBox d = new JCheckBox();
+				right.add(d, configureConstraint(GridBagConstraints.NONE, 1, 0, 0.1, 0.1)); // gridX, gridY, weightX, weightY );
+			}
+		});
 		
 		//characteristics of the topDark part
 		c = configureConstraint(GridBagConstraints.BOTH, 0, 0, 1, 1.5); // gridX, gridY, weightX, weightY 
@@ -140,15 +164,15 @@ public class MainWindow extends JFrame implements GameObserver {
 		c = configureConstraint(GridBagConstraints.BOTH, 0, 0, 1, 1); // gridX, gridY, weightX, weightY 
 		centrePanel.add(tablePane, c);
 		
+		
+		
 		mainPanel.add(centrePanel, BorderLayout.CENTER);
 		
 		this.setContentPane(mainPanel);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setSize(400, 400);
 		this.setMinimumSize(new Dimension(400, 400));
-		this.setVisible(true);
-
-		
+		this.setVisible(true);	
 	}
 	
 	/**
@@ -178,11 +202,13 @@ public class MainWindow extends JFrame implements GameObserver {
 		return c;
 	}
 	
-	public JButton createButton(String name, String fileName, Color c) {
+	public JButton createButton(int w, int h, String name, String fileName, Color c, boolean border) {
 		JButton b = new JButton();
-		b.setIcon(new ImageIcon(fileName));
 		b.setBackground(c);
-		b.setText(name);
+		b.setPreferredSize(new Dimension(200, 50)); 
+		if (fileName != "") b.setIcon(new ImageIcon(fileName));
+		if (name != "") b.setText(name);
+		if (!border) 	b.setBorder(null);
 		return b; 
 	}
 	
