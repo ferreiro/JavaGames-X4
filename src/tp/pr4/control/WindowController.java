@@ -40,6 +40,7 @@ public class WindowController extends Controller {
 	public void makeMove(int col, int row, Counter turn) {
 		boolean valid = false;
 		
+		
 		window.moveExecStart(turn); // Esto hay que cambiarlo. 
 									// El controller no se puede comunicar con la vista
 		

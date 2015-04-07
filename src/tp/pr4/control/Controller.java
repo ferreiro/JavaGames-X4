@@ -10,7 +10,7 @@ import tp.pr4.logic.Move;
 import tp.pr4.logic.GameType;
 
 public abstract class Controller {
-	private Game game;
+	protected Game game;
 	private Scanner in;
 	private Player[] players; 
 	private int currentPlayer;

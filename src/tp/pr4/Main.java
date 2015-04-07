@@ -8,18 +8,40 @@ import tp.pr4.control.Connect4Factory;
 import tp.pr4.control.Controller;
 import tp.pr4.control.GameTypeFactory;
 import tp.pr4.control.GravityFactory;
+import tp.pr4.control.WindowController;
 import tp.pr4.logic.ComplicaRules;
 import tp.pr4.logic.Connect4Rules;
 import tp.pr4.logic.Game;
+import tp.pr4.logic.GameObserver;
 import tp.pr4.logic.GameRules;
 import tp.pr4.logic.GravityRules;
+import tp.pr4.logic.Rules;
+import tp.pr4.views.console.ConsoleView;
 import tp.pr4.views.window.MainWindow;
 
 public class Main {
 
 	public static void main(String[] args) {
 		
+		GameRules r = new Connect4Rules();
+		Game g = new Game(r );
+		GameTypeFactory factory = null;
+		
+		/*
+		GameObserver console = new ConsoleView();
+		g.addObserver(console);
+
+		GameObserver console = new ConsoleView();
+		g.addObserver(console);
+		*/
+		
+		WindowController w = new WindowController(factory , g);
+		/*
 		new MainWindow();
+		*/
+		
+		
+		
 
 /*
  * 		PREVIOUS MAIN OF THE PROJECT
