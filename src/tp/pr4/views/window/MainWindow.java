@@ -23,7 +23,7 @@ import tp.pr4.logic.ReadOnlyBoard;
 public class MainWindow extends JFrame implements GameObserver {
 	private int dimX = Resources.DIMX_CONNECT4;
 	private int dimY = Resources.DIMY_CONNECT4;
-	private JPanel mainPanel, topPanel, bottomPanel, leftMargin, rightMargin, right, centrePanel;
+	private JPanel mainPanel, topPanel, bottomPanel, leftMargin, rightMargin, right, middlePanel;
 	
 	public MainWindow(){
 		super();
@@ -35,7 +35,7 @@ public class MainWindow extends JFrame implements GameObserver {
 		String names[] = { "Connect4", "Complica", "Gravity" }; 
 		mainPanel = new JPanel(new BorderLayout());
 		
-		// HEADER AND BOTTOM
+		/////////////////// HEADER AND BOTTOM //////////////////
 		
 		topPanel = createPanel(new Color(255, 255, 255), 10, 70);
 		mainPanel.add(topPanel, BorderLayout.PAGE_START); 
@@ -47,7 +47,7 @@ public class MainWindow extends JFrame implements GameObserver {
 		bottomPanel = createPanel(new Color(230, 230, 230), 70, 130);
 		mainPanel.add(bottomPanel, BorderLayout.PAGE_END);
 
-		// MARGINS
+		//////////////////////// MARGINS ///////////////////////
 		// LEFT MARGIN PANEL
 		leftMargin = new JPanel();
 		leftMargin.setSize(100, 10);
@@ -58,14 +58,9 @@ public class MainWindow extends JFrame implements GameObserver {
 		rightMargin.setSize(100, 10);
 		mainPanel.add(rightMargin, BorderLayout.LINE_END);
 		
-		 
+		////////////// MIDDLE PANEL OF BORDERLAYOUT ////////////
 		
-		
-		
-		
-		
-		//centre of the borderLayout
-		centrePanel = new JPanel(new GridBagLayout());
+		middlePanel = new JPanel(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
 		
 		//dark inside centre panel
@@ -152,7 +147,7 @@ public class MainWindow extends JFrame implements GameObserver {
 		
 		//the characteristics of dark in general
 		c = configureConstraint(GridBagConstraints.BOTH, 1, 0, .75, .75); // gridX, gridY, weightX, weightY 
-		centrePanel.add(right, c);
+		middlePanel.add(right, c);
 		
 		//creating the tablePane one hay que cambiar el hecho de que conjja c4, complica o gravity
 		JPanel tablePane = new JPanel(new GridLayout(dimX, dimY, 2, 2));
@@ -162,11 +157,11 @@ public class MainWindow extends JFrame implements GameObserver {
 		
 		//table part
 		c = configureConstraint(GridBagConstraints.BOTH, 0, 0, 1, 1); // gridX, gridY, weightX, weightY 
-		centrePanel.add(tablePane, c);
+		middlePanel.add(tablePane, c);
 		
 		
 		
-		mainPanel.add(centrePanel, BorderLayout.CENTER);
+		mainPanel.add(middlePanel, BorderLayout.CENTER);
 		
 		this.setContentPane(mainPanel);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
