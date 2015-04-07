@@ -28,7 +28,6 @@ public class MainWindow extends JFrame implements GameObserver {
 	//all the panels
 	private JPanel mainPanel = null;
 	
-	
 	public MainWindow(){
 		super();
 		initGUI();
@@ -183,7 +182,7 @@ public class MainWindow extends JFrame implements GameObserver {
 		JButton b = new JButton();
 		b.setIcon(new ImageIcon(fileName));
 		b.setBackground(c);
-		b.setText("Hola");
+		b.setText(name);
 		return b; 
 	}
 	
