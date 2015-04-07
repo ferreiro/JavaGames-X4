@@ -17,7 +17,6 @@ import tp.pr4.logic.GameRules;
 import tp.pr4.logic.GravityRules;
 import tp.pr4.logic.Rules;
 import tp.pr4.views.console.ConsoleView;
-import tp.pr4.views.window.MainWindow;
 
 public class Main {
 
