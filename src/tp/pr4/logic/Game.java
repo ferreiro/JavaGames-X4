@@ -1,6 +1,7 @@
 package tp.pr4.logic;
 
 import java.util.ArrayDeque;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Deque;
 
@@ -8,7 +9,7 @@ import tp.pr4.logic.Counter;
 import tp.pr4.logic.Board;
 import tp.pr4.logic.Move;
 
-public class Game implements Observable<GameObserver>{
+public class Game implements Observable<GameObserver> {
 
 	private Board board;
 	private Counter turn;
@@ -19,6 +20,7 @@ public class Game implements Observable<GameObserver>{
 	private Deque<Move> stack = new ArrayDeque<>();
 	
 	public Game(GameRules rules) { 
+		obsList = new ArrayList<GameObserver>();
 		this.rules = rules; 
 		reset(rules);
 	}
@@ -34,12 +36,16 @@ public class Game implements Observable<GameObserver>{
 	
 	public boolean executeMove(Move mov) throws InvalidMove {  
 		boolean valid = false, draw; 
-		Counter wonColor;
+		Counter wonColor, currentPlayer = mov.getPlayer();
 		
 		if ((mov.getPlayer() == turn) && (!finished)) { // No puede permitir hacer movimientos fuera de turno o se ha terminado el juego
 			
 			finished = false;
 			winner = Counter.EMPTY;
+			
+			for(GameObserver o : obsList)
+				o.moveExecStart(mov.getPlayer());
+			
 			valid = mov.executeMove(board);
 			
 			if (valid) { 
@@ -63,9 +69,16 @@ public class Game implements Observable<GameObserver>{
 				}
 			}
 		}
-		else{
-			throw new InvalidMove("Invalid turn");
+		else {
+			String err = "Invalid turn";
+			for (GameObserver o : obsList)
+				o.onMoveError(err);
+			throw new InvalidMove(err);
 		}
+
+		// Notify all the observers that the move is finished
+		for (GameObserver o : obsList) 
+			o.moveExecFinished(board, currentPlayer, mov.getPlayer());
 		
 		return valid;
 	}
@@ -118,6 +131,7 @@ public class Game implements Observable<GameObserver>{
 	@Override
 	public void addObserver(GameObserver o) {
 		obsList.add(o);	
+		o.reset(this.board, this.turn, !stack.isEmpty());
 	}
 
 	@Override

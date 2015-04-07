@@ -2,9 +2,14 @@ package tp.pr4.views.console;
 
 import tp.pr4.logic.Counter;
 import tp.pr4.logic.GameObserver;
+import tp.pr4.logic.Observable;
 import tp.pr4.logic.ReadOnlyBoard;
 
 public class ConsoleView implements GameObserver {
+	
+	public ConsoleView(Observable<GameObserver> g) {
+		g.addObserver(this); //
+	}
 	
 	@Override
 	// When the execution of a move finishes, the observer receives a notification through this method.
@@ -44,9 +49,9 @@ public class ConsoleView implements GameObserver {
 	
 	@Override
 	// 	When the game is reset, either with a new game or simply restarting the current game, the observer receives a notification through this method.
-	public void reset(ReadOnlyBoard board, Counter player) {
+	public void reset(ReadOnlyBoard board, Counter player, Boolean undoPossible) {
 		// To be implemented
-	}//, java.lang.Boolean undoPossible
+	} 
 
 
 }

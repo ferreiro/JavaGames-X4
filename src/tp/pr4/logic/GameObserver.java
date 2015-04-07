@@ -21,6 +21,6 @@ public interface GameObserver {
 	void onUndoNotPossible();
 	
 	// 	When the game is reset, either with a new game or simply restarting the current game, the observer receives a notification through this method.
-	void reset(ReadOnlyBoard board, Counter player);//, java.lang.Boolean undoPossible
+	void reset(ReadOnlyBoard board, Counter player, Boolean undoPossible); 
 
 }

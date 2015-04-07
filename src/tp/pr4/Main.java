@@ -24,17 +24,15 @@ public class Main {
 	public static void main(String[] args) {
 		
 		GameRules r = new Connect4Rules();
-		Game g = new Game(r );
+		Game g = new Game(r);	// The game is the model
 		GameTypeFactory factory = null;
-		
-		/*
-		GameObserver console = new ConsoleView();
-		g.addObserver(console);
+		Scanner in = new Scanner(System.in);
 
-		GameObserver console = new ConsoleView();
-		g.addObserver(console);
-		*/
-		
+		// Adding observers from the model (Game)
+		GameObserver console = new ConsoleView(g);
+		// GameObserver console = new MainWindow(g);
+
+ 
 		WindowController w = new WindowController(factory , g);
 		/*
 		new MainWindow();
@@ -47,7 +45,7 @@ public class Main {
  * 		PREVIOUS MAIN OF THE PROJECT
  * 
 		Game game;
-		Scanner in = new Scanner(System.in);;
+		Scanner in = new Scanner(System.in);
 		Controller controller;
 		
 		GameRules gameRules = new Connect4Rules();

@@ -41,6 +41,7 @@ public class WindowController extends Controller {
 		boolean valid = false;
 		
 		
+		
 		window.moveExecStart(turn); // Esto hay que cambiarlo. 
 									// El controller no se puede comunicar con la vista
 		
@@ -68,7 +69,7 @@ public class WindowController extends Controller {
 	
 	public void reset() {
 		initGame();
-		window.reset(BReadOnly, getGame().getTurn());
+		window.reset(BReadOnly, getGame().getTurn(), false);
 	}
 	
 	public void run() {
