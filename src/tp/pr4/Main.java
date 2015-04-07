@@ -17,11 +17,13 @@ import tp.pr4.logic.GameRules;
 import tp.pr4.logic.GravityRules;
 import tp.pr4.logic.Rules;
 import tp.pr4.views.console.ConsoleView;
+import tp.pr4.views.window.MainWindow;
 
 public class Main {
 
 	public static void main(String[] args) {
 		
+		/*
 		GameRules r = new Connect4Rules();
 		Game g = new Game(r);	// The game is the model
 		GameTypeFactory factory = null;
@@ -33,12 +35,9 @@ public class Main {
 
  
 		WindowController w = new WindowController(factory , g);
-		/*
-		new MainWindow();
 		*/
 		
-		
-		
+		new MainWindow();
 
 /*
  * 		PREVIOUS MAIN OF THE PROJECT

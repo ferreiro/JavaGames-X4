@@ -11,7 +11,7 @@ import tp.pr4.views.window.MainWindow;
  
 public class WindowController extends Controller {
 	static java.util.Scanner in;
-	private MainWindow window = null;
+	// private MainWindow window = null; The window doesn't have to communicate to the views
 	private ReadOnlyBoard BReadOnly = getGame().getBoard();
 	
 	public WindowController(GameTypeFactory factory, Game g) {
@@ -42,8 +42,9 @@ public class WindowController extends Controller {
 		
 		
 		
-		window.moveExecStart(turn); // Esto hay que cambiarlo. 
-									// El controller no se puede comunicar con la vista
+		// window.moveExecStart(turn);  TODO: The window doesn't have to communicate to the views
+										// Esto hay que cambiarlo. 
+										// El controller no se puede comunicar con la vista
 		
 		Move move = getGameTypeFactory().createMove(col, row, turn);
 		
@@ -53,9 +54,9 @@ public class WindowController extends Controller {
 				changePlayer(); // Change Current player 
 		}
 		catch(InvalidMove e) {
-			window.onMoveError(e.getMessage());
+			// window.onMoveError(e.getMessage()); TODO: The window doesn't have to communicate to the views
 		} 
-		window.moveExecFinished(BReadOnly, turn, nextPlayer(getGame().getTurn()));
+		// window.moveExecFinished(BReadOnly, turn, nextPlayer(getGame().getTurn())); TODO: The window doesn't have to communicate to the views
 	}
 	
 	public void randomMove(Counter player) {
@@ -64,16 +65,16 @@ public class WindowController extends Controller {
 	
 	public void requestQuit() {
 		// Quit the application.
-		window.onGameOver(BReadOnly, getGame().getWinner());
+		// window.onGameOver(BReadOnly, getGame().getWinner()); TODO: The window doesn't have to communicate to the views
 	}
 	
 	public void reset() {
 		initGame();
-		window.reset(BReadOnly, getGame().getTurn(), false);
+		// window.reset(BReadOnly, getGame().getTurn(), false); TODO: The window doesn't have to communicate to the views
 	}
 	
 	public void run() {
-		window = new MainWindow();
+		// window = new MainWindow(); TODO: The window doesn't have to communicate to the views
 	}
 	
 	public void undo() {
@@ -82,10 +83,10 @@ public class WindowController extends Controller {
 		undo = getGame().undo();
 		if (undo){
 			changePlayer(); // Change Current player
-			window.onUndo(BReadOnly, nextPlayer(getGame().getTurn()), undo);
+			// window.onUndo(BReadOnly, nextPlayer(getGame().getTurn()), undo); TODO: The window doesn't have to communicate to the views
 		}
 		else{
-			window.onUndoNotPossible();
+			// window.onUndoNotPossible(); TODO: The window doesn't have to communicate to the views
 		}		
 	}
 	
