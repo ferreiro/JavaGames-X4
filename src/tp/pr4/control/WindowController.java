@@ -57,16 +57,9 @@ public class WindowController extends Controller {
 	}
 	
 	public void undo() {
-		boolean undo = false;
-		
-		undo = getGame().undo();
-		if (undo){
-			changePlayer(); // Change Current player
-			// window.onUndo(BReadOnly, nextPlayer(getGame().getTurn()), undo); TODO: The window doesn't have to communicate to the views
-		}
-		else{
-			// window.onUndoNotPossible(); TODO: The window doesn't have to communicate to the views
-		}		
+		boolean undo = getGame().undo();
+		if (undo)
+			changePlayer(); // Change Current player 
 	}
 	
 }

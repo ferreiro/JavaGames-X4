@@ -201,7 +201,8 @@ public class MainWindow extends JFrame implements GameObserver {
 
 	@Override
 	public void onUndoNotPossible() {
-		// TODO Auto-generated method stub
+		// NOTHING TO UNDO
+		
 	}
 
 	@Override

@@ -103,15 +103,19 @@ public class Game implements Observable<GameObserver> {
 		boolean success = false;
 		Move previousMove;
 		
-		if (!stack.isEmpty()){
+		if (!stack.isEmpty()) {
+			success = true;
 			previousMove = stack.getLast();
 			stack.removeLast();		
-			success = true;
 			previousMove.undo(board); 
 			turn = previousMove.getPlayer(); // Bug fixed!!! Actualizar el color del jugador!
+			
+			for (GameObserver o : obsList)
+				o. onUndo(BReadOnly, turn, success); // Avisar al observer que se ha modificado el undo			
 		}
 		else {
-			System.err.println("Nothing to undo.");
+			for(GameObserver o : obsList)
+				o.onUndoNotPossible();
 		}
 		return success;
 	}
