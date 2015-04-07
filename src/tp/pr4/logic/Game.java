@@ -92,11 +92,16 @@ public class Game implements Observable<GameObserver> {
 		window = new MainWindow();
 	}
 	
-	// 
-	
+	// Close and reset game
+
 	public void closeGame() {
 		for (GameObserver o : obsList) 
 			o.onGameOver(BReadOnly, winner);
+	}
+
+	public void resetGame() {
+		for (GameObserver o : obsList) 
+			o.reset(BReadOnly, turn, false);
 	}
 	
 	// Next Player

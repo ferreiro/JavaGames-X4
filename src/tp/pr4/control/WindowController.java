@@ -49,7 +49,7 @@ public class WindowController extends Controller {
 	
 	public void reset() {
 		initGame();	// Reset players, current player and 
-		// window.reset(BReadOnly, getGame().getTurn(), false); TODO: The window doesn't have to communicate to the views
+		game.resetGame();
 	}
 	
 	public void run() {
