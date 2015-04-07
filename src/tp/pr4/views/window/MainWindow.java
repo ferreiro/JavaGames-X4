@@ -4,12 +4,19 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.Insets;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.util.Locale;
 
 import javafx.scene.image.Image;
 
@@ -22,13 +29,14 @@ import tp.pr4.logic.Counter;
 import tp.pr4.logic.GameObserver;
 import tp.pr4.logic.ReadOnlyBoard;
 
-public class MainWindow extends JFrame implements GameObserver {
-	private int dimX = Resources.DIMX_CONNECT4;
+public class MainWindow extends JFrame implements GameObserver, KeyListener {
+	private int dimX = Resources.DIMX_CONNECT4; // TODO: Hay que hacer que cambia las dimensiones...
 	private int dimY = Resources.DIMY_CONNECT4;
 	private JPanel mainPanel, topPanel, bottomPanel, leftMargin, rightMargin, middlePanelRight, middlePanel;
+	private JTextArea inputTxt;
 	
-	public MainWindow(){
-		super();
+	public MainWindow() {
+		super(); 
 		initGUI();
 	}
 	
@@ -48,6 +56,55 @@ public class MainWindow extends JFrame implements GameObserver {
 
 		bottomPanel = createPanel(new Color(230, 230, 230), 70, 130);
 		mainPanel.add(bottomPanel, BorderLayout.PAGE_END);
+		
+		inputTxt = new JTextArea("Dude, write something here...");
+		inputTxt.setLayout(null);
+		Font bigFont = inputTxt.getFont().deriveFont(Font.PLAIN, 40);
+		inputTxt.setFont(bigFont);
+		inputTxt.setSize(300, 200);
+		inputTxt.setBackground(null); 
+		inputTxt.setMargin( new Insets(35,10,10,10) );
+		bottomPanel.add(inputTxt);
+		
+		inputTxt.addKeyListener(new KeyListener() {
+			public void keyTyped(KeyEvent e) {}
+			public void keyReleased(KeyEvent e) {
+
+				if ((e.getKeyChar()) == 10) {
+					String text = inputTxt.getText().trim();
+					text.toLowerCase(new Locale(text));
+
+					if (text.equals("make a move")) { 
+						JCheckBox check = new JCheckBox();
+						JOptionPane.showMessageDialog(check, "PUTAA");//TODO method toString and finish the function
+						JCheckBox check1 = new JCheckBox();
+						JOptionPane.showMessageDialog(check1, "Pegartillo la chupa");//TODO method toString and finish the function
+						JCheckBox check2 = new JCheckBox();
+						JOptionPane.showMessageDialog(check2, "Nah, es coña. Te quierohh");//TODO method toString and finish the function
+
+						JCheckBox check3 = new JCheckBox();
+						JOptionPane.showMessageDialog(check3, "JORGE ES DIOS POR CREAR ESTO TAN AGUESOME");//TODO method toString and finish the function
+					}			
+					
+					inputTxt.setText(null);
+							
+				} 
+			} 
+			public void keyPressed(KeyEvent e) {
+			}
+		});
+		inputTxt.addMouseListener(new MouseListener() {
+			 
+			public void mouseReleased(MouseEvent e) {}
+			public void mousePressed(MouseEvent e) {
+				inputTxt.setText(null);
+			} 
+			public void mouseExited(MouseEvent e) {}
+			public void mouseEntered(MouseEvent e) {}
+			public void mouseClicked(MouseEvent e) {
+				inputTxt.setText(null);
+			}
+		});
 
 		//////////////////////// MARGINS ///////////////////////
 		// LEFT MARGIN PANEL
@@ -115,12 +172,7 @@ public class MainWindow extends JFrame implements GameObserver {
  
 				JCheckBox check = new JCheckBox();
 				JOptionPane.showMessageDialog(check, "Are you sure you want to close");//TODO method toString and finish the function
-
-				
-				JCheckBox d = new JCheckBox();
-				middlePanelRight.add(d, configureConstraint(GridBagConstraints.NONE, 1, 0, 0.1, 0.1)); // gridX, gridY, weightX, weightY );
-				initGUI();
-			}
+ 			}
 		});
 		
 		// CHANGE COLOR // TODO : IDEA
@@ -177,11 +229,11 @@ public class MainWindow extends JFrame implements GameObserver {
 		
 		mainPanel.add(middlePanel, BorderLayout.CENTER);
 		
+		this.setVisible(true);
 		this.setContentPane(mainPanel);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setMinimumSize(new Dimension(800, 600)); 
 		this.setExtendedState(JFrame.MAXIMIZED_BOTH); 
-		this.setVisible(true);
 	}
 	
 	/**
@@ -220,6 +272,8 @@ public class MainWindow extends JFrame implements GameObserver {
 		if (!border) 	b.setBorder(null);
 		return b; 
 	}
+
+
 	
 	/*
 	 * Callback functions
@@ -262,6 +316,24 @@ public class MainWindow extends JFrame implements GameObserver {
 	@Override
 	public void reset(ReadOnlyBoard board, Counter player, Boolean undoPossible) { 
 		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
