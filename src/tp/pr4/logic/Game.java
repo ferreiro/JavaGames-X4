@@ -1,6 +1,7 @@
 package tp.pr4.logic;
 
 import java.util.ArrayDeque;
+import java.util.Collection;
 import java.util.Deque;
 
 import tp.pr4.logic.Counter;
@@ -13,8 +14,8 @@ public class Game implements Observable<GameObserver>{
 	private Counter turn;
 	private Counter winner;
 	private boolean finished;
-	
 	protected GameRules rules;
+	private Collection<GameObserver> obsList; // ArrayList of Observers (En este proyecto, vamos a tener observadores en la vista)
 	private Deque<Move> stack = new ArrayDeque<>();
 	
 	public Game(GameRules rules) { 
@@ -116,12 +117,12 @@ public class Game implements Observable<GameObserver>{
 
 	@Override
 	public void addObserver(GameObserver o) {
-		// To be implemented	
+		obsList.add(o);	
 	}
 
 	@Override
 	public void removeObserver(GameObserver o) {
-		// To be implemented	
+		obsList.remove(o);
 	}
 	
 }
