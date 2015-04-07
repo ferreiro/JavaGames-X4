@@ -140,29 +140,29 @@ public class MainWindow extends JFrame implements GameObserver, KeyListener {
 		middlePanelRight.setBackground(new Color(222, 222, 222));
 		middlePanelRight.setPreferredSize(new Dimension(20,30));
 		 
-		////////////// BUTTOMS ON MIDDLE PANEL RIGHT ////////////
-		// UNDO / RESTART
-		JPanel UndoAndReset = new JPanel(new GridBagLayout());
-		UndoAndReset.setBackground(new Color(0,0,0,0));
-		UndoAndReset.setPreferredSize(new Dimension(10,10));
+		////////////// MIDDEL PANEL RIGHT TOP ////////////
+		
+		JPanel middlePanelRightTop = new JPanel(new GridBagLayout());
+		middlePanelRightTop.setBackground(new Color(0,0,0,0));
+		middlePanelRightTop.setPreferredSize(new Dimension(10,10));
 
 		// RANDOM USER
 		JButton randomButton = new JButton();
-		randomButton = createButton(120,  100, "Random User", Resources.RESOURCES_URL + "random.png", new Color(255,255,0), true); 
+		randomButton = createButton(120,  100, "Random", Resources.RESOURCES_URL + "random.png", new Color(255,255,0), true); 
 		c = configureConstraint(GridBagConstraints.CENTER, 0, 0, 0.1, 0.3); // gridX, gridY, weightX, weightY 
-		UndoAndReset.add(randomButton,c);
+		middlePanelRightTop.add(randomButton,c);
 		
 		// UNDO BUTTON
 		JButton undoButton = new JButton("Undo");
 		undoButton = createButton(230,  100, "Undo", Resources.RESOURCES_URL + "undo.png", new Color(255,255,0), true);  
 		c = configureConstraint(GridBagConstraints.CENTER, 1, 0, 0.1, 0.3); // gridX, gridY, weightX, weightY 
-		UndoAndReset.add(undoButton,c);
+		middlePanelRightTop.add(undoButton,c);
 
 		// RESET BUTTON
 		JButton resetButton = new JButton();
 		resetButton = createButton(120,  100, "Restart", Resources.RESOURCES_URL + "reset.png", new Color(255,255,0), true); 
 		c = configureConstraint(GridBagConstraints.NONE, 2, 0, 0.1, 0.3); // gridX, gridY, weightX, weightY 
-		UndoAndReset.add(resetButton,c);
+		middlePanelRightTop.add(resetButton,c);
 
 		resetButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -178,7 +178,7 @@ public class MainWindow extends JFrame implements GameObserver, KeyListener {
 		JButton changeColor = new JButton();
 		changeColor = createButton(100, 55, "Change Color", Resources.RESOURCES_URL + "undo.png", new Color(255,255,0), true);   
 		c = configureConstraint(GridBagConstraints.NONE, 3, 0, 0.1, 0.1); // gridX, gridY, weightX, weightY 
-		UndoAndReset.add(changeColor,c);
+		middlePanelRightTop.add(changeColor,c);
 
 		changeColor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -187,14 +187,14 @@ public class MainWindow extends JFrame implements GameObserver, KeyListener {
 			}
 		}); 
 		
-		//characteristics of the topDark part
-		c = configureConstraint(GridBagConstraints.BOTH, 0, 0, 1, 1.5); // gridX, gridY, weightX, weightY 
-		middlePanelRight.add(UndoAndReset,c);
+		c = configureConstraint(GridBagConstraints.BOTH, 0, 0, 1, 1.5);  // characteristics of the topDark part
+		middlePanelRight.add(middlePanelRightTop,c);
 		
-		//the bottom panel inside dark one
-		JPanel ComboAndChangeButton = new JPanel(new GridBagLayout());
-		ComboAndChangeButton.setBackground(new Color(0,0,0,30));
-		ComboAndChangeButton.setPreferredSize(new Dimension(50,50));
+		////////////// MIDDEL PANEL RIGHT BOTTOM ////////////
+		
+		JPanel middlePannelRightBottom = new JPanel(new GridBagLayout());
+		middlePannelRightBottom.setBackground(new Color(0,0,0,30));
+		middlePannelRightBottom.setPreferredSize(new Dimension(50,50));
 		
 		//COMBOBOX
 		Cbox = new JComboBox<String>(names);
@@ -202,29 +202,25 @@ public class MainWindow extends JFrame implements GameObserver, KeyListener {
 		Cbox.setFont(new Font("Arial", Font.BOLD, 24)); 
 		Cbox.setBorder(new EmptyBorder(10, 10, 10, 10));
 		c = configureConstraint(GridBagConstraints.NONE, 0, 1, 0.1, 0.3); // gridX, gridY, weightX, weightY 
-		ComboAndChangeButton.add(Cbox,c);
+		middlePannelRightBottom.add(Cbox,c);
 		
-		//Space in between
 		JPanel blankPanel = new JPanel();
-		blankPanel.setBackground(new Color(238, 238, 238, 50));
+		blankPanel.setBackground(new Color(238, 238, 238, 80)); 
 		blankPanel.setVisible(true);
 		c = configureConstraint(GridBagConstraints.BOTH, 0, 1, .70, 0); // gridX, gridY, weightX, weightY 
-		ComboAndChangeButton.add(blankPanel,c);
+		middlePannelRightBottom.add(blankPanel,c);
 		
 		//BUTTON FOR CHANGING
 		JButton changeButton = createButton(230,  100, "Change", Resources.RESOURCES_URL + "check.png", new Color(62,218,103), false);
 		changeButton.setForeground(Color.WHITE);
 		changeButton.setFont(new Font("Arial", Font.BOLD, 24));
 		c = configureConstraint(GridBagConstraints.NONE, 0, 2, 0.1, 0.1); // gridX, gridY, weightX, weightY 
-		ComboAndChangeButton.add(changeButton,c);
+		middlePannelRightBottom.add(changeButton,c);
 		
+		c = configureConstraint(GridBagConstraints.BOTH, 0, 1, 1, 1); // For the bottom of the dark side panel 
+		middlePanelRight.add(middlePannelRightBottom,c);
 		
-		//for the bottom of the dark side panel
-		c = configureConstraint(GridBagConstraints.BOTH, 0, 1, 1, 1); // gridX, gridY, weightX, weightY 
-		middlePanelRight.add(ComboAndChangeButton,c);
-		
-		//the characteristics of dark in general
-		c = configureConstraint(GridBagConstraints.BOTH, 1, 0, .75, .75); // gridX, gridY, weightX, weightY 
+		c = configureConstraint(GridBagConstraints.BOTH, 1, 0, .75, .75); //the characteristics of dark in general
 		middlePanel.add(middlePanelRight, c);
 		
 		
@@ -238,12 +234,7 @@ public class MainWindow extends JFrame implements GameObserver, KeyListener {
 	}
 	
 	/**
-	 * Auxiliary Functions
-	 * 
-	 * @param color
-	 * @param x
-	 * @param y
-	 * @return
+	 * Auxiliary Functions 
 	 */
 
 	private JPanel createPanel(Color color, int x, int y){
