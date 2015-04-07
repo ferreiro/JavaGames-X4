@@ -38,16 +38,15 @@ public class WindowController extends Controller {
 	public void makeMove(int col, int row, Counter turn) {
 		boolean valid = false;
 			
-		// window.moveExecStart(turn);  TODO: The window doesn't have to communicate to the views
-
 		Move move = getGameTypeFactory().createMove(col, row, turn);
 		
 		try {
-			valid = getGame().executeMove(move);
+			valid = game.executeMove(move);
 			if (valid)
 				changePlayer(); // Change Current player 
 		}
 		catch(InvalidMove e) {
+			// ESTO CREO QUE VA EN EL GAME
 			// window.onMoveError(e.getMessage()); TODO: The window doesn't have to communicate to the views
 		} 
 		// window.moveExecFinished(BReadOnly, turn, nextPlayer(getGame().getTurn())); TODO: The window doesn't have to communicate to the views

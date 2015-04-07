@@ -68,5 +68,5 @@ public abstract class Controller {
 	public GameTypeFactory getGameType(){return gameType;}
 	public void setGameType(GameTypeFactory g){gameType = g;}
 	public void setPlayerInPosition(Player player,int pos){players[pos] = player;}
-	}
 
+}

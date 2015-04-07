@@ -74,6 +74,7 @@ public class Game implements Observable<GameObserver> {
 			for (GameObserver o : obsList)
 				o.onMoveError(err);
 			throw new InvalidMove(err);
+			// window.onMoveError(e.getMessage()); TODO: The window doesn't have to communicate to the views
 		}
 
 		// Notify all the observers that the move is finished
