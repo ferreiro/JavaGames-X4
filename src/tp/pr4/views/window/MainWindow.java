@@ -15,6 +15,8 @@ import javafx.scene.image.Image;
 
 import javax.swing.*;
 
+import com.sun.glass.ui.Size;
+
 import tp.pr4.Resources.Resources;
 import tp.pr4.logic.Counter;
 import tp.pr4.logic.GameObserver;
@@ -23,7 +25,7 @@ import tp.pr4.logic.ReadOnlyBoard;
 public class MainWindow extends JFrame implements GameObserver {
 	private int dimX = Resources.DIMX_CONNECT4;
 	private int dimY = Resources.DIMY_CONNECT4;
-	private JPanel mainPanel, topPanel, bottomPanel, leftMargin, rightMargin, right, middlePanel;
+	private JPanel mainPanel, topPanel, bottomPanel, leftMargin, rightMargin, middlePanelRight, middlePanel;
 	
 	public MainWindow(){
 		super();
@@ -42,7 +44,7 @@ public class MainWindow extends JFrame implements GameObserver {
 
 		JButton logoHeader = new JButton(); // Logo
 		logoHeader = createButton(200,  50, "Logotipo", "", new Color(0,0,0,0), false );  
-		topPanel.add(logoHeader, configureConstraint(GridBagConstraints.NONE, 1, 2, 0.1, 0.1)); // gridX, gridY, weightX, weightY );
+		topPanel.add(logoHeader, configureConstraint(GridBagConstraints.BOTH, 1, 2, 0.1, 0.1)); // gridX, gridY, weightX, weightY );
 
 		bottomPanel = createPanel(new Color(230, 230, 230), 70, 130);
 		mainPanel.add(bottomPanel, BorderLayout.PAGE_END);
@@ -62,45 +64,53 @@ public class MainWindow extends JFrame implements GameObserver {
 		
 		middlePanel = new JPanel(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
+		 
+		// Creating the tablePane one hay que cambiar el hecho de que conjja c4, complica o gravity
+		JPanel middlePanelLeft = new JPanel(new GridLayout(dimX, dimY, 2, 2));
+		middlePanelLeft.setBackground(Color.LIGHT_GRAY);
+		middlePanelLeft.setSize(120,120);
+		//lo que es dibujar los circulos no es aqui en la inicialización
 		
-		//dark inside centre panel
-		right = new JPanel(new GridBagLayout());
-		right.setBackground(new Color(146,146,146));
-		right.setPreferredSize(new Dimension(20,60));
+		//table part
+		c = configureConstraint(GridBagConstraints.BOTH, 0, 0, 1.5, 1); // gridX, gridY, weightX, weightY 
+		middlePanel.add(middlePanelLeft, c);
 		
-		//the top panel inside dark one
+		
+		
+		// MIDDLE PANEL RIGHT
+		middlePanelRight = new JPanel(new GridBagLayout());
+		middlePanelRight.setBackground(new Color(222, 222, 222));
+		middlePanelRight.setPreferredSize(new Dimension(20,30));
+		 
+		////////////// BUTTOMS ON MIDDLE PANEL RIGHT ////////////
+		// UNDO / RESTART
 		JPanel UndoAndReset = new JPanel(new GridBagLayout());
-		UndoAndReset.setBackground(Color.blue);
+		UndoAndReset.setBackground(new Color(0,0,0,0));
 		UndoAndReset.setPreferredSize(new Dimension(10,10));
 
-		// CHANGE COLOR
-		JButton changeColor = new JButton("");
-		changeColor = createButton(230, 55, "Change Color", Resources.RESOURCES_URL + "undo.png", new Color(255,255,0), true);   
-		c = configureConstraint(GridBagConstraints.NONE, 0, 0, 0.1, 0.1); // gridX, gridY, weightX, weightY 
-		UndoAndReset.add(changeColor,c);
-
-		changeColor.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				JColorChooser spinner = new JColorChooser();
-				topPanel.add(spinner);
-			}
-		});
+		// RANDOM USER
+		JButton randomButton = new JButton();
+		randomButton = createButton(120,  100, "Random User", Resources.RESOURCES_URL + "random.png", new Color(255,255,0), true); 
+		c = configureConstraint(GridBagConstraints.CENTER, 0, 0, 0.1, 0.3); // gridX, gridY, weightX, weightY 
+		UndoAndReset.add(randomButton,c);
 		
 		// UNDO BUTTON
 		JButton undoButton = new JButton("Undo");
-		undoButton = createButton(200,  50, "Reset", Resources.RESOURCES_URL + "undo.png", new Color(255,255,0), true);  
-		c = configureConstraint(GridBagConstraints.NONE, 1, 0, 0.1, 0.1); // gridX, gridY, weightX, weightY 
+		undoButton = createButton(230,  100, "Undo", Resources.RESOURCES_URL + "undo.png", new Color(255,255,0), true);  
+		c = configureConstraint(GridBagConstraints.CENTER, 1, 0, 0.1, 0.3); // gridX, gridY, weightX, weightY 
 		UndoAndReset.add(undoButton,c);
-		
+
 		// RESET BUTTON
 		JButton resetButton = new JButton();
-		resetButton = createButton(200,  50, "Reset Game", Resources.RESOURCES_URL + "reset.png", new Color(255,255,0), true); 
-		c = configureConstraint(GridBagConstraints.NONE, 2, 0, 0.1, 0.1); // gridX, gridY, weightX, weightY 
+		resetButton = createButton(120,  100, "Restart", Resources.RESOURCES_URL + "reset.png", new Color(255,255,0), true); 
+		c = configureConstraint(GridBagConstraints.NONE, 2, 0, 0.1, 0.3); // gridX, gridY, weightX, weightY 
 		UndoAndReset.add(resetButton,c);
-		
-		// TODO Hacer que aparezca una popup con el mensaje: Estás seguro de que quieres resetear?
+
 		resetButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				// TODO Hacer que aparezca una popup con el mensaje: Estás seguro de que quieres resetear?
+				
 				System.out.println("Clicked");
  
 				JCheckBox check = new JCheckBox();
@@ -108,13 +118,27 @@ public class MainWindow extends JFrame implements GameObserver {
 
 				
 				JCheckBox d = new JCheckBox();
-				right.add(d, configureConstraint(GridBagConstraints.NONE, 1, 0, 0.1, 0.1)); // gridX, gridY, weightX, weightY );
+				middlePanelRight.add(d, configureConstraint(GridBagConstraints.NONE, 1, 0, 0.1, 0.1)); // gridX, gridY, weightX, weightY );
 			}
 		});
 		
+		// CHANGE COLOR // TODO : IDEA
+		
+		JButton changeColor = new JButton();
+		changeColor = createButton(100, 55, "Change Color", Resources.RESOURCES_URL + "undo.png", new Color(255,255,0), true);   
+		c = configureConstraint(GridBagConstraints.NONE, 3, 0, 0.1, 0.1); // gridX, gridY, weightX, weightY 
+		UndoAndReset.add(changeColor,c);
+
+		changeColor.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				JColorChooser spinner = new JColorChooser();
+				topPanel.add(spinner);
+			}
+		}); 
+		
 		//characteristics of the topDark part
 		c = configureConstraint(GridBagConstraints.BOTH, 0, 0, 1, 1.5); // gridX, gridY, weightX, weightY 
-		right.add(UndoAndReset,c);
+		middlePanelRight.add(UndoAndReset,c);
 		
 		//the bottom panel inside dark one
 		JPanel ComboAndChangeButton = new JPanel(new GridBagLayout());
@@ -143,22 +167,11 @@ public class MainWindow extends JFrame implements GameObserver {
 		
 		//for the bottom of the dark side panel
 		c = configureConstraint(GridBagConstraints.BOTH, 0, 1, 1, 1); // gridX, gridY, weightX, weightY 
-		right.add(ComboAndChangeButton,c);
+		middlePanelRight.add(ComboAndChangeButton,c);
 		
 		//the characteristics of dark in general
 		c = configureConstraint(GridBagConstraints.BOTH, 1, 0, .75, .75); // gridX, gridY, weightX, weightY 
-		middlePanel.add(right, c);
-		
-		//creating the tablePane one hay que cambiar el hecho de que conjja c4, complica o gravity
-		JPanel tablePane = new JPanel(new GridLayout(dimX, dimY, 2, 2));
-		tablePane.setBackground(Color.LIGHT_GRAY);
-		tablePane.setSize(120,120);
-		//lo que es dibujar los circulos no es aqui en la inicialización
-		
-		//table part
-		c = configureConstraint(GridBagConstraints.BOTH, 0, 0, 1, 1); // gridX, gridY, weightX, weightY 
-		middlePanel.add(tablePane, c);
-		
+		middlePanel.add(middlePanelRight, c);
 		
 		
 		mainPanel.add(middlePanel, BorderLayout.CENTER);
