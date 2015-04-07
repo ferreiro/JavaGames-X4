@@ -31,17 +31,24 @@ public class MainWindow extends JFrame implements GameObserver {
 	
 	private void initGUI(){
 		JComboBox<String> Cbox;
-		String names[] = {"Connect4", "Complica", "Gravity"}; 
+		String names[] = {
+			"Connect4", 
+			"Complica", 
+			"Gravity"
+		}; 
 			
 		mainPanel = new JPanel(new BorderLayout());
 		
-		//bottom of the borderLayout
-		JPanel bottomPanel = createPanel(new Color(200,230, 150), 70,70);
+		// HEADER AND BUTTOM 
+		
+		JPanel  topPanel 	= createPanel(new Color(255, 255, 255), 10, 70),
+				bottomPanel = createPanel(new Color(230, 230, 230), 70, 130);
+
+		mainPanel.add(topPanel, BorderLayout.PAGE_START); 
 		mainPanel.add(bottomPanel, BorderLayout.PAGE_END);
 		
-		//en este el top podriamos añadir un logo y hacerlo un poquico mas grande
-		JPanel topPanel = createPanel(new Color(200,230, 150), 10,10);
-		mainPanel.add(topPanel, BorderLayout.PAGE_START);
+		// TODO Añadir logotipo 
+		
 		
 		//centre of the borderLayout
 		JPanel centrePanel = new JPanel(new GridBagLayout());
@@ -125,6 +132,23 @@ public class MainWindow extends JFrame implements GameObserver {
 		
 	}
 	
+	/**
+	 * Auxiliary Functions
+	 * 
+	 * @param color
+	 * @param x
+	 * @param y
+	 * @return
+	 */
+
+	private JPanel createPanel(Color color, int x, int y){
+		JPanel panel = new JPanel();
+		panel.setBackground(color);
+		panel.setPreferredSize(new Dimension(x,y));
+		panel.setVisible(true); 
+		return panel;
+	}
+	
 	private GridBagConstraints configureConstraint(int fill, int gridX, int gridY, double weightX, double weightY) {
 		GridBagConstraints c = new GridBagConstraints(); 
 		c.fill = fill;
@@ -134,17 +158,13 @@ public class MainWindow extends JFrame implements GameObserver {
 		c.weighty = weightY;
 		return c;
 	}
-
-
 	
+	/*
+	 * Callback functions
+	 * (non-Javadoc)
+	 * @see tp.pr4.logic.GameObserver#moveExecFinished(tp.pr4.logic.ReadOnlyBoard, tp.pr4.logic.Counter, tp.pr4.logic.Counter)
+	 */
 	
-	private JPanel createPanel(Color color, int x, int y){
-		JPanel panel = new JPanel();
-		panel.setBackground(color);
-		panel.setPreferredSize(new Dimension(x,y));
-		return panel;
-	}
-
 	@Override
 	public void moveExecFinished(ReadOnlyBoard board, Counter player, Counter nextPlayer) {
 		// TODO Auto-generated method stub
