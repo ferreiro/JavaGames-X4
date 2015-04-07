@@ -32,9 +32,7 @@ public class MainWindow extends JFrame implements GameObserver {
 	private void initGUI(){
 		JComboBox<String> Cbox;
 		String names[] = {"Connect4", "Complica", "Gravity"}; 
-		
-		
-		
+			
 		mainPanel = new JPanel(new BorderLayout());
 		
 		//bottom of the borderLayout
@@ -62,29 +60,17 @@ public class MainWindow extends JFrame implements GameObserver {
 		// UNDO BUTTON
 		JButton undoButton = new JButton("Undo");
 		undoButton.setIcon(new ImageIcon("src/icons/undo.png"));
-		c.fill = GridBagConstraints.NONE;
-		c.gridx = 0;
-		c.gridy = 0;
-		c.weightx = 0.1;
-		c.weighty = 0.1;
+		c = configureConstraint(GridBagConstraints.NONE, 0, 0, 0.1, 0.1); // gridX, gridY, weightX, weightY 
 		UndoAndReset.add(undoButton,c);
 		
 		// RESET BUTTON
 		JButton resetButton = new JButton("Reset");
 		resetButton.setIcon(new ImageIcon("src/icons/reset.png"));
-		c.fill = GridBagConstraints.NONE;
-		c.gridx = 1;
-		c.gridy = 0;
-		c.weightx = 0.1;
-		c.weighty = 0.1;
+		c = configureConstraint(GridBagConstraints.NONE, 1, 0, 0.1, 0.1); // gridX, gridY, weightX, weightY 
 		UndoAndReset.add(resetButton,c);
 		
 		//characteristics of the topDark part
-		c.fill = GridBagConstraints.BOTH;
-		c.gridx = 0;
-		c.gridy = 0;
-		c.weightx = 1;
-		c.weighty = 1;
+		c = configureConstraint(GridBagConstraints.BOTH, 0, 0, 1, 1.5); // gridX, gridY, weightX, weightY 
 		right.add(UndoAndReset,c);
 		
 		//the bottom panel inside dark one
@@ -95,11 +81,7 @@ public class MainWindow extends JFrame implements GameObserver {
 		//COMBOBOX
 		Cbox = new JComboBox<String>(names);
 		Cbox.setSelectedIndex(0);
-		c.fill = GridBagConstraints.NONE;
-		c.gridx = 0;
-		c.gridy = 0;
-		c.weightx = 0.1;
-		c.weighty = 0.1;
+		c = configureConstraint(GridBagConstraints.NONE, 0,1, 0.1, 0.3); // gridX, gridY, weightX, weightY 
 		ComboAndChangeButton.add(Cbox,c);
 		
 		//Space in between
@@ -164,6 +146,19 @@ public class MainWindow extends JFrame implements GameObserver {
 		this.setVisible(true);
 		
 	}
+	
+	private GridBagConstraints configureConstraint(int fill, int gridX, int gridY, double weightX, double weightY) {
+		GridBagConstraints c = new GridBagConstraints(); 
+		c.fill = fill;
+		c.gridx = gridX;
+		c.gridy = gridY;
+		c.weightx = weightX;
+		c.weighty = weightY;
+		return c;
+	}
+
+
+	
 	
 	private JPanel createPanel(Color color, int x, int y){
 		JPanel panel = new JPanel();
