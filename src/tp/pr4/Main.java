@@ -5,6 +5,7 @@ import java.util.Scanner;
 import tp.pr4.Resources.Resources;
 import tp.pr4.control.ComplicaFactory;
 import tp.pr4.control.Connect4Factory;
+import tp.pr4.control.ConsoleController;
 import tp.pr4.control.Controller;
 import tp.pr4.control.GameTypeFactory;
 import tp.pr4.control.GravityFactory;
@@ -23,22 +24,18 @@ public class Main {
 
 	public static void main(String[] args) {
 		
-		/*
+		Scanner in = new Scanner(System.in);
 		GameRules r = new Connect4Rules();
 		Game g = new Game(r);	// The game is the model
-		GameTypeFactory factory = null;
-		Scanner in = new Scanner(System.in);
+		GameTypeFactory factory = new Connect4Factory();
 
-		// Adding observers from the model (Game)
-		GameObserver console = new ConsoleView(g);
-		// GameObserver console = new MainWindow(g);
-
- 
 		WindowController w = new WindowController(factory , g);
-		*/
+		ConsoleController c = new ConsoleController(factory , g);
+		  
+		// Adding observers from the model (Game)
+		g.addObserver(new ConsoleView(g));
+		g.addObserver(new MainWindow());
 		 
-		new MainWindow();
-
 /*
  * 		PREVIOUS MAIN OF THE PROJECT
  * 
