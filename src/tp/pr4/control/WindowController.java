@@ -11,7 +11,7 @@ import tp.pr4.views.window.MainWindow;
  
 public class WindowController extends Controller {
 	static java.util.Scanner in;
-	private ReadOnlyBoard BReadOnly = getGame().getBoard();
+	
 	
 	public WindowController(GameTypeFactory factory, Game g) {
 		super(factory,g, in);
@@ -24,32 +24,18 @@ public class WindowController extends Controller {
 		changeG(gameType, dimX, dimY);	
 	}
 	
-	private Counter nextPlayer(Counter turn) {
-		Counter nextPlayer = null;
-		
-		if (turn == Counter.BLACK)
-			nextPlayer = Counter.WHITE;
-		else if (turn == Counter.WHITE)
-			nextPlayer = Counter.BLACK;
-		
-		return nextPlayer;
-	}
-	
 	public void makeMove(int col, int row, Counter turn) {
-		boolean valid = false;
+		boolean valid;
 			
-		Move move = getGameTypeFactory().createMove(col, row, turn);
-		
 		try {
-			valid = game.executeMove(move);
-			if (valid)
-				changePlayer(); // Change Current player 
+			Move mov = getGameTypeFactory().createMove(col, row, turn);
+			valid = game.executeMove(mov);
+			if (valid) 
+				this.changePlayer();
 		}
-		catch(InvalidMove e) {
-			// ESTO CREO QUE VA EN EL GAME
-			// window.onMoveError(e.getMessage()); TODO: The window doesn't have to communicate to the views
-		} 
-		// window.moveExecFinished(BReadOnly, turn, nextPlayer(getGame().getTurn())); TODO: The window doesn't have to communicate to the views
+		catch (InvalidMove e) {
+			System.out.println(e.getMessage());
+		}
 	}
 	
 	public void randomMove(Counter player) {

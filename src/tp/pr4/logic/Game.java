@@ -12,6 +12,7 @@ import tp.pr4.logic.Move;
 public class Game implements Observable<GameObserver> {
 
 	private Board board;
+	private ReadOnlyBoard BReadOnly = getBoard();
 	private Counter turn;
 	private Counter winner;
 	private boolean finished;
@@ -74,14 +75,26 @@ public class Game implements Observable<GameObserver> {
 			for (GameObserver o : obsList)
 				o.onMoveError(err);
 			throw new InvalidMove(err);
-			// window.onMoveError(e.getMessage()); TODO: The window doesn't have to communicate to the views
 		}
 
 		// Notify all the observers that the move is finished
 		for (GameObserver o : obsList) 
-			o.moveExecFinished(board, currentPlayer, mov.getPlayer());
+			o.moveExecFinished(board, currentPlayer, nextPlayer(currentPlayer));
 		
 		return valid;
+	}
+	
+	// Next Player
+	
+	private Counter nextPlayer(Counter turn) {
+		Counter nextPlayer = null;
+		
+		if (turn == Counter.BLACK)
+			nextPlayer = Counter.WHITE;
+		else if (turn == Counter.WHITE)
+			nextPlayer = Counter.BLACK;
+		
+		return nextPlayer;
 	}
 	
 	//  Undo and stack 
