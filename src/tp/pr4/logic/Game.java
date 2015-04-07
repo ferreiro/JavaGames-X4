@@ -87,11 +87,18 @@ public class Game implements Observable<GameObserver> {
 		return valid;
 	}
 	
-	// Create 
+	// Create a window
 	public void createWindow() {
 		window = new MainWindow();
 	}
-	 
+	
+	// 
+	
+	public void closeGame() {
+		for (GameObserver o : obsList) 
+			o.onGameOver(BReadOnly, winner);
+	}
+	
 	// Next Player
 	
 	private Counter nextPlayer(Counter turn) {

@@ -36,7 +36,7 @@ public class Main {
  
 		WindowController w = new WindowController(factory , g);
 		*/
-		
+		 
 		new MainWindow();
 
 /*

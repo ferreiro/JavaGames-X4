@@ -44,7 +44,7 @@ public class WindowController extends Controller {
 	
 	// Quit the application.
 	public void requestQuit() {
-		// window.onGameOver(BReadOnly, getGame().getWinner()); TODO: The window doesn't have to communicate to the views
+		game.closeGame();
 	}
 	
 	public void reset() {
