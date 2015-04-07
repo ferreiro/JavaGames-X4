@@ -32,7 +32,7 @@ import tp.pr4.logic.ReadOnlyBoard;
 public class MainWindow extends JFrame implements GameObserver, KeyListener {
 	private int dimX = Resources.DIMX_CONNECT4; // TODO: Hay que hacer que cambia las dimensiones...
 	private int dimY = Resources.DIMY_CONNECT4;
-	private JPanel mainPanel, topPanel, bottomPanel, leftMargin, rightMargin, middlePanelRight, middlePanel;
+	private JPanel mainPanel, topPanel, bottomPanel, leftMargin, rightMargin, middlePanelLeft, middlePanelRight, middlePanel;
 	private JTextArea inputTxt;
 	
 	public MainWindow() {
@@ -123,7 +123,7 @@ public class MainWindow extends JFrame implements GameObserver, KeyListener {
 		GridBagConstraints c = new GridBagConstraints();
 		 
 		// Creating the tablePane one hay que cambiar el hecho de que conjja c4, complica o gravity
-		JPanel middlePanelLeft = new JPanel(new GridLayout(dimX, dimY, 2, 2));
+		middlePanelLeft = new JPanel(new GridLayout(dimX, dimY, 2, 2));
 		middlePanelLeft.setBackground(Color.LIGHT_GRAY);
 		middlePanelLeft.setSize(120,120);
 		//lo que es dibujar los circulos no es aqui en la inicialización
@@ -167,9 +167,6 @@ public class MainWindow extends JFrame implements GameObserver, KeyListener {
 			public void actionPerformed(ActionEvent e) {
 				
 				// TODO Hacer que aparezca una popup con el mensaje: Estás seguro de que quieres resetear?
-				
-				System.out.println("Clicked");
- 
 				JCheckBox check = new JCheckBox();
 				JOptionPane.showMessageDialog(check, "Are you sure you want to close");//TODO method toString and finish the function
  			}
@@ -185,7 +182,7 @@ public class MainWindow extends JFrame implements GameObserver, KeyListener {
 		changeColor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				JColorChooser spinner = new JColorChooser();
-				topPanel.add(spinner);
+				topPanel.add(spinner);  
 			}
 		}); 
 		
@@ -195,7 +192,7 @@ public class MainWindow extends JFrame implements GameObserver, KeyListener {
 		
 		//the bottom panel inside dark one
 		JPanel ComboAndChangeButton = new JPanel(new GridBagLayout());
-		ComboAndChangeButton.setBackground(Color.red);
+		ComboAndChangeButton.setBackground(new Color(0,0,0,30));
 		ComboAndChangeButton.setPreferredSize(new Dimension(50,50));
 		
 		//COMBOBOX
@@ -212,8 +209,9 @@ public class MainWindow extends JFrame implements GameObserver, KeyListener {
 		ComboAndChangeButton.add(blankPanel,c);
 		
 		//BUTTON FOR CHANGING
-		JButton changeButton = new JButton("Change");
-		changeButton.setIcon(new ImageIcon("src/icons/check.png"));
+		JButton changeButton = createButton(230,  100, "Change", Resources.RESOURCES_URL + "check.png", new Color(62,218,103), false);
+		changeButton.setForeground(Color.WHITE);
+		changeButton.setFont(new Font("Arial", Font.BOLD, 24));
 		c = configureConstraint(GridBagConstraints.NONE, 0, 2, 0.1, 0.1); // gridX, gridY, weightX, weightY 
 		ComboAndChangeButton.add(changeButton,c);
 		
