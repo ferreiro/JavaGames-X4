@@ -11,6 +11,8 @@ import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javafx.scene.image.Image;
+
 import javax.swing.*;
 
 import tp.pr4.Resources.Resources;
@@ -49,11 +51,7 @@ public class MainWindow extends JFrame implements GameObserver {
 
 		mainPanel.add(topPanel, BorderLayout.PAGE_START); 
 		mainPanel.add(bottomPanel, BorderLayout.PAGE_END);
-		
-		
 		// TODO Añadir logotipo 
-		
-		
 		
 		//centre of the borderLayout
 		centrePanel = new JPanel(new GridBagLayout());
@@ -70,8 +68,8 @@ public class MainWindow extends JFrame implements GameObserver {
 		UndoAndReset.setPreferredSize(new Dimension(10,10));
 
 		// CHANGE COLOR
-		JButton changeColor = new JButton("Change Color");
-		changeColor.setIcon(new ImageIcon("src/icons/undo.png"));
+		JButton changeColor = new JButton("");
+		changeColor = createButton("Change Color", "src/icons/undo.png", new Color(255,255,0));   
 		c = configureConstraint(GridBagConstraints.NONE, 0, 0, 0.1, 0.1); // gridX, gridY, weightX, weightY 
 		UndoAndReset.add(changeColor,c);
 
@@ -86,13 +84,13 @@ public class MainWindow extends JFrame implements GameObserver {
 		
 		// UNDO BUTTON
 		JButton undoButton = new JButton("Undo");
-		undoButton.setIcon(new ImageIcon("src/icons/undo.png"));
+		undoButton = createButton("Reset", "src/icons/undo.png", new Color(255,255,0));  
 		c = configureConstraint(GridBagConstraints.NONE, 1, 0, 0.1, 0.1); // gridX, gridY, weightX, weightY 
 		UndoAndReset.add(undoButton,c);
 		
 		// RESET BUTTON
-		JButton resetButton = new JButton("Reset");
-		resetButton.setIcon(new ImageIcon("src/icons/reset.png"));
+		JButton resetButton = new JButton();
+		resetButton = createButton("Reset", "src/icons/reset.png", new Color(255,255,0)); 
 		c = configureConstraint(GridBagConstraints.NONE, 2, 0, 0.1, 0.1); // gridX, gridY, weightX, weightY 
 		UndoAndReset.add(resetButton,c);
 		
@@ -181,6 +179,14 @@ public class MainWindow extends JFrame implements GameObserver {
 		return c;
 	}
 	
+	public JButton createButton(String name, String fileName, Color c) {
+		JButton b = new JButton();
+		b.setIcon(new ImageIcon(fileName));
+		b.setBackground(c);
+		b.setText("Hola");
+		return b; 
+	}
+	
 	/*
 	 * Callback functions
 	 * (non-Javadoc)
@@ -205,7 +211,7 @@ public class MainWindow extends JFrame implements GameObserver {
 
 	@Override
 	public void onMoveError(String msg) {
-		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
