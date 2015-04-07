@@ -11,7 +11,6 @@ import tp.pr4.views.window.MainWindow;
  
 public class WindowController extends Controller {
 	static java.util.Scanner in;
-	// private MainWindow window = null; The window doesn't have to communicate to the views
 	private ReadOnlyBoard BReadOnly = getGame().getBoard();
 	
 	public WindowController(GameTypeFactory factory, Game g) {
@@ -25,7 +24,7 @@ public class WindowController extends Controller {
 		changeG(gameType, dimX, dimY);	
 	}
 	
-	private Counter nextPlayer(Counter turn){
+	private Counter nextPlayer(Counter turn) {
 		Counter nextPlayer = null;
 		
 		if (turn == Counter.BLACK)
@@ -36,16 +35,11 @@ public class WindowController extends Controller {
 		return nextPlayer;
 	}
 	
-	
 	public void makeMove(int col, int row, Counter turn) {
 		boolean valid = false;
-		
-		
-		
+			
 		// window.moveExecStart(turn);  TODO: The window doesn't have to communicate to the views
-										// Esto hay que cambiarlo. 
-										// El controller no se puede comunicar con la vista
-		
+
 		Move move = getGameTypeFactory().createMove(col, row, turn);
 		
 		try {
@@ -63,8 +57,8 @@ public class WindowController extends Controller {
 		getGameTypeFactory().createRandomPlayer().getMove(getGame().getBoard(), player);
 	}
 	
+	// Quit the application.
 	public void requestQuit() {
-		// Quit the application.
 		// window.onGameOver(BReadOnly, getGame().getWinner()); TODO: The window doesn't have to communicate to the views
 	}
 	
