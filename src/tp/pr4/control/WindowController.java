@@ -19,10 +19,9 @@ public class WindowController extends Controller {
 	}
 	
 	private void changeGame(GameType gameType, int dimX, int dimY) {
-		if (gameType == gameType.Gravity){
+		if (gameType == gameType.Gravity)
 			Resources.setGravityDimX(dimX);
 			Resources.setGravityDimY(dimY);
-		}
 		changeG(gameType, dimX, dimY);	
 	}
 	
@@ -41,20 +40,19 @@ public class WindowController extends Controller {
 	public void makeMove(int col, int row, Counter turn) {
 		boolean valid = false;
 		
-		window.moveExecStart(turn);
+		window.moveExecStart(turn); // Esto hay que cambiarlo. 
+									// El controller no se puede comunicar con la vista
 		
 		Move move = getGameTypeFactory().createMove(col, row, turn);
 		
-		try{
+		try {
 			valid = getGame().executeMove(move);
-			if (valid){
-				changePlayer(); // Change Current player
-			}
+			if (valid)
+				changePlayer(); // Change Current player 
 		}
 		catch(InvalidMove e) {
 			window.onMoveError(e.getMessage());
 		} 
-		
 		window.moveExecFinished(BReadOnly, turn, nextPlayer(getGame().getTurn()));
 	}
 	
