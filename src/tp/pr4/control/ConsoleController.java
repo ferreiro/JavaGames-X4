@@ -34,7 +34,7 @@ public class ConsoleController extends Controller{
 					}
 				}
 				catch(InvalidMove e) {
-					System.err.println(e.getMessage());
+//					System.err.println(e.getMessage());
 				} 
 				if (getGame().isFinished()) {
 					exit = true;
@@ -48,41 +48,41 @@ public class ConsoleController extends Controller{
 				if (undo){
 					changePlayer(); // Change Current player
 				}else{ 
-					System.out.println("Nothing to undo, please try again");
+//					System.out.println("Nothing to undo, please try again");
 				}
 
 				break;
 			case 2:
 				// Restart 
 				initGame(); // restart the game
-				System.out.println("Game restarted.");
+//				System.out.println("Game restarted.");
 				break;
 				
 			case 3:
 				// Exit
 				exit = true;
-				System.out.println("Exit requested. ");
+				System.out.println("Exit requested. ");//es raro pero en console view no hay ninguna funcion para cuando se acaba el juego
 				break;
 
 			case 4://c4
 				
 				setGameType(new Connect4Factory());
 				initGame();
-				System.out.println("Game restarted.");
+//				System.out.println("Game restarted.");
 				 
 				break;
 			case 5://co
 				
 				setGameType(new ComplicaFactory());
 				initGame();
-				System.out.println("Game restarted.");
+//				System.out.println("Game restarted.");
 				
 				break;
 			case 6: //gr
 				
 				setGameType(new GravityFactory(Resources.DIMX_GRAVITY, Resources.DIMY_GRAVITY)); 
 				initGame();
-				System.out.println("Game restarted.");
+//				System.out.println("Game restarted.");
 
 				break;
 			case 7:
@@ -120,18 +120,18 @@ public class ConsoleController extends Controller{
 				Counter counterWinner = getGame().getWinner();
 				exit = true;
 				
-				System.out.print("Game over."); 
-				if (counterWinner != Counter.EMPTY) {
-					if (counterWinner == Counter.WHITE) {
-						System.out.println("White wins"); 
-					}
-					if (counterWinner == Counter.BLACK) {
-						System.out.println("Black wins"); 
-					}
-				}
-				else {
-					System.out.println("Tie game, no winner");
-				}					
+//				System.out.print("Game over."); 
+//				if (counterWinner != Counter.EMPTY) {
+//					if (counterWinner == Counter.WHITE) {
+//						System.out.println("White wins"); 
+//					}
+//					if (counterWinner == Counter.BLACK) {
+//						System.out.println("Black wins"); 
+//					}
+//				}
+//				else {
+//					System.out.println("Tie game, no winner");
+//				}					
 			}  
 		} while(!exit);	
 		

@@ -26,13 +26,24 @@ public class ConsoleView implements GameObserver {
 	@Override
 	// When the game finishes, the observer receives a notification through this method.
 	public void onGameOver(ReadOnlyBoard board, Counter winner) {
-		// To be implemented
+		System.out.print("Game over."); 
+		if (winner != Counter.EMPTY) {
+			if (winner == Counter.WHITE) {
+				System.out.println("White wins"); 
+			}
+			if (winner == Counter.BLACK) {
+				System.out.println("Black wins"); 
+			}
+		}
+		else {
+			System.out.println("Tie game, no winner");
+		}	
 	}
 	
 	@Override
 	// 	Move errors are reported to observers through this method.
 	public void onMoveError(java.lang.String msg) {
-		// To be implemented
+		System.err.println(msg);
 	}
 	
 	@Override
@@ -44,13 +55,13 @@ public class ConsoleView implements GameObserver {
 	@Override
 	// 	When the undo fails, because it is not possible, observers are notified through this method.
 	public void onUndoNotPossible() {
-		// To be implemented
+		System.out.println("Nothing to undo, please try again");
 	}
 	
 	@Override
 	// 	When the game is reset, either with a new game or simply restarting the current game, the observer receives a notification through this method.
 	public void reset(ReadOnlyBoard board, Counter player, Boolean undoPossible) {
-		// To be implemented
+		System.out.println("Game restarted.");
 	} 
 
 
