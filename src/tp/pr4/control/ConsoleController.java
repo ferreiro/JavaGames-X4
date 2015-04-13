@@ -19,7 +19,6 @@ public class ConsoleController extends Controller{
 		boolean exit = false, valid, undo;
 		
 		do {
-			
 			option = Resources.menu(getGame(), in);
 			
 			switch(option) {
@@ -135,7 +134,7 @@ public class ConsoleController extends Controller{
 			}  
 		} while(!exit);	
 		
-		System.out.println("Closing the game...  ");
+//		System.out.println("Closing the game...  ");
 		 
 	}
 }

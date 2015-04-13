@@ -37,7 +37,8 @@ public class ConsoleView implements GameObserver {
 		}
 		else {
 			System.out.println("Tie game, no winner");
-		}	
+		}
+		System.out.println("Closing the game...  ");
 	}
 	
 	@Override
