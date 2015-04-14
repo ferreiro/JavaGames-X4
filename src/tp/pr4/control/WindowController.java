@@ -16,10 +16,11 @@ public class WindowController extends Controller {
 		super(factory,g, in);
 	}
 	
-	private void changeGame(GameType gameType, int dimX, int dimY) {
-		if (gameType == gameType.Gravity)
+	public void changeGame(GameType gameType, int dimX, int dimY) {
+		if (gameType == gameType.Gravity) {
 			Resources.setGravityDimX(dimX); 
 			Resources.setGravityDimY(dimY);
+		}
 		changeG(gameType, dimX, dimY);	
 	}
 	

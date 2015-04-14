@@ -33,7 +33,7 @@ public abstract class Controller {
 		currentPlayer = 0;
 	}
 	
-	void changeG(GameType gameType, int x, int y){
+	void changeG(GameType gameType, int x, int y) {
 		if (gameType == GameType.connect4){
 			this.gameType = new Connect4Factory();
 		}

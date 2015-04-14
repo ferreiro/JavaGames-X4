@@ -20,30 +20,37 @@ import java.util.Locale;
 
 //import javafx.scene.image.Image;
 
+
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
 //import com.sun.glass.ui.Size;
 
+
+
 import tp.pr4.Resources.Resources;
+import tp.pr4.control.WindowController;
 import tp.pr4.logic.Counter;
 import tp.pr4.logic.GameObserver;
+import tp.pr4.logic.GameType;
 import tp.pr4.logic.ReadOnlyBoard;
 
-public class MainWindow extends JFrame implements GameObserver, KeyListener {
+public class MainWindow extends JFrame implements GameObserver {
 	private int dimX = Resources.DIMX_CONNECT4; // TODO: Hay que hacer que cambia las dimensiones...
 	private int dimY = Resources.DIMY_CONNECT4;
 	private JPanel mainPanel, topPanel, bottomPanel, leftMargin, rightMargin, middlePanelLeft, middlePanelRight, middlePanel;
 	private JTextArea inputTxt;
+	private JComboBox<GameType> Cbox;
+	private WindowController ctrl;
 	
 	public MainWindow() {
 		super(); 
 		initGUI();
 	}
 	
-	private void initGUI() {
-		JComboBox<String> Cbox;
-		String names[] = { "Connect4", "Complica", "Gravity" }; 
+	private void initGUI() { 
+		GameType names[] = { GameType.connect4, GameType.complica, GameType.Gravity }; 
 		mainPanel = new JPanel(new BorderLayout()); 
 		
 		/////////////////// HEADER AND BOTTOM //////////////////
@@ -54,60 +61,6 @@ public class MainWindow extends JFrame implements GameObserver, KeyListener {
 		JButton logoHeader = new JButton(); // Logo
 		logoHeader = createButton(200,  50, "Logotipo", "", new Color(0,0,0,0), false );  
 		topPanel.add(logoHeader, configureConstraint(GridBagConstraints.BOTH, 1, 2, 0.1, 0.1)); // gridX, gridY, weightX, weightY );
-		
-		/*
-		bottomPanel = createPanel(new Color(230, 230, 230), 70, 130);
-		mainPanel.add(bottomPanel, BorderLayout.PAGE_END);
-		
-		inputTxt = new JTextArea("Dude, write something here...");
-		inputTxt.setLayout(null);
-		Font bigFont = inputTxt.getFont().deriveFont(Font.PLAIN, 40);
-		inputTxt.setFont(bigFont);
-		inputTxt.setSize(300, 200);
-		inputTxt.setBackground(null); 
-		inputTxt.setMargin( new Insets(35,10,10,10) );
-		bottomPanel.add(inputTxt);
-		
-		inputTxt.addKeyListener(new KeyListener() {
-			public void keyTyped(KeyEvent e) {}
-			public void keyReleased(KeyEvent e) {
-
-				if ((e.getKeyChar()) == 10) {
-					String text = inputTxt.getText().trim();
-					text.toLowerCase(new Locale(text));
-
-					if (text.equals("make a move")) { 
-						JCheckBox check = new JCheckBox();
-						JOptionPane.showMessageDialog(check, "PUTAA");//TODO method toString and finish the function
-						JCheckBox check1 = new JCheckBox();
-						JOptionPane.showMessageDialog(check1, "Pegartillo la chupa");//TODO method toString and finish the function
-						JCheckBox check2 = new JCheckBox();
-						JOptionPane.showMessageDialog(check2, "Nah, es coña. Te quierohh");//TODO method toString and finish the function
-
-						JCheckBox check3 = new JCheckBox();
-						JOptionPane.showMessageDialog(check3, "JORGE ES DIOS POR CREAR ESTO TAN AGUESOME");//TODO method toString and finish the function
-					}			
-					
-					inputTxt.setText(null);
-							
-				} 
-			} 
-			public void keyPressed(KeyEvent e) {
-			}
-		});
-		inputTxt.addMouseListener(new MouseListener() {
-			 
-			public void mouseReleased(MouseEvent e) {}
-			public void mousePressed(MouseEvent e) {
-				inputTxt.setText(null);
-			} 
-			public void mouseExited(MouseEvent e) {}
-			public void mouseEntered(MouseEvent e) {}
-			public void mouseClicked(MouseEvent e) {
-				inputTxt.setText(null);
-			}
-		});
-		*/
 
 		//////////////////////// MARGINS ///////////////////////
 		// LEFT MARGIN PANEL
@@ -199,7 +152,7 @@ public class MainWindow extends JFrame implements GameObserver, KeyListener {
 		middlePannelRightBottom.setPreferredSize(new Dimension(50,50));
 		
 		//COMBOBOX
-		Cbox = new JComboBox<String>(names);
+		Cbox = new JComboBox<GameType>(names);
 		Cbox.setSelectedIndex(0); 
 		Cbox.setFont(new Font("Arial", Font.BOLD, 24)); 
 		Cbox.setBorder(new EmptyBorder(10, 10, 10, 10));
@@ -218,6 +171,14 @@ public class MainWindow extends JFrame implements GameObserver, KeyListener {
 		changeButton.setFont(new Font("Arial", Font.BOLD, 24));
 		c = configureConstraint(GridBagConstraints.NONE, 0, 2, 0.1, 0.1); // gridX, gridY, weightX, weightY 
 		middlePannelRightBottom.add(changeButton,c);
+		
+		changeButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				GameType name = (GameType)Cbox.getSelectedItem();
+				//estos valores de 8, 8 deben ser tomados del usuario
+				ctrl.changeGame(name, 8, 8);
+			}
+		});
 		
 		c = configureConstraint(GridBagConstraints.BOTH, 0, 1, 1, 1); // For the bottom of the dark side panel 
 		middlePanelRight.add(middlePannelRightBottom,c);
@@ -326,28 +287,19 @@ public class MainWindow extends JFrame implements GameObserver, KeyListener {
 				System.out.println("----");
 				
 				c = configureConstraint(GridBagConstraints.BOTH, i, j, 1, 1); // gridX, gridY, weightX, weightY 
-				middlePanelLeft.add(new JButton("Empty"),  c); // All to empty
+				
+				if (board.getPosition(i, j) == Counter.EMPTY) {
+					middlePanelLeft.add(new JButton("EMPTY"),  c); // All to empty
+				} else if (board.getPosition(i, j) == Counter.WHITE) {
+					middlePanelLeft.add(new JButton("WHITE"),  c); // All to empty
+				} else if (board.getPosition(i, j) == Counter.BLACK) {
+					middlePanelLeft.add(new JButton("BLACK"),  c); // All to empty
+				}
+				
 			}
 		}
 		middlePanelLeft.revalidate();
 	}
 
-	@Override
-	public void keyPressed(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void keyTyped(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
 
 }
