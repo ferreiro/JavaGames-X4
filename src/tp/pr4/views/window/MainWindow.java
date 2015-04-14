@@ -54,7 +54,8 @@ public class MainWindow extends JFrame implements GameObserver, KeyListener {
 		JButton logoHeader = new JButton(); // Logo
 		logoHeader = createButton(200,  50, "Logotipo", "", new Color(0,0,0,0), false );  
 		topPanel.add(logoHeader, configureConstraint(GridBagConstraints.BOTH, 1, 2, 0.1, 0.1)); // gridX, gridY, weightX, weightY );
-
+		
+		/*
 		bottomPanel = createPanel(new Color(230, 230, 230), 70, 130);
 		mainPanel.add(bottomPanel, BorderLayout.PAGE_END);
 		
@@ -106,6 +107,7 @@ public class MainWindow extends JFrame implements GameObserver, KeyListener {
 				inputTxt.setText(null);
 			}
 		});
+		*/
 
 		//////////////////////// MARGINS ///////////////////////
 		// LEFT MARGIN PANEL
