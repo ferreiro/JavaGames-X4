@@ -15,10 +15,10 @@ public class Board implements ReadOnlyBoard {
 		this.width = tx; // Row
 		this.height = ty;  // column
 		
-		if ((tx < 1) || (ty < 1)) /* Creates a 1x1 board if dimensions are wrong */
+		if ((tx < 1) || (ty < 1)) { /* Creates a 1x1 board if dimensions are wrong */
 			width = 1;
 			height = 1;
-			
+		}
 		board = new Counter[height][width];
 		emptyCells(); // restart the board
 		occupiedCells = 0;
