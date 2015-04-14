@@ -48,12 +48,12 @@ public class MainWindow extends JFrame implements GameObserver {
 	private JPanel mainPanel, topPanel, bottomPanel, leftMargin, rightMargin, middlePanelLeft, middlePanelRight, middlePanel;
 	private JTextArea inputTxt;
 	private JComboBox<GameType> Cbox;
-	private WindowController ctrl;
+	private WindowController wController;
 	
 	public MainWindow(GameTypeFactory gType, Game game) {
 		super(); 
+		this.wController = new WindowController(gType, game); 
 		initGUI(); 
-		ctrl = new WindowController(gType, game); 
 	}
 	
 	private void initGUI() { 
@@ -136,6 +136,13 @@ public class MainWindow extends JFrame implements GameObserver {
  			}
 		});
 		
+		// Dimension gravity Change
+		JPanel gravityDimensionsPanel = new JPanel();
+		gravityDimensionsPanel.setBackground(new Color(0,0,0,1));
+		gravityDimensionsPanel.setPreferredSize(new Dimension(10,10));
+		middlePanelRightTop.add(gravityDimensionsPanel, c);
+		
+		
 		// CHANGE COLOR // TODO : IDEA
 		JButton changeColor = new JButton();
 		changeColor = createButton(100, 55, "Change Color", Resources.RESOURCES_URL + "undo.png", new Color(255,255,0), true);   
@@ -178,12 +185,12 @@ public class MainWindow extends JFrame implements GameObserver {
 		changeButton.setFont(new Font("Arial", Font.BOLD, 24));
 		c = configureConstraint(GridBagConstraints.NONE, 0, 2, 0.1, 0.1); // gridX, gridY, weightX, weightY 
 		middlePannelRightBottom.add(changeButton,c);
-		
+				
 		changeButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				GameType name = (GameType)Cbox.getSelectedItem();
 				//estos valores de 8, 8 deben ser tomados del usuario
-				ctrl.changeGame(name, 8, 8);
+				wController.changeGame(name, 8, 20);
 			}
 		});
 		
@@ -279,6 +286,7 @@ public class MainWindow extends JFrame implements GameObserver {
 	public void reset(ReadOnlyBoard board, Counter player, Boolean undoPossible) { 
 		int x = board.getWidth(), y = board.getHeight();
 		GridBagConstraints c = new GridBagConstraints();
+		JButton b;
 		
 		middlePanelLeft.removeAll(); // remove previous buttons from grid layout
 
@@ -294,13 +302,23 @@ public class MainWindow extends JFrame implements GameObserver {
 				System.out.println("----");
 				
 				c = configureConstraint(GridBagConstraints.BOTH, i, j, 1, 1); // gridX, gridY, weightX, weightY 
+				b = new JButton();
+				b.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						System.out.println("pressed");
+						
+					}
+				});
 				
 				if (board.getPosition(i, j) == Counter.EMPTY) {
-					middlePanelLeft.add(new JButton("EMPTY"),  c); // All to empty
+					b.setText("EMPTY");
+					middlePanelLeft.add(b,c); // All to empty
 				} else if (board.getPosition(i, j) == Counter.WHITE) {
-					middlePanelLeft.add(new JButton("WHITE"),  c); // All to empty
+					b.setText("WHITE");
+					middlePanelLeft.add(b,c); // All to empty
 				} else if (board.getPosition(i, j) == Counter.BLACK) {
-					middlePanelLeft.add(new JButton("BLACK"),  c); // All to empty
+					b.setText("BLACK");
+					middlePanelLeft.add(b,c); // All to empty
 				}
 				
 			}
