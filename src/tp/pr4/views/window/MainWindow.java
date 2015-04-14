@@ -22,6 +22,8 @@ import java.util.Locale;
 
 
 
+
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
@@ -29,9 +31,13 @@ import javax.swing.border.EmptyBorder;
 
 
 
+
+
 import tp.pr4.Resources.Resources;
+import tp.pr4.control.GameTypeFactory;
 import tp.pr4.control.WindowController;
 import tp.pr4.logic.Counter;
+import tp.pr4.logic.Game;
 import tp.pr4.logic.GameObserver;
 import tp.pr4.logic.GameType;
 import tp.pr4.logic.ReadOnlyBoard;
@@ -44,9 +50,10 @@ public class MainWindow extends JFrame implements GameObserver {
 	private JComboBox<GameType> Cbox;
 	private WindowController ctrl;
 	
-	public MainWindow() {
+	public MainWindow(GameTypeFactory gType, Game game) {
 		super(); 
-		initGUI();
+		initGUI(); 
+		ctrl = new WindowController(gType, game); 
 	}
 	
 	private void initGUI() { 

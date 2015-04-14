@@ -89,10 +89,10 @@ public class Game implements Observable<GameObserver> {
 	}
 	
 	// Create a window
-	public void createWindow() {
+	/* public void createWindow() {
 		window = new MainWindow();
 	}
-	
+	*/
 	// Close and reset game
 
 	public void closeGame() {

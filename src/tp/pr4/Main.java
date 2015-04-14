@@ -34,7 +34,7 @@ public class Main {
 		  
 		// Adding observers from the model (Game)
 		g.addObserver(new ConsoleView(g));
-		g.addObserver(new MainWindow());
+		g.addObserver(new MainWindow(factory, g));
 	
 		wController.initGame();
 		wController.run();
