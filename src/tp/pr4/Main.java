@@ -38,7 +38,7 @@ public class Main {
 	
 		wController.initGame();
 		wController.run();
-		cController.run();
+		// cController.run();
 /*
  * 		PREVIOUS MAIN OF THE PROJECT
  * 

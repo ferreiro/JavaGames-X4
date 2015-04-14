@@ -126,9 +126,10 @@ public class MainWindow extends JFrame implements GameObserver, KeyListener {
 		GridBagConstraints c = new GridBagConstraints();
 		 
 		// Creating the tablePane one hay que cambiar el hecho de que conjja c4, complica o gravity
-		middlePanelLeft = new JPanel(new GridLayout(dimX, dimY, 2, 2));
+		middlePanelLeft = new JPanel(new GridBagLayout());
 		middlePanelLeft.setBackground(Color.LIGHT_GRAY);
 		middlePanelLeft.setSize(120,120);
+
 		//lo que es dibujar los circulos no es aqui en la inicialización
 		
 		//table part
@@ -309,16 +310,26 @@ public class MainWindow extends JFrame implements GameObserver, KeyListener {
 	@Override
 	public void reset(ReadOnlyBoard board, Counter player, Boolean undoPossible) { 
 		int x = board.getWidth(), y = board.getHeight();
+		GridBagConstraints c = new GridBagConstraints();
 		
 		middlePanelLeft.removeAll(); // remove previous buttons from grid layout
-		middlePanelLeft.setLayout(new GridLayout(x, y, 2, 2));
+
+		// System.out.println("X: " + x);
+		// System.out.println("Y: " + y);
+		// System.out.println("----");
 		
-		System.out.println("x: " + x);
-		System.out.println("y: " + y);
-		
-		for(int i = 0; i < x; i++) 
-			for (int j = 0; j < y; j++)
-				middlePanelLeft.add(new JButton("X"));
+		for(int i = 0; i < x; i++) {
+			for (int j = 0; j < y; j++) {
+
+				System.out.println("i: " + i);
+				System.out.println("j: " + j);
+				System.out.println("----");
+				
+				c = configureConstraint(GridBagConstraints.BOTH, i, j, 1, 1); // gridX, gridY, weightX, weightY 
+				middlePanelLeft.add(new JButton("Empty"),  c); // All to empty
+			}
+		}
+		middlePanelLeft.revalidate();
 	}
 
 	@Override
