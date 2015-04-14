@@ -18,12 +18,12 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.Locale;
 
-import javafx.scene.image.Image;
+//import javafx.scene.image.Image;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
-import com.sun.glass.ui.Size;
+//import com.sun.glass.ui.Size;
 
 import tp.pr4.Resources.Resources;
 import tp.pr4.logic.Counter;
