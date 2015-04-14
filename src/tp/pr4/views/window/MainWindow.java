@@ -306,7 +306,17 @@ public class MainWindow extends JFrame implements GameObserver, KeyListener {
 
 	@Override
 	public void reset(ReadOnlyBoard board, Counter player, Boolean undoPossible) { 
-		// TODO Auto-generated method stub
+		int x = board.getWidth(), y = board.getHeight();
+		
+		middlePanelLeft.removeAll(); // remove previous buttons from grid layout
+		middlePanelLeft.setLayout(new GridLayout(x, y, 2, 2));
+		
+		System.out.println("x: " + x);
+		System.out.println("y: " + y);
+		
+		for(int i = 0; i < x; i++) 
+			for (int j = 0; j < y; j++)
+				middlePanelLeft.add(new JButton("X"));
 	}
 
 	@Override

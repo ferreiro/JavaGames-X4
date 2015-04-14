@@ -14,7 +14,6 @@ import tp.pr4.views.window.MainWindow;
 public class Game implements Observable<GameObserver> {
 
 	private Board board;
-	private ReadOnlyBoard BReadOnly = getBoard();
 	private Counter turn;
 	private Counter winner;
 	private boolean finished;
@@ -36,6 +35,8 @@ public class Game implements Observable<GameObserver> {
 		winner = Counter.EMPTY;
 		finished = false;
 		stack.clear();
+		for (GameObserver o : obsList)
+			o.reset(board, turn, false);
 	}
 	
 	public boolean executeMove(Move mov) throws InvalidMove {  
@@ -96,12 +97,12 @@ public class Game implements Observable<GameObserver> {
 
 	public void closeGame() {
 		for (GameObserver o : obsList) 
-			o.onGameOver(BReadOnly, winner);
+			o.onGameOver(board, winner);
 	}
 
 	public void resetGame() {
 		for (GameObserver o : obsList) 
-			o.reset(BReadOnly, turn, false);
+			o.reset(board, turn, false);
 	}
 	
 	// Next Player
@@ -131,7 +132,7 @@ public class Game implements Observable<GameObserver> {
 			turn = previousMove.getPlayer(); // Bug fixed!!! Actualizar el color del jugador!
 			
 			for (GameObserver o : obsList)
-				o. onUndo(BReadOnly, turn, success); // Avisar al observer que se ha modificado el undo			
+				o.onUndo(board, turn, success); // Avisar al observer que se ha modificado el undo			
 		}
 		else {
 			for(GameObserver o : obsList)
