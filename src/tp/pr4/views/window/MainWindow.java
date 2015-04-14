@@ -306,7 +306,7 @@ public class MainWindow extends JFrame implements GameObserver {
 				b.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						System.out.println("pressed");
-						
+						// wController.makeMove(i, j,);
 					}
 				});
 				
