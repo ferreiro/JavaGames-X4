@@ -82,7 +82,7 @@ public class Board implements ReadOnlyBoard {
 	/*
 	 * 
 	 * This methos is not used in the fourth assigment
-	 * 
+	 */
 	public void printBoard() {
 		String line = "";
 		
@@ -135,7 +135,6 @@ public class Board implements ReadOnlyBoard {
 		
 		return line;
 	}
-	*/
 
 	
 }

@@ -67,10 +67,9 @@ public class Resources {
 		String optionString = "", lowerCaseStr;
 		
 		while (!valid) {
-			/*
-			 * This method is not used in the forth assigment
-			 *	game.getBoard().printBoard();
-			*/
+			
+			 game.getBoard().printBoard();
+			
 			whoMoves(game);
 			System.out.print ("Please enter a command: ");
 
