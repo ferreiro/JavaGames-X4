@@ -26,11 +26,8 @@ public class Main {
 		GameRules r = new Connect4Rules();
 		Game g = new Game(r);	// The game is the model
 		GameTypeFactory factory = new Connect4Factory();
-		Controller controller = new WindowController(factory , g);
-		  
-		// Adding observers from the model (Game)
-		g.addObserver(new ConsoleView(g));
-		g.addObserver(new MainWindow(factory, g));
+		Controller controller;
+		 
 
 		if (args.length == 0){
 			valid = true;
@@ -70,9 +67,11 @@ public class Main {
 			else if(args[0].equals("-u") || args[0].equals("--ui")){
 				if (args[1].equals("console")){
 					window = false;
+					valid = true;
 				}
 				else if (args[1].equals("window")){
 					window = true;
+					valid = true;
 				}
 				else{
 					
@@ -148,12 +147,15 @@ public class Main {
 		if(valid) {
 			g = new Game(r);
 			
+			// Adding observers from the model (Game)
+			g.addObserver(new ConsoleView(g));
+			g.addObserver(new MainWindow(factory, g));
+			
 			if (window)
 				controller = new WindowController(factory, g);
 			else
-				controller = new ConsoleController(factory, g);
+				controller = new ConsoleController(factory, g, in);
 			
-			controller.initGame();
 			controller.run();
 //				System.exit(0);
 		}

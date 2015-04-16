@@ -1,5 +1,7 @@
 package tp.pr4.control;
 
+import java.util.Scanner;
+
 import tp.pr4.Resources.Resources;
 import tp.pr4.logic.Counter;
 import tp.pr4.logic.Game;
@@ -7,10 +9,11 @@ import tp.pr4.logic.InvalidMove;
 import tp.pr4.logic.Move;
 
 public class ConsoleController extends Controller{
-	static java.util.Scanner in;
+	private Scanner in;
 	
-	public ConsoleController(GameTypeFactory factory, Game g) {
+	public ConsoleController(GameTypeFactory factory, Game g, java.util.Scanner in) {
 		super(factory,g, in);
+		this.in= in;
 	}
 	
 	public void run() {
