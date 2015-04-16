@@ -13,10 +13,8 @@ import tp.pr4.control.WindowController;
 import tp.pr4.logic.ComplicaRules;
 import tp.pr4.logic.Connect4Rules;
 import tp.pr4.logic.Game;
-import tp.pr4.logic.GameObserver;
 import tp.pr4.logic.GameRules;
 import tp.pr4.logic.GravityRules;
-import tp.pr4.logic.Rules;
 import tp.pr4.views.console.ConsoleView;
 import tp.pr4.views.window.MainWindow;
 
@@ -28,28 +26,14 @@ public class Main {
 		GameRules r = new Connect4Rules();
 		Game g = new Game(r);	// The game is the model
 		GameTypeFactory factory = new Connect4Factory();
-
-		WindowController wController = new WindowController(factory , g);
-		ConsoleController cController = new ConsoleController(factory , g);
+		Controller controller = new WindowController(factory , g);
 		  
 		// Adding observers from the model (Game)
 		g.addObserver(new ConsoleView(g));
 		g.addObserver(new MainWindow(factory, g));
-	
-		wController.initGame();
-		wController.run();
-		// cController.run();
-/*
- * 		PREVIOUS MAIN OF THE PROJECT
- * 
-		Game game;
-		Scanner in = new Scanner(System.in);
-		Controller controller;
+ 
 		
-		GameRules gameRules = new Connect4Rules();
-		GameTypeFactory f = new Connect4Factory();
-		
-		boolean valid = false, help = false;
+		boolean valid = false, help = false, window = true;
 		
 			if (args.length == 0){
 				valid = true;
@@ -67,23 +51,34 @@ public class Main {
 			else if (args.length == 2) {
 				if (args[0].equals("-g") || args[0].equals("--game")){
 					if (args[1].equals("c4")){
-						gameRules = new Connect4Rules();
-						f = new Connect4Factory();
+						r = new Connect4Rules();
+						factory = new Connect4Factory();
 						valid = true;
 					}
 					else if (args[1].equals("co")){
-						gameRules = new ComplicaRules();
-						f = new ComplicaFactory();
+						r = new ComplicaRules();
+						factory = new ComplicaFactory();
 						valid = true;
 					}
 					else if (args[1].equals("gr")){
-						gameRules = new GravityRules(Resources.DIMX_GRAVITY, Resources.DIMY_GRAVITY);
-						f = new GravityFactory(Resources.DIMX_GRAVITY, Resources.DIMY_GRAVITY);
+						r = new GravityRules(Resources.DIMX_GRAVITY, Resources.DIMY_GRAVITY);
+						factory = new GravityFactory(Resources.DIMX_GRAVITY, Resources.DIMY_GRAVITY);
 						valid = true;
 					}
 					else {
 						System.err.println("Incorrect use: game ’" + args[1].toLowerCase() + "’ incorrect.");
 						System.err.println("For more details, use -h|--help.");
+					}
+				}
+				else if(args[0].equals("-u") || args[0].equals("--ui")){
+					if (args[1].equals("console")){
+						window = false;
+					}
+					else if (args[1].equals("window")){
+						window = true;
+					}
+					else{
+						
 					}
 				}
 				else {
@@ -110,8 +105,8 @@ public class Main {
 										   Integer.parseInt(args[5]);
 										   Resources.setGravityDimX(Integer.parseInt(args[3]));
 										   Resources.setGravityDimY(Integer.parseInt(args[5]));
-										   gameRules = new GravityRules(Resources.DIMX_GRAVITY, Resources.DIMY_GRAVITY);
-										   f = new GravityFactory(Resources.DIMX_GRAVITY, Resources.DIMY_GRAVITY);
+										   r = new GravityRules(Resources.DIMX_GRAVITY, Resources.DIMY_GRAVITY);
+										   factory = new GravityFactory(Resources.DIMX_GRAVITY, Resources.DIMY_GRAVITY);
 										   valid = true;
 									   }
 									   catch(NumberFormatException e){
@@ -154,11 +149,16 @@ public class Main {
 			}
 			
 			if(valid){
-				game = new Game(gameRules);
+				g = new Game(r);
 				
-				controller = new Controller(f, game, in);
+				if (window)
+					controller = new WindowController(factory, g);
+				else
+					controller = new ConsoleController(factory, g);
+				
+				controller.initGame();
 				controller.run();
-				System.exit(0);
+//				System.exit(0);
 			}
 			else if (help){
 				System.exit(0);
@@ -166,8 +166,6 @@ public class Main {
 			else{
 				System.exit(1);
 			}
- 			*/
-		
 	}
 }
 	

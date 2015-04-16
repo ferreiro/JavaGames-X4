@@ -321,6 +321,8 @@ public class Resources {
 		System.out.println("usage: tp.pr3.Main [-g <game>] [-h] [-x <columnNumber>] [-y <rowNumber>]");
 		System.out.println(" -g,--game <game>           Type of game (c4, co, gr). By default, c4.");
 		System.out.println(" -h,--help                  Displays this help.");
+		System.out.println(" -u,--ui<tipo>              Type of interface (console,window).");
+		System.out.println("                            by default console.");
 		System.out.println(" -x,--dimX <columnNumber>   Number of columns on the board (Gravity only).");
 		System.out.println("                            By default, 10.");
 		System.out.println(" -y,--dimY <rowNumber>      Number of rows on the board (Gravity only). By");
