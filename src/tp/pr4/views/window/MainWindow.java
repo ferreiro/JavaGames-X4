@@ -117,7 +117,8 @@ public class MainWindow extends JFrame implements GameObserver {
 		
 		randomButton.addActionListener(new ActionListener() { 
 			public void actionPerformed(ActionEvent e) {
-				wController.changePlayer();
+				wController.randomMove();
+//				wController.getGame().getBoard().printBoard();
 			}
 		});
 		
@@ -129,6 +130,7 @@ public class MainWindow extends JFrame implements GameObserver {
 		undoButton.addActionListener(new ActionListener() { 
 			public void actionPerformed(ActionEvent arg0) {
 				wController.undo();
+//				wController.getGame().getBoard().printBoard();
 			}
 		});
 
