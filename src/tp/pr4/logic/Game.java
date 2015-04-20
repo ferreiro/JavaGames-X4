@@ -12,7 +12,6 @@ import tp.pr4.logic.Move;
 import tp.pr4.views.window.MainWindow;
 
 public class Game implements Observable<GameObserver> {
-
 	private Board board;
 	private Counter turn;
 	private Counter winner;
@@ -46,11 +45,12 @@ public class Game implements Observable<GameObserver> {
 		if ((mov.getPlayer() == turn) && (!finished)) { // No puede permitir hacer movimientos fuera de turno o se ha terminado el juego
 			
 			finished = false;
-			winner = Counter.EMPTY;
+			winner = Counter.EMPTY;  
+			System.out.println("Hey, executeMove from Game.java"); // Debug stuff
 			
-			for(GameObserver o : obsList)
+			for(GameObserver o : obsList) {
 				o.moveExecStart(mov.getPlayer());
-			
+			}
 			valid = mov.executeMove(board);
 			
 			if (valid) { 

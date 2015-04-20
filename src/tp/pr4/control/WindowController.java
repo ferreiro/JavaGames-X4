@@ -52,6 +52,9 @@ public class WindowController extends Controller {
 	}
 	
 	public void run() {
+		System.out.println("To here");
+		
+		
 		/*while(!game.isFinished()) {
 			reset();
 			

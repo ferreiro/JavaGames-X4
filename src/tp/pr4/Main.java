@@ -25,26 +25,32 @@ public class Main {
 
 	public static void main(String[] args) {
 		boolean valid = true, help = false;
-		
+		Deque<String> deque = new ArrayDeque<>();
 		int modeInt = 0; // 0 window, 1 console
 		int gameInt = 0; // 0 c4, 1 co, 2 gr
-		
-		
 		int counter = 0;
-		Deque<String> deque = new ArrayDeque<>();
-		
 		Scanner in = new Scanner(System.in);
 		GameRules r = new Connect4Rules();
 		Game g = new Game(r);	// The game is the model
 		GameTypeFactory factory = new Connect4Factory();
 		Controller controller;
 		
+		// Test some stuff
+		/*
+		GameRules testR = new Connect4Rules();
+		Game testG = new Game(testR); 
+		GameTypeFactory testF = new Connect4Factory();
+		testG.addObserver(new MainWindow(testF, testG));
+		WindowController testW = new WindowController(testF, testG);
+		testW.run();
+		System.out.println("Finishing game test");
+		*/
 		
-		for (int i = 0; i< args.length; i++){
+		for (int i = 0; i< args.length; i++) {
 			deque.addLast(args[i].toLowerCase());
 		}
 		
-		while (counter < args.length && valid){
+		while (counter < args.length && valid) {
 			if (deque.getFirst().equals("-h") || deque.getFirst().equals("--help")){
 				deque.removeFirst();
 				Resources.helpInit();
@@ -134,12 +140,11 @@ public class Main {
 			factory = new GravityFactory(Resources.DIMX_GRAVITY, Resources.DIMY_GRAVITY);
 		}
 		
-		if (modeInt == 0)
+		if (modeInt == 0) {
 			controller = new WindowController(factory, g);
-		else
+		} else {
 			controller = new ConsoleController(factory, g, in);
-		
-
+		}
 		
 		if(valid) {
 			g = new Game(r);
@@ -148,9 +153,8 @@ public class Main {
 			g.addObserver(new ConsoleView(g));
 			g.addObserver(new MainWindow(factory, g));
 			
-			
 			controller.run();
-//				System.exit(0);
+			// System.exit(0);
 		}
 		else if (help){
 			System.exit(0);

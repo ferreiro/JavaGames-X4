@@ -115,11 +115,22 @@ public class MainWindow extends JFrame implements GameObserver {
 		c = configureConstraint(GridBagConstraints.CENTER, 0, 0, 0.1, 0.3); // gridX, gridY, weightX, weightY 
 		middlePanelRightTop.add(randomButton,c);
 		
+		randomButton.addActionListener(new ActionListener() { 
+			public void actionPerformed(ActionEvent e) {
+				wController.changePlayer();
+			}
+		});
+		
 		// UNDO BUTTON
 		JButton undoButton = new JButton("Undo");
 		undoButton = createButton(230,  100, "Undo", Resources.RESOURCES_URL + "undo.png", new Color(255,255,0), true);  
 		c = configureConstraint(GridBagConstraints.CENTER, 1, 0, 0.1, 0.3); // gridX, gridY, weightX, weightY 
 		middlePanelRightTop.add(undoButton,c);
+		undoButton.addActionListener(new ActionListener() { 
+			public void actionPerformed(ActionEvent arg0) {
+				wController.undo();
+			}
+		});
 
 		// RESET BUTTON
 		JButton resetButton = new JButton();
@@ -129,10 +140,7 @@ public class MainWindow extends JFrame implements GameObserver {
 
 		resetButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				// TODO Hacer que aparezca una popup con el mensaje: Estás seguro de que quieres resetear?
-				JCheckBox check = new JCheckBox();
-				JOptionPane.showMessageDialog(check, "Are you sure you want to close");//TODO method toString and finish the function
+				wController.reset();
  			}
 		});
 		
@@ -257,7 +265,7 @@ public class MainWindow extends JFrame implements GameObserver {
 
 	@Override
 	public void moveExecStart(Counter player) {
-		// TODO Auto-generated method stub
+		System.out.println("Hola, cómo estás?");
 	}
 
 	@Override
@@ -273,7 +281,7 @@ public class MainWindow extends JFrame implements GameObserver {
 
 	@Override
 	public void onUndo(ReadOnlyBoard board, Counter nextPlayer, boolean undoPossible) {
-		// TODO Auto-generated method stub
+		System.out.println("Undo, madafuka");
 	}
 
 	@Override
@@ -289,18 +297,10 @@ public class MainWindow extends JFrame implements GameObserver {
 		JButton b;
 		
 		middlePanelLeft.removeAll(); // remove previous buttons from grid layout
-
-		// System.out.println("X: " + x);
-		// System.out.println("Y: " + y);
-		// System.out.println("----");
-		
+ 
 		for(int i = 0; i < x; i++) {
 			for (int j = 0; j < y; j++) {
-
-				System.out.println("i: " + i);
-				System.out.println("j: " + j);
-				System.out.println("----");
-				
+ 
 				c = configureConstraint(GridBagConstraints.BOTH, i, j, 1, 1); // gridX, gridY, weightX, weightY 
 				b = new JButton();
 				b.addActionListener(new ActionListener() {
@@ -320,11 +320,9 @@ public class MainWindow extends JFrame implements GameObserver {
 					b.setText("BLACK");
 					middlePanelLeft.add(b,c); // All to empty
 				}
-				
 			}
 		}
 		middlePanelLeft.revalidate();
 	}
-
 
 }
