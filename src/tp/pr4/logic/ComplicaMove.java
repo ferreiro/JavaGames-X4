@@ -30,9 +30,6 @@ public class ComplicaMove extends Move {
 				Resources.moveColumnDown(board, column);
 				board.setPosition(column, 1, super.getPlayer());
 		}
-		else {
-			throw new InvalidMove("Invalid move: column number " + column + " is not on the board.");
-		}
 		return validMove;
 	}
 	
