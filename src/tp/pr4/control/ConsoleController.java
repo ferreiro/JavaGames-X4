@@ -36,7 +36,6 @@ public class ConsoleController extends Controller{
 					}
 				}
 				catch(InvalidMove e) {
-//					System.err.println(e.getMessage());
 				} 
 				if (getGame().isFinished()) {
 					exit = true;
@@ -49,15 +48,12 @@ public class ConsoleController extends Controller{
 				undo = getGame().undo();
 				if (undo){
 					changePlayer(); // Change Current player
-				}else{ 
-//					System.out.println("Nothing to undo, please try again");
 				}
 
 				break;
 			case 2:
 				// Restart 
 				initGame(); // restart the game
-//				System.out.println("Game restarted.");
 				break;
 				
 			case 3:
@@ -70,21 +66,18 @@ public class ConsoleController extends Controller{
 				
 				setGameType(new Connect4Factory());
 				initGame();
-//				System.out.println("Game restarted.");
 				 
 				break;
 			case 5://co
 				
 				setGameType(new ComplicaFactory());
 				initGame();
-//				System.out.println("Game restarted.");
 				
 				break;
 			case 6: //gr
 				
 				setGameType(new GravityFactory(Resources.DIMX_GRAVITY, Resources.DIMY_GRAVITY)); 
 				initGame();
-//				System.out.println("Game restarted.");
 
 				break;
 			case 7:
@@ -120,24 +113,9 @@ public class ConsoleController extends Controller{
 				 */
 				in.close();
 				Counter counterWinner = getGame().getWinner();
-				exit = true;
-				
-//				System.out.print("Game over."); 
-//				if (counterWinner != Counter.EMPTY) {
-//					if (counterWinner == Counter.WHITE) {
-//						System.out.println("White wins"); 
-//					}
-//					if (counterWinner == Counter.BLACK) {
-//						System.out.println("Black wins"); 
-//					}
-//				}
-//				else {
-//					System.out.println("Tie game, no winner");
-//				}					
+				exit = true;					
 			}  
 		} while(!exit);	
-		
-//		System.out.println("Closing the game...  ");
 		 
 	}
 }

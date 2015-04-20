@@ -24,7 +24,7 @@ import tp.pr4.views.window.MainWindow;
 public class Main {
 
 	public static void main(String[] args) {
-		boolean valid = true, help = false;
+		boolean valid = true;
 		Deque<String> deque = new ArrayDeque<>();
 		int modeInt = 0; // 0 window, 1 console
 		int gameInt = 0; // 0 c4, 1 co, 2 gr
@@ -54,10 +54,8 @@ public class Main {
 			if (deque.getFirst().equals("-h") || deque.getFirst().equals("--help")){
 				deque.removeFirst();
 				Resources.helpInit();
-				help = true;
 			}
 			else if(deque.getFirst().equals("-g") || deque.getFirst().equals("--game")){
-				help = false;
 				deque.removeFirst();
 				if (deque.getFirst().equals("c4")){
 					deque.removeFirst();
@@ -79,7 +77,6 @@ public class Main {
 				counter++;
 			}
 			else if(deque.getFirst().equals("-u") || deque.getFirst().equals("--ui")){
-				help = false;
 				deque.removeFirst();
 				if (deque.getFirst().equals("console")){
 					deque.removeFirst();
@@ -97,7 +94,6 @@ public class Main {
 				counter++;
 			}
 			else if(deque.getFirst().equals("-x") || deque.getFirst().equals("--dimX")){
-				help = false;
 				deque.removeFirst();
 				try {
 					   Integer.parseInt(deque.getFirst());
@@ -112,7 +108,6 @@ public class Main {
 				counter++;
 			}
 			else if(deque.getFirst().equals("-y") || deque.getFirst().equals("--dimY")){
-				help = false;
 				deque.removeFirst();
 				try {
 					   Integer.parseInt(deque.getFirst());
@@ -152,9 +147,6 @@ public class Main {
 			g = new Game(r);
 				
 			controller.run();
-		}
-		else if (help){
-			System.exit(0);
 		}
 		else{
 			System.exit(1);
