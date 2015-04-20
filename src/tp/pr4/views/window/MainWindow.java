@@ -24,10 +24,12 @@ import java.util.Locale;
 
 
 
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
 //import com.sun.glass.ui.Size;
+
 
 
 
@@ -66,9 +68,9 @@ public class MainWindow extends JFrame implements GameObserver {
 		mainPanel.add(topPanel, BorderLayout.PAGE_START); 
 
 		JButton logoHeader = new JButton(); // Logo
-		logoHeader = createButton(200,  50, "Logotipo", "", new Color(0,0,0,0), false );  
+		logoHeader = createButton(300,  60, "", Resources.RESOURCES_URL+"/logo.png", new Color(255,255,255,1), false );
 		topPanel.add(logoHeader, configureConstraint(GridBagConstraints.BOTH, 1, 2, 0.1, 0.1)); // gridX, gridY, weightX, weightY );
-
+		
 		//////////////////////// MARGINS ///////////////////////
 		// LEFT MARGIN PANEL
 		leftMargin = new JPanel();
@@ -245,7 +247,7 @@ public class MainWindow extends JFrame implements GameObserver {
 	public JButton createButton(int w, int h, String name, String fileName, Color c, boolean border) {
 		JButton b = new JButton();
 		b.setBackground(c);
-		b.setPreferredSize(new Dimension(200, 50)); 
+		b.setPreferredSize(new Dimension(w, h)); 
 		if (fileName != "") b.setIcon(new ImageIcon(fileName));
 		if (name != "") b.setText(name);
 		if (!border) 	b.setBorder(null);
@@ -304,24 +306,27 @@ public class MainWindow extends JFrame implements GameObserver {
 			for (int j = 0; j < y; j++) {
  
 				c = configureConstraint(GridBagConstraints.BOTH, i, j, 1, 1); // gridX, gridY, weightX, weightY 
-				b = new JButton();
+				b = new JButton(); 
+				/*
 				b.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						System.out.println("pressed");
-						// wController.makeMove(i, j,);
+						wController.makeMove(i, j, wController.getCounter());
 					}
 				});
-				
-				b.setBackground(new Color(255,255,0));
-				
+				*/
 				if (board.getPosition(i, j) == Counter.EMPTY) {
 					b.setText("EMPTY");
+					b.setBackground(new Color(207,207,207)); 
 					middlePanelLeft.add(b,c); // All to empty
+				
 				} else if (board.getPosition(i, j) == Counter.WHITE) {
 					b.setText("WHITE");
+					b.setBackground(new Color(255,255,255));
 					middlePanelLeft.add(b,c); // All to empty
 				} else if (board.getPosition(i, j) == Counter.BLACK) {
 					b.setText("BLACK");
+					b.setBackground(new Color(0,0,0));
 					middlePanelLeft.add(b,c); // All to empty
 				}
 			}
