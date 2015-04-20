@@ -8,7 +8,7 @@ import tp.pr4.logic.ReadOnlyBoard;
 public class ConsoleView implements GameObserver {
 	
 	public ConsoleView(Observable<GameObserver> g) {
-		g.addObserver(this); //
+//		g.addObserver(this); //
 	}
 	
 	@Override
