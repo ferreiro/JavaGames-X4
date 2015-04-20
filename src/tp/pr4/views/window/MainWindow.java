@@ -118,6 +118,7 @@ public class MainWindow extends JFrame implements GameObserver {
 		randomButton.addActionListener(new ActionListener() { 
 			public void actionPerformed(ActionEvent e) {
 				wController.changePlayer();
+				// wController.randomMove(wController.getT);
 			}
 		});
 		
@@ -309,6 +310,8 @@ public class MainWindow extends JFrame implements GameObserver {
 						// wController.makeMove(i, j,);
 					}
 				});
+				
+				b.setBackground(new Color(255,255,0));
 				
 				if (board.getPosition(i, j) == Counter.EMPTY) {
 					b.setText("EMPTY");
