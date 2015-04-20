@@ -142,19 +142,16 @@ public class Main {
 		
 		if (modeInt == 0) {
 			controller = new WindowController(factory, g);
+			g.addObserver(new MainWindow(factory, g));
 		} else {
 			controller = new ConsoleController(factory, g, in);
+			g.addObserver(new ConsoleView(g));
 		}
 		
 		if(valid) {
 			g = new Game(r);
-			
-			// Adding observers from the model (Game)
-			g.addObserver(new ConsoleView(g));
-			g.addObserver(new MainWindow(factory, g));
-			
+				
 			controller.run();
-			// System.exit(0);
 		}
 		else if (help){
 			System.exit(0);

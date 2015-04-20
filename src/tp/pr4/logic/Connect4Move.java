@@ -19,13 +19,8 @@ public class Connect4Move extends Move {
 				validMove = true;
 				board.setPosition(column, firstFreeRow, super.getPlayer()); 
 			}
-			else{
-				throw new InvalidMove("Invalid move: column number " + column + " is already full.");
-			}
 		}
-		else {
-			throw new InvalidMove("Invalid move: column number " + column + " is not on the board.");
-		}
+
 		return validMove;
 	}
 

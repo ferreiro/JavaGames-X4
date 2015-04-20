@@ -46,7 +46,6 @@ public class Game implements Observable<GameObserver> {
 			
 			finished = false;
 			winner = Counter.EMPTY;  
-			System.out.println("Hey, executeMove from Game.java"); // Debug stuff
 			
 			for(GameObserver o : obsList) {
 				o.moveExecStart(mov.getPlayer());
@@ -72,6 +71,10 @@ public class Game implements Observable<GameObserver> {
 						finished = true;
 					} 
 				}
+			}
+			else{
+				for (GameObserver o : obsList) 
+					o.onMoveError("This is an invalid movement, please try again");
 			}
 		}
 		else {

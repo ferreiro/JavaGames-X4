@@ -22,13 +22,7 @@ public class GravityMove extends Move{
 				row = realMove.getRow();
 				column = realMove.getColumn();
 			}
-			else {
-				throw new InvalidMove("Invalid move: position (" + this.column + "," + this.row + ") is already occupied.");
-			}
-		}
-		else {
-			throw new InvalidMove("Invalid move: position (" + this.column + "," + this.row + ") is not on the board.");
-		}
+		}	
 		
 		return validMove;
 	}
