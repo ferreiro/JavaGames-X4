@@ -192,12 +192,15 @@ public class Resources {
 	}
 	
 	public static void moveColumnDown(Board board, int column) {
-		for (int i = board.getHeight(); i > 1; i--)
+		for (int i = board.getHeight(); i > 1; i--){
 			board.setPosition(column, i, board.getPosition(column , i - 1));
+		}
+		board.printBoard();
 	}
 	public static void moveColumnUp(Board board, int column) {
-		for (int i = 1 ; i < board.getHeight(); i++)
+		for (int i = 1 ; i < board.getHeight(); i++){
 			board.setPosition(column, i, board.getPosition(column, i + 1));
+		}
 	}
 	
 	// He tenido que escribir de nuevo la función de pedro para 

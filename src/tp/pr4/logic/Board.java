@@ -31,8 +31,9 @@ public class Board implements ReadOnlyBoard {
 	
 	public Counter getPosition(int x, int y) {
 		Counter color = Counter.EMPTY; 
-		if ((x >= 1 && x <= width) && (y >= 1 && y <= height)) 
+		if ((x >= 1 && x <= width) && (y >= 1 && y <= height)) {
 			color = board[y - 1][x - 1];
+		}
 		return color;		
 	}
 	
