@@ -185,7 +185,7 @@ public class MainWindow extends JFrame implements GameObserver {
 			public void actionPerformed(ActionEvent e) {
 				GameType name = (GameType)Cbox.getSelectedItem();
 				//estos valores de 8, 8 deben ser tomados del usuario
-				wController.changeGame(name, 8, 20);
+				wController.changeGame(name, 8, 8);
 			}
 		});
 		

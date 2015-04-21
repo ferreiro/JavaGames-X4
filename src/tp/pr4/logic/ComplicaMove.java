@@ -22,13 +22,15 @@ public class ComplicaMove extends Move {
 			validMove = true;
 			firstFreeRow = Resources.freeRowPosition(column, board);
 
-			if (firstFreeRow > -1) // Alguna celda está vacia. Así que ponemos la ficha en esa celda
+			if (firstFreeRow > -1){ // Alguna celda está vacia. Así que ponemos la ficha en esa celda
 				board.setPosition(column, firstFreeRow, super.getPlayer());
+			}
 			
-			else // Columna llena: Guardar en lostMove la celda actual y mover fichas
+			else {// Columna llena: Guardar en lostMove la celda actual y mover fichas
 				this.lostMove = board.getPosition(column, board.getHeight()); 
 				Resources.moveColumnDown(board, column);
 				board.setPosition(column, 1, super.getPlayer());
+			}
 		}
 		return validMove;
 	}
