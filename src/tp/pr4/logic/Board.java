@@ -54,12 +54,11 @@ public class Board implements ReadOnlyBoard {
 		if ((tx >= 1 && tx <= width) && (ty >= 1 && ty <= height)) 
 			if (board[ty-1][tx-1] == Counter.EMPTY && counter != Counter.EMPTY) {
 				occupiedCells++;
-				board[ty - 1][tx - 1] = counter;//cambiado x por y
 			}
 			else if (board[ty-1][tx-1] != Counter.EMPTY && counter == Counter.EMPTY) {
 				occupiedCells--;
-				board[ty - 1][tx - 1] = counter;//cambiado x por y
 			}
+		board[ty - 1][tx - 1] = counter;//cambiado x por y
 	}
 	
 	// Methods for checking if a board neither column is full or not.
