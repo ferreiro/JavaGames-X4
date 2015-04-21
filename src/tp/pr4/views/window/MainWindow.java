@@ -51,6 +51,8 @@ public class MainWindow extends JFrame implements GameObserver {
 	private JTextArea inputTxt;
 	private JComboBox<GameType> Cbox;
 	private WindowController wController;
+	private boolean active = false;
+	private JButton[][] buttons;
 	
 	public MainWindow(GameTypeFactory gType, Game game) {
 		super(); 
@@ -68,7 +70,7 @@ public class MainWindow extends JFrame implements GameObserver {
 		mainPanel.add(topPanel, BorderLayout.PAGE_START); 
 
 		JButton logoHeader = new JButton(); // Logo
-		logoHeader = createButton(300,  60, "", Resources.RESOURCES_URL+"/logo.png", new Color(255,255,255,1), false );
+		logoHeader = createAuxButton(300,  60, "", Resources.RESOURCES_URL+"/logo.png", new Color(255,255,255,1), false );
 		topPanel.add(logoHeader, configureConstraint(GridBagConstraints.BOTH, 1, 2, 0.1, 0.1)); // gridX, gridY, weightX, weightY );
 		
 		//////////////////////// MARGINS ///////////////////////
@@ -110,7 +112,7 @@ public class MainWindow extends JFrame implements GameObserver {
 
 		// RANDOM USER
 		JButton randomButton = new JButton();
-		randomButton = createButton(120,  100, "Random", Resources.RESOURCES_URL + "random.png", new Color(255,255,0), true); 
+		randomButton = createAuxButton(120,  100, "Random", Resources.RESOURCES_URL + "random.png", new Color(255,255,0), true); 
 		c = configureConstraint(GridBagConstraints.CENTER, 0, 0, 0.1, 0.3); // gridX, gridY, weightX, weightY 
 		middlePanelRightTop.add(randomButton,c);
 		
@@ -123,7 +125,7 @@ public class MainWindow extends JFrame implements GameObserver {
 		
 		// UNDO BUTTON
 		JButton undoButton = new JButton("Undo");
-		undoButton = createButton(230,  100, "Undo", Resources.RESOURCES_URL + "undo.png", new Color(255,255,0), true);  
+		undoButton = createAuxButton(230,  100, "Undo", Resources.RESOURCES_URL + "undo.png", new Color(255,255,0), true);  
 		c = configureConstraint(GridBagConstraints.CENTER, 1, 0, 0.1, 0.3); // gridX, gridY, weightX, weightY 
 		middlePanelRightTop.add(undoButton,c);
 		undoButton.addActionListener(new ActionListener() { 
@@ -135,7 +137,7 @@ public class MainWindow extends JFrame implements GameObserver {
 
 		// RESET BUTTON
 		JButton resetButton = new JButton();
-		resetButton = createButton(120,  100, "Restart", Resources.RESOURCES_URL + "reset.png", new Color(255,255,0), true); 
+		resetButton = createAuxButton(120,  100, "Restart", Resources.RESOURCES_URL + "reset.png", new Color(255,255,0), true); 
 		c = configureConstraint(GridBagConstraints.NONE, 2, 0, 0.1, 0.3); // gridX, gridY, weightX, weightY 
 		middlePanelRightTop.add(resetButton,c);
 
@@ -175,7 +177,7 @@ public class MainWindow extends JFrame implements GameObserver {
 		middlePannelRightBottom.add(blankPanel,c);
 		
 		//BUTTON FOR CHANGING
-		JButton changeButton = createButton(230,  100, "Change", Resources.RESOURCES_URL + "check.png", new Color(62,218,103), false);
+		JButton changeButton = createAuxButton(230,  100, "Change", Resources.RESOURCES_URL + "check.png", new Color(62,218,103), false);
 		changeButton.setForeground(Color.WHITE);
 		changeButton.setFont(new Font("Arial", Font.BOLD, 24));
 		c = configureConstraint(GridBagConstraints.NONE, 0, 2, 0.1, 0.1); // gridX, gridY, weightX, weightY 
@@ -227,7 +229,7 @@ public class MainWindow extends JFrame implements GameObserver {
 		return c;
 	}
 	
-	public JButton createButton(int w, int h, String name, String fileName, Color c, boolean border) {
+	private JButton createAuxButton(int w, int h, String name, String fileName, Color c, boolean border) {
 		JButton b = new JButton();
 		b.setBackground(c);
 		b.setPreferredSize(new Dimension(w, h)); 
@@ -235,6 +237,45 @@ public class MainWindow extends JFrame implements GameObserver {
 		if (name != "") b.setText(name);
 		if (!border) 	b.setBorder(null);
 		return b; 
+	}
+	
+	private JButton createButton(final int i, final int j) {
+		JButton button = new JButton();
+		button.setPreferredSize(new Dimension(40, 40));
+		final Counter colour = wController.getGame().getTurn();
+		
+		switch(colour) {
+		case BLACK:
+			button.setIcon(new ImageIcon("src/tp/pr4/icons/black.png"));
+			break;
+		case WHITE:
+			button.setIcon(new ImageIcon("src/tp/pr4/icons/white.png"));
+			break;
+		default:
+			
+			break;
+		}
+		//if (this.wController.get  .getClass() == ComplicaRules.class || colour == Counter.EMPTY) {
+			button.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					if (active) {
+						wController.makeMove(i + 1, j + 1, colour);
+					}	
+				}
+			});
+		// }
+		return button;	
+		
+		/*
+		JButton x = new JButton(v == 0 ? "" : v + ""); 
+		x.addActionListener(new ActionListener() { 
+			public void actionPerformed(ActionEvent e) { 
+				if (active) wController.makeMove(i + 1, j + 1, wController.getGame().getTurn()); 
+			} 
+		});
+		return x; 
+		*/
 	}
 
 
@@ -252,7 +293,7 @@ public class MainWindow extends JFrame implements GameObserver {
 
 	@Override
 	public void moveExecStart(Counter player) {
-		System.out.println("Hola, cÛmo est·s?");
+		System.out.println("Hola, c√≥mo est√°s?");
 	}
 
 	@Override
@@ -276,7 +317,8 @@ public class MainWindow extends JFrame implements GameObserver {
 		// NOTHING TO UNDO
 		
 	}
-
+	
+	
 	@Override
 	public void reset(ReadOnlyBoard board, Counter player, Boolean undoPossible) { 
 		int x = board.getWidth(), y = board.getHeight();
@@ -309,5 +351,67 @@ public class MainWindow extends JFrame implements GameObserver {
 		}
 		middlePanelLeft.revalidate();
 	}
+	
+	/*
+
+	@Override
+	public void reset(ReadOnlyBoard board, Counter player, Boolean undoPossible) { 
+		int rows = board.getWidth(), cols = board.getHeight();
+		GridBagConstraints c = new GridBagConstraints();
+		buttons = new JButton[rows][cols];
+		
+		this.removeAll();
+		middlePanelLeft.removeAll(); // remove previous buttons from grid layout
+ 
+		for(int i = 0; i < rows; i++) {
+			// c.gridx = i;
+			for (int j = 0; j < cols; j++) {
+				c = configureConstraint(GridBagConstraints.BOTH, i, j, 1, 1); // gridX, gridY, weightX, weightY 
+				buttons[i][j] = createButton(i, j);
+				// c.gridy = j;
+				this.add(buttons[i][j], c);
+				
+				
+				if (board.getPosition(i, j) == Counter.EMPTY) {
+					buttons[i][j].setText("EMPTY");
+					buttons[i][j].setBackground(new Color(207,207,207)); 			
+				} else if (board.getPosition(i, j) == Counter.WHITE) {
+					buttons[i][j].setText("WHITE");
+					buttons[i][j].setBackground(new Color(255,255,255));
+				} else if (board.getPosition(i, j) == Counter.BLACK) {
+					buttons[i][j].setText("BLACK");
+					buttons[i][j].setBackground(new Color(0,0,0));
+				}
+				middlePanelLeft.add(buttons[i][j],c); // All to empty
+				 
+				 
+				 
+				 //// NOT USED
+				c = configureConstraint(GridBagConstraints.BOTH, i, j, 1, 1); // gridX, gridY, weightX, weightY 
+				
+				Counter v = board.getPosition(i + 1, j + 1); 
+				b = createButton(i, j, v);
+								
+				if (board.getPosition(i, j) == Counter.EMPTY) {
+					b.setText("EMPTY");
+					b.setBackground(new Color(207,207,207)); 
+					middlePanelLeft.add(b,c); // All to empty
+				
+				} else if (board.getPosition(i, j) == Counter.WHITE) {
+					b.setText("WHITE");
+					b.setBackground(new Color(255,255,255));
+					middlePanelLeft.add(b,c); // All to empty
+				} else if (board.getPosition(i, j) == Counter.BLACK) {
+					b.setText("BLACK");
+					b.setBackground(new Color(0,0,0));
+					middlePanelLeft.add(b,c); // All to empty
+				} 
+				
+			}
+		}
+		this.revalidate();
+		active = true;
+	}
+	*/
 
 }
