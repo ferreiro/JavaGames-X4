@@ -247,11 +247,11 @@ public class MainWindow extends JFrame implements GameObserver {
 		switch(colour) {
 		case BLACK:
 			button.setBackground(new Color(0,0,0));
-			button.setIcon(new ImageIcon("src/tp/pr4/icons/black.png"));
+			button.setIcon(new ImageIcon(Resources.RESOURCES_URL + "black.png"));
 			break;
 		case WHITE:
 			button.setBackground(new Color(255,255,255));
-			button.setIcon(new ImageIcon("src/tp/pr4/icons/white.png"));
+			button.setIcon(new ImageIcon(Resources.RESOURCES_URL + "white.png"));
 			break;
 		default:
 			button.setBackground(new Color(207,207,207));
@@ -269,6 +269,7 @@ public class MainWindow extends JFrame implements GameObserver {
 				public void actionPerformed(ActionEvent e) {
 					if (active) {
 						wController.makeMove(i + 1, j + 1, wController.getGame().getTurn());
+						wController.getGame().getBoard().printBoard(); 
 					}	
 				}
 			});
