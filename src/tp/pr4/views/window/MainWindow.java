@@ -53,6 +53,8 @@ public class MainWindow extends JFrame implements GameObserver {
 	private WindowController wController;
 	private boolean active = false;
 	private JButton[][] buttons;
+	private int numberColums;
+	private int numberRows;
 	
 	public MainWindow(GameTypeFactory gType, Game game) {
 		super(); 
@@ -242,27 +244,13 @@ public class MainWindow extends JFrame implements GameObserver {
 	private JButton createButton(final int i, final int j) {
 		JButton button = new JButton();
 		button.setPreferredSize(new Dimension(40, 40));
-		Counter colour = wController.getGame().getBoard().getPosition(i, j);
-		
-		switch(colour) {
-		case BLACK:
-			button.setBackground(new Color(0,0,0));
-			button.setIcon(new ImageIcon(Resources.RESOURCES_URL + "black.png"));
-			break;
-		case WHITE:
-			button.setBackground(new Color(255,255,255));
-			button.setIcon(new ImageIcon(Resources.RESOURCES_URL + "white.png"));
-			break;
-		default:
-			button.setBackground(new Color(207,207,207));
-			break;
-		}
-		
+		// Counter colour = wController.getGame().getBoard().getPosition(i, j);
+ /*
 		System.out.println("I " + i);
 		System.out.println("J " + j);
 		System.out.println("Counter " + colour);
 		System.out.println("=========");
-		
+*/
 		//if (this.wController.get  .getClass() == ComplicaRules.class || colour == Counter.EMPTY) {
 			button.addActionListener(new ActionListener() {
 				@Override
@@ -270,6 +258,7 @@ public class MainWindow extends JFrame implements GameObserver {
 					if (active) {
 						wController.makeMove(i + 1, j + 1, wController.getGame().getTurn());
 						wController.getGame().getBoard().printBoard(); 
+						middlePanelLeft.revalidate();
 					}	
 				}
 			});
@@ -297,7 +286,7 @@ public class MainWindow extends JFrame implements GameObserver {
 	
 	@Override
 	public void moveExecFinished(ReadOnlyBoard board, Counter player, Counter nextPlayer) {
-		// TODO Auto-generated method stub
+		refresh();
 	}
 
 	@Override
@@ -328,20 +317,46 @@ public class MainWindow extends JFrame implements GameObserver {
 	}
 	
 	
+	public void refresh() {
+		for(int i = 0; i < numberColums; i++) {
+			for (int j = 0; j < numberRows; j++) {
+				Counter colour = wController.getGame().getBoard().getPosition(i, j);
+				
+				switch(colour) {
+				case BLACK:
+					buttons[i][j].setBackground(new Color(0,0,0));
+					buttons[i][j].setIcon(new ImageIcon(Resources.RESOURCES_URL + "black.png"));
+					break;
+				case WHITE:
+					buttons[i][j].setBackground(new Color(255,255,255));
+					buttons[i][j].setIcon(new ImageIcon(Resources.RESOURCES_URL + "white.png"));
+					break;
+				default:
+					buttons[i][j].setBackground(new Color(207,207,207));
+					// buttons[i][j].setIcon(new ImageIcon(Resources.RESOURCES_URL + "empty.png"));
+					break;
+				}
+			}
+		}
+	}
+	
+	
 	@Override
 	public void reset(ReadOnlyBoard board, Counter player, Boolean undoPossible) { 
-		int x = board.getWidth(), y = board.getHeight();
+		numberRows = board.getHeight();
+		numberColums = board.getWidth();
+		buttons = new JButton[numberColums][numberRows];
 		GridBagConstraints c = new GridBagConstraints();
 		JButton b;
 		
 		middlePanelLeft.removeAll(); // remove previous buttons from grid layout
  
-		for(int i = 0; i < x; i++) {
-			for (int j = 0; j < y; j++) {
+		for(int i = 0; i < numberColums; i++) {
+			for (int j = 0; j < numberRows; j++) {
  
 				c = configureConstraint(GridBagConstraints.BOTH, i, j, 1, 1); // gridX, gridY, weightX, weightY 
-				b = createButton(i, j); 
-				middlePanelLeft.add(b,c); // All to empty
+				buttons[i][j] = createButton(i, j); 
+				middlePanelLeft.add(buttons[i][j],c); // All to empty
 				
 				/*
 				if (board.getPosition(i, j) == Counter.EMPTY) {
