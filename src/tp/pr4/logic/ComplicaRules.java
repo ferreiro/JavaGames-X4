@@ -37,10 +37,12 @@ public class ComplicaRules implements GameRules {
 	public Counter nextTurn(Counter lastMove, Board b) {
 		Counter nextTurn = Counter.EMPTY;
 		
-		if (lastMove == Counter.WHITE) 
+		if (lastMove == Counter.WHITE) {
 			nextTurn = Counter.BLACK;
-		else if (lastMove == Counter.BLACK) 
+		}
+		else if (lastMove == Counter.BLACK) {
 			nextTurn = Counter.WHITE;
+		}
 
 		return nextTurn;
 	}
@@ -69,10 +71,12 @@ public class ComplicaRules implements GameRules {
 		}
 		else {
 			isWinner = true;
-			if ((blackCounter > 0) && (whiteCounter == 0))
+			if ((blackCounter > 0) && (whiteCounter == 0)){
 				winner = Counter.BLACK;
-			else if ((blackCounter == 0) && (whiteCounter > 0))
+			}
+			else if ((blackCounter == 0) && (whiteCounter > 0)){
 				winner = Counter.WHITE;
+			}
 		}
 		
 		return isWinner;

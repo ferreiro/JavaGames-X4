@@ -73,7 +73,9 @@ public class WindowController extends Controller {
 	
 	public void undo() {
 		boolean undo = game.undo();
-		if (undo) changePlayer(); // Change Current player 
+		if (undo){
+			changePlayer(); // Change Current player 
+		}
 	}
 	
 }
