@@ -121,7 +121,6 @@ public class MainWindow extends JFrame implements GameObserver {
 		randomButton.addActionListener(new ActionListener() { 
 			public void actionPerformed(ActionEvent e) {
 				wController.randomMove();
-				wController.getGame().getBoard().printBoard(); 
 			}
 		});
 		
@@ -133,7 +132,6 @@ public class MainWindow extends JFrame implements GameObserver {
 		undoButton.addActionListener(new ActionListener() { 
 			public void actionPerformed(ActionEvent arg0) {
 				wController.undo();
-				wController.getGame().getBoard().printBoard(); 
 			}
 		});
 
@@ -307,7 +305,7 @@ public class MainWindow extends JFrame implements GameObserver {
 
 	@Override
 	public void onUndo(ReadOnlyBoard board, Counter nextPlayer, boolean undoPossible) {
-		System.out.println("Undo, madafuka");
+		refresh();
 	}
 
 	@Override
@@ -320,7 +318,7 @@ public class MainWindow extends JFrame implements GameObserver {
 	public void refresh() {
 		for(int i = 0; i < numberColums; i++) {
 			for (int j = 0; j < numberRows; j++) {
-				Counter colour = wController.getGame().getBoard().getPosition(i, j);
+				Counter colour = wController.getGame().getBoard().getPosition(i+1, j+1);
 				
 				switch(colour) {
 				case BLACK:
@@ -333,7 +331,7 @@ public class MainWindow extends JFrame implements GameObserver {
 					break;
 				default:
 					buttons[i][j].setBackground(new Color(207,207,207));
-					// buttons[i][j].setIcon(new ImageIcon(Resources.RESOURCES_URL + "empty.png"));
+					buttons[i][j].setIcon(new ImageIcon(Resources.RESOURCES_URL + "empty.png"));
 					break;
 				}
 			}
