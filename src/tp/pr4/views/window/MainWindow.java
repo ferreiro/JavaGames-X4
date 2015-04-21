@@ -152,9 +152,14 @@ public class MainWindow extends JFrame implements GameObserver {
 		
 		JPanel middlePannelRightBottom = new JPanel(new GridBagLayout());
 		middlePannelRightBottom.setBackground(new Color(0,0,0,30));
-		middlePannelRightBottom.setPreferredSize(new Dimension(50,50));
+		middlePannelRightBottom.setPreferredSize(new Dimension(50,50));	
 		
-		
+
+		JPanel anotherPanel = new JPanel();
+		anotherPanel.setBackground(Color.RED); 
+		anotherPanel.setVisible(true);
+		c = configureConstraint(GridBagConstraints.BOTH, 0, 1, .70, 0); // gridX, gridY, weightX, weightY 
+		middlePannelRightBottom.add(anotherPanel,c);
 		
 		//COMBOBOX
 		Cbox = new JComboBox<GameType>(names);
@@ -162,23 +167,33 @@ public class MainWindow extends JFrame implements GameObserver {
 		Cbox.setFont(new Font("Arial", Font.BOLD, 24)); 
 		Cbox.setBorder(new EmptyBorder(10, 10, 10, 10));
 		c = configureConstraint(GridBagConstraints.NONE, 0, 1, 0.1, 0.3); // gridX, gridY, weightX, weightY 
-		middlePannelRightBottom.add(Cbox,c);
+		anotherPanel.add(Cbox,c);
+
+		// INPUTS
+		
+		JPanel changeDimensions = new JPanel();
+		changeDimensions.setBackground(Color.BLUE); 
+		changeDimensions.setVisible(true);
+		c = configureConstraint(GridBagConstraints.NONE, 0, 1, 1, 0.3); // gridX, gridY, weightX, weightY 
+		anotherPanel.add(changeDimensions,c);
+
+		JTextField dimX = new JTextField();
+		dimX.setVisible(true);
+		c = configureConstraint(GridBagConstraints.NONE, 0, 2, 0.1, 0.3);
+		dimX.setPreferredSize(new Dimension(30, 30));
+		changeDimensions.add(dimX,c);
+
+		JTextField dimY = new JTextField();
+		dimX.setVisible(true);
+		c = configureConstraint(GridBagConstraints.NONE, 0, 2, 0.1, 0.3);
+		dimY.setPreferredSize(new Dimension(30, 30));
+		changeDimensions.add(dimY,c);	
 		
 		JPanel blankPanel = new JPanel();
 		blankPanel.setBackground(new Color(238, 238, 238, 80)); 
 		blankPanel.setVisible(true);
 		c = configureConstraint(GridBagConstraints.BOTH, 0, 1, .70, 0); // gridX, gridY, weightX, weightY 
 		middlePannelRightBottom.add(blankPanel,c);
-		
-//		JTextField dimX = new JTextField();
-//		dimX.setVisible(true);
-//		c = configureConstraint(GridBagConstraints.NONE, 0, 2, 0.1, 0.3);
-//		middlePannelRightBottom.add(dimX,c);
-//		
-//		JTextField dimY = new JTextField();
-//		dimY.setVisible(true);
-//		c = configureConstraint(GridBagConstraints.NONE, 0, 2, 0.1, 0.3);
-//		middlePannelRightBottom.add(dimY,c);
 		
 		
 		//BUTTON FOR CHANGING
@@ -290,7 +305,7 @@ public class MainWindow extends JFrame implements GameObserver {
 		refresh();
 	}
 
-	@Override
+	@Override 
 	public void onUndoNotPossible() {
 		JFrame msgFrame = new JFrame();
 		JOptionPane.showMessageDialog(msgFrame, "Nothing to undo"); 
