@@ -6,8 +6,6 @@ import tp.pr4.logic.Game;
 import tp.pr4.logic.GameType;
 import tp.pr4.logic.InvalidMove;
 import tp.pr4.logic.Move;
-import tp.pr4.logic.ReadOnlyBoard;
-import tp.pr4.views.window.MainWindow;
  
 public class WindowController extends Controller {
 	static java.util.Scanner in;

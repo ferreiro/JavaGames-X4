@@ -3,7 +3,6 @@ package tp.pr4.control;
 import java.util.Scanner;
 
 import tp.pr4.Resources.Resources;
-import tp.pr4.logic.Counter;
 import tp.pr4.logic.Game;
 import tp.pr4.logic.InvalidMove;
 import tp.pr4.logic.Move;
@@ -107,12 +106,7 @@ public class ConsoleController extends Controller{
 			
 			if (getGame().isFinished()) 
 			{
-				/*
-				 * This method is not used in the fourth assigment
-				 * game.getBoard().printBoard();
-				 */
 				in.close();
-				Counter counterWinner = getGame().getWinner();
 				exit = true;					
 			}  
 		} while(!exit);	

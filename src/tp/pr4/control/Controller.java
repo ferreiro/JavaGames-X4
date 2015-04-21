@@ -2,11 +2,8 @@ package tp.pr4.control;
 
 import java.util.Scanner;
 
-import tp.pr4.Resources.Resources;
 import tp.pr4.logic.Counter;
 import tp.pr4.logic.Game;
-import tp.pr4.logic.InvalidMove;
-import tp.pr4.logic.Move;
 import tp.pr4.logic.GameType;
 
 public abstract class Controller {
