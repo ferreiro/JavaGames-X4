@@ -45,9 +45,8 @@ import tp.pr4.logic.GameType;
 import tp.pr4.logic.ReadOnlyBoard;
 
 public class MainWindow extends JFrame implements GameObserver {
-	private JPanel mainPanel, topPanel, leftMargin, 
-				   rightMargin, middlePanelLeft, middlePanelRight, 
-				   middlePanel, middlePannelRightBottom, comboPanel;
+	private JPanel mainPanel, topPanel, bottomPanel, leftMargin, rightMargin, middlePanelLeft, middlePanelRight, middlePanel;
+	private JTextArea inputTxt;
 	private JComboBox<GameType> Cbox;
 	private WindowController wController;
 	private boolean active = false;
@@ -146,28 +145,17 @@ public class MainWindow extends JFrame implements GameObserver {
  			}
 		});
 		
-		// Dimension gravity Change
-		/* 
-		JPanel gravityDimensionsPanel = new JPanel();
-		gravityDimensionsPanel.setBackground(new Color(0,0,0,1));
-		gravityDimensionsPanel.setPreferredSize(new Dimension(10,10));
-		middlePanelRightTop.add(gravityDimensionsPanel, c);
-		*/
-		
 		c = configureConstraint(GridBagConstraints.BOTH, 0, 0, 1, 1.5);  // characteristics of the topDark part
 		middlePanelRight.add(middlePanelRightTop,c);
 		
 		////////////// MIDDEL PANEL RIGHT BOTTOM ////////////
 		
-		middlePannelRightBottom = new JPanel(new GridBagLayout());
+		JPanel middlePannelRightBottom = new JPanel(new GridBagLayout());
 		middlePannelRightBottom.setBackground(new Color(0,0,0,30));
 		middlePannelRightBottom.setPreferredSize(new Dimension(50,50));
 		
-		c = configureConstraint(GridBagConstraints.BOTH, 0, 0, 1, 1.5);  // characteristics of the topDark part
 		
-		comboPanel = new JPanel();
-		comboPanel.setPreferredSize(new Dimension(200, 120));
-			
+		
 		//COMBOBOX
 		Cbox = new JComboBox<GameType>(names);
 		Cbox.setSelectedIndex(0); 
@@ -175,24 +163,23 @@ public class MainWindow extends JFrame implements GameObserver {
 		Cbox.setBorder(new EmptyBorder(10, 10, 10, 10));
 		c = configureConstraint(GridBagConstraints.NONE, 0, 1, 0.1, 0.3); // gridX, gridY, weightX, weightY 
 		middlePannelRightBottom.add(Cbox,c);
-
-		comboPanel.add(Cbox, c);
-		
 		
 		JPanel blankPanel = new JPanel();
 		blankPanel.setBackground(new Color(238, 238, 238, 80)); 
 		blankPanel.setVisible(true);
 		c = configureConstraint(GridBagConstraints.BOTH, 0, 1, .70, 0); // gridX, gridY, weightX, weightY 
 		middlePannelRightBottom.add(blankPanel,c);
-		 
 		
-		// Text area for Gravity
-		/*
-		 * JTextField rowTxt = new JTextField(20); 
-		 
-		rowTxt.setVisible(true);
-		middlePannelRightBottom.add(rowTxt, c);
-		*/
+//		JTextField dimX = new JTextField();
+//		dimX.setVisible(true);
+//		c = configureConstraint(GridBagConstraints.NONE, 0, 2, 0.1, 0.3);
+//		middlePannelRightBottom.add(dimX,c);
+//		
+//		JTextField dimY = new JTextField();
+//		dimY.setVisible(true);
+//		c = configureConstraint(GridBagConstraints.NONE, 0, 2, 0.1, 0.3);
+//		middlePannelRightBottom.add(dimY,c);
+		
 		
 		//BUTTON FOR CHANGING
 		JButton changeButton = createAuxButton(230,  100, "Change", Resources.RESOURCES_URL + "check.png", new Color(62,218,103), false);
@@ -204,11 +191,6 @@ public class MainWindow extends JFrame implements GameObserver {
 		changeButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				GameType name = (GameType)Cbox.getSelectedItem();
-				
-				// if (name.equals("gravity")) {
-				// 	System.out.println("it's gravity dude");
-				// }
-				//estos valores de 8, 8 deben ser tomados del usuario
 				wController.changeGame(name, 8, 8);
 			}
 		});
@@ -267,7 +249,6 @@ public class MainWindow extends JFrame implements GameObserver {
 		button.setBackground(new Color(207,207,207));
 		button.setIcon(new ImageIcon(Resources.RESOURCES_URL + "empty.png"));
 		
-		//if (this.wController.get  .getClass() == ComplicaRules.class || colour == Counter.EMPTY) {
 			button.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
@@ -284,12 +265,6 @@ public class MainWindow extends JFrame implements GameObserver {
 	}
  
 	
-	/*
-	 * Callback functions
-	 * (non-Javadoc)
-	 * @see tp.pr4.logic.GameObserver#moveExecFinished(tp.pr4.logic.ReadOnlyBoard, tp.pr4.logic.Counter, tp.pr4.logic.Counter)
-	 */
-	
 	@Override
 	public void moveExecFinished(ReadOnlyBoard board, Counter player, Counter nextPlayer) {
 		refresh();
@@ -297,7 +272,6 @@ public class MainWindow extends JFrame implements GameObserver {
 
 	@Override
 	public void moveExecStart(Counter player) {
-		// System.out.println("Hola, cómo estás?");
 	}
 
 	@Override
@@ -352,6 +326,7 @@ public class MainWindow extends JFrame implements GameObserver {
 		numberColums = board.getWidth();
 		buttons = new JButton[numberColums][numberRows];
 		GridBagConstraints c = new GridBagConstraints();
+		JButton b;
 		
 		middlePanelLeft.removeAll(); // remove previous buttons from grid layout
  

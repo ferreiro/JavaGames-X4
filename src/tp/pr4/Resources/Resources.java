@@ -192,17 +192,18 @@ public class Resources {
 	}
 	
 	public static void moveColumnDown(Board board, int column) {
-		for (int i = board.getHeight(); i > 1; i--) {
+		for (int i = board.getHeight(); i > 1; i--){
 			board.setPosition(column, i, board.getPosition(column , i - 1));
 		}
+		board.printBoard();
 	}
 	public static void moveColumnUp(Board board, int column) {
-		for (int i = 1 ; i < board.getHeight(); i++) {
+		for (int i = 1 ; i < board.getHeight(); i++){
 			board.setPosition(column, i, board.getPosition(column, i + 1));
 		}
 	}
 	
-	// He tenido que escribir de nuevo la funciÃ³n de pedro para 
+	// He tenido que escribir de nuevo la función de pedro para 
 	// que funcione el conecta 4.
 	
 	public static boolean fullColumn(int column, Board b) {
@@ -288,9 +289,9 @@ public class Resources {
 		boolean ocuppy = false;
 		int actualRow = posRow, actualColumn = posCol;
 		
-		if ((movCol == 0) && (movRow == 0)) {
+		if ((movCol == 0) && (movRow == 0))
 			board.setPosition(actualColumn, actualRow, counter);
-		}
+		
 		while (!ocuppy){
 			if (actualColumn > 1 && actualColumn < DIMX_GRAVITY && actualRow > 1 && actualRow < DIMY_GRAVITY) {
 				if (board.getPosition(actualColumn + movCol, actualRow + movRow) != Counter.EMPTY) {
@@ -333,5 +334,3 @@ public class Resources {
 	}
 		
 }
-	
-

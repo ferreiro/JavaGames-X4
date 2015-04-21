@@ -17,7 +17,6 @@ import tp.pr4.logic.Connect4Rules;
 import tp.pr4.logic.Game;
 import tp.pr4.logic.GameRules;
 import tp.pr4.logic.GravityRules;
-import tp.pr4.logic.Move;
 import tp.pr4.views.console.ConsoleView;
 import tp.pr4.views.window.MainWindow;
 

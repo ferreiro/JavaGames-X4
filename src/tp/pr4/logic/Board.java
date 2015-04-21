@@ -31,8 +31,9 @@ public class Board implements ReadOnlyBoard {
 	
 	public Counter getPosition(int x, int y) {
 		Counter color = Counter.EMPTY; 
-		if ((x >= 1 && x <= width) && (y >= 1 && y <= height)) 
+		if ((x >= 1 && x <= width) && (y >= 1 && y <= height)) {
 			color = board[y - 1][x - 1];
+		}
 		return color;		
 	}
 	
@@ -53,12 +54,11 @@ public class Board implements ReadOnlyBoard {
 		if ((tx >= 1 && tx <= width) && (ty >= 1 && ty <= height)) 
 			if (board[ty-1][tx-1] == Counter.EMPTY && counter != Counter.EMPTY) {
 				occupiedCells++;
-				board[ty - 1][tx - 1] = counter;//cambiado x por y
 			}
 			else if (board[ty-1][tx-1] != Counter.EMPTY && counter == Counter.EMPTY) {
 				occupiedCells--;
-				board[ty - 1][tx - 1] = counter;//cambiado x por y
 			}
+		board[ty - 1][tx - 1] = counter;//cambiado x por y
 	}
 	
 	// Methods for checking if a board neither column is full or not.
