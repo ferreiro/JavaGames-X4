@@ -50,13 +50,6 @@ public class Board implements ReadOnlyBoard {
 		
 	public void setPosition(int tx, int ty, Counter counter) {
 		
-		//DEBUG
-		System.out.println("tx" + (tx));
-		System.out.println("ty" + (ty));
-		System.out.println("dimX" + width);
-		System.out.println("dimY" + height);
-		
-		
 		if ((tx >= 1 && tx <= width) && (ty >= 1 && ty <= height)) 
 			if (board[ty-1][tx-1] == Counter.EMPTY && counter != Counter.EMPTY) {
 				occupiedCells++;

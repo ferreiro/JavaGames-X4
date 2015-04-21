@@ -62,7 +62,6 @@ public class Game implements Observable<GameObserver> {
 					this.winner = Counter.EMPTY;
 				}
 				else {
-					System.out.println("Winner" + wonColor);
 					if (wonColor == Counter.EMPTY) {
 						increaseStack(mov); // Nobody wins, increase stack
 						turn = rules.nextTurn(mov.getPlayer(), board); // Change turn
