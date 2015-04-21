@@ -43,8 +43,6 @@ public class Game implements Observable<GameObserver> {
 		Counter wonColor, currentPlayer = mov.getPlayer();
 		
 		if ((mov.getPlayer() == turn) && (!finished)) { // No puede permitir hacer movimientos fuera de turno o se ha terminado el juego
-			
-			finished = false;
 			winner = Counter.EMPTY;  
 			
 			for(GameObserver o : obsList) {
@@ -85,8 +83,14 @@ public class Game implements Observable<GameObserver> {
 		}
 
 		// Notify all the observers that the move is finished
-		for (GameObserver o : obsList) 
+		for (GameObserver o : obsList) {
 			o.moveExecFinished(board, currentPlayer, nextPlayer(currentPlayer));
+		}
+		if (finished) {
+			for (GameObserver o : obsList)
+				o.onGameOver(board, winner);
+		}
+		
 		
 		return valid;
 	}
@@ -127,7 +131,7 @@ public class Game implements Observable<GameObserver> {
 		boolean success = false;
 		Move previousMove;
 		
-		if (!stack.isEmpty()) {
+		if (!stack.isEmpty() && !finished) {
 			success = true;
 			previousMove = stack.getLast();
 			stack.removeLast();		
@@ -168,6 +172,10 @@ public class Game implements Observable<GameObserver> {
 	
 	public GameRules getRules() {
 		return rules;
+	}
+	
+	public boolean getFinished(){
+		return finished;
 	}
 
 	@Override
