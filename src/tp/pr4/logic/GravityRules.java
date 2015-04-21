@@ -38,13 +38,16 @@ public class GravityRules implements GameRules{
 		
 		won = checkHorizontal(b);
 		
-		if (!won) 
+		if (!won) {
 			won = checkVertical(b);
-			if (!won) 
+			if (!won) {
 				won = checkDiagonal1(b);
-				if (!won) 
+				if (!won) {
 					won = checkDiagonal2(b);
-
+				}
+			}
+		} 
+			
 		return this.winner; // El color del ganador lo actualizan las funciones: checkhorizontal, etc... Actualizan el atributo winner
 							// Devuelve Empty si no ha ganado nadie
 	}
