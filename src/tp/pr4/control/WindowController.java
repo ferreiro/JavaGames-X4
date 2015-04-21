@@ -26,7 +26,9 @@ public class WindowController extends Controller {
 	
 	public void makeMove(int col, int row, Counter turn) {
 		boolean valid;
-			
+		
+		System.out.println("make a move Window Controller");
+		
 		try {
 			Move mov = getGameTypeFactory().createMove(col, row, turn);
 			valid = game.executeMove(mov);

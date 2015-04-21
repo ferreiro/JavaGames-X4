@@ -92,12 +92,9 @@ public class MainWindow extends JFrame implements GameObserver {
 		middlePanelLeft.setBackground(Color.LIGHT_GRAY);
 		middlePanelLeft.setSize(120,120);
 
-		//lo que es dibujar los circulos no es aqui en la inicialización
-		
 		//table part
 		c = configureConstraint(GridBagConstraints.BOTH, 0, 0, 1.5, 1); // gridX, gridY, weightX, weightY 
 		middlePanel.add(middlePanelLeft, c);
-		
 		
 		
 		// MIDDLE PANEL RIGHT
@@ -120,7 +117,7 @@ public class MainWindow extends JFrame implements GameObserver {
 		randomButton.addActionListener(new ActionListener() { 
 			public void actionPerformed(ActionEvent e) {
 				wController.randomMove();
-//				wController.getGame().getBoard().printBoard();
+				wController.getGame().getBoard().printBoard(); 
 			}
 		});
 		
@@ -132,7 +129,7 @@ public class MainWindow extends JFrame implements GameObserver {
 		undoButton.addActionListener(new ActionListener() { 
 			public void actionPerformed(ActionEvent arg0) {
 				wController.undo();
-//				wController.getGame().getBoard().printBoard();
+				wController.getGame().getBoard().printBoard(); 
 			}
 		});
 
@@ -153,20 +150,6 @@ public class MainWindow extends JFrame implements GameObserver {
 		gravityDimensionsPanel.setBackground(new Color(0,0,0,1));
 		gravityDimensionsPanel.setPreferredSize(new Dimension(10,10));
 		middlePanelRightTop.add(gravityDimensionsPanel, c);
-		
-		
-		// CHANGE COLOR // TODO : IDEA
-		JButton changeColor = new JButton();
-		changeColor = createButton(100, 55, "Change Color", Resources.RESOURCES_URL + "undo.png", new Color(255,255,0), true);   
-		c = configureConstraint(GridBagConstraints.NONE, 3, 0, 0.1, 0.1); // gridX, gridY, weightX, weightY 
-		// middlePanelRightTop.add(changeColor,c);
-
-		changeColor.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				JColorChooser spinner = new JColorChooser();
-				topPanel.add(spinner);  
-			}
-		}); 
 		
 		c = configureConstraint(GridBagConstraints.BOTH, 0, 0, 1, 1.5);  // characteristics of the topDark part
 		middlePanelRight.add(middlePanelRightTop,c);
@@ -307,14 +290,7 @@ public class MainWindow extends JFrame implements GameObserver {
  
 				c = configureConstraint(GridBagConstraints.BOTH, i, j, 1, 1); // gridX, gridY, weightX, weightY 
 				b = new JButton(); 
-				/*
-				b.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						System.out.println("pressed");
-						wController.makeMove(i, j, wController.getCounter());
-					}
-				});
-				*/
+								
 				if (board.getPosition(i, j) == Counter.EMPTY) {
 					b.setText("EMPTY");
 					b.setBackground(new Color(207,207,207)); 
