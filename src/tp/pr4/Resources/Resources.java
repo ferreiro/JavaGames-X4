@@ -291,11 +291,13 @@ public class Resources {
 		
 		while (!ocuppy){
 			if (actualColumn > 1 && actualColumn < DIMX_GRAVITY && actualRow > 1 && actualRow < DIMY_GRAVITY) {
-				if (board.getPosition(actualColumn + movCol, actualRow + movRow) != Counter.EMPTY) 
+				if (board.getPosition(actualColumn + movCol, actualRow + movRow) != Counter.EMPTY) {
 					ocuppy = true;
-				else
+				}
+				else{
 					actualColumn += movCol;
 					actualRow += movRow;
+				}
 			}
 			else {
 				ocuppy = true;

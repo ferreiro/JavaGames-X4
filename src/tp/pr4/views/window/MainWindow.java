@@ -45,8 +45,6 @@ import tp.pr4.logic.GameType;
 import tp.pr4.logic.ReadOnlyBoard;
 
 public class MainWindow extends JFrame implements GameObserver {
-	private int dimX = Resources.DIMX_CONNECT4; // TODO: Hay que hacer que cambia las dimensiones...
-	private int dimY = Resources.DIMY_CONNECT4;
 	private JPanel mainPanel, topPanel, bottomPanel, leftMargin, rightMargin, middlePanelLeft, middlePanelRight, middlePanel;
 	private JTextArea inputTxt;
 	private JComboBox<GameType> Cbox;
@@ -176,6 +174,15 @@ public class MainWindow extends JFrame implements GameObserver {
 		c = configureConstraint(GridBagConstraints.BOTH, 0, 1, .70, 0); // gridX, gridY, weightX, weightY 
 		middlePannelRightBottom.add(blankPanel,c);
 		
+		
+		// Text area for Gravity
+		/*
+		 * JTextField rowTxt = new JTextField(20); 
+		 
+		rowTxt.setVisible(true);
+		middlePannelRightBottom.add(rowTxt, c);
+		*/
+		
 		//BUTTON FOR CHANGING
 		JButton changeButton = createAuxButton(230,  100, "Change", Resources.RESOURCES_URL + "check.png", new Color(62,218,103), false);
 		changeButton.setForeground(Color.WHITE);
@@ -186,6 +193,10 @@ public class MainWindow extends JFrame implements GameObserver {
 		changeButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				GameType name = (GameType)Cbox.getSelectedItem();
+				
+				// if (name.equals("gravity")) {
+				// 	System.out.println("it's gravity dude");
+				// }
 				//estos valores de 8, 8 deben ser tomados del usuario
 				wController.changeGame(name, 8, 8);
 			}
@@ -242,13 +253,9 @@ public class MainWindow extends JFrame implements GameObserver {
 	private JButton createButton(final int i, final int j) {
 		JButton button = new JButton();
 		button.setPreferredSize(new Dimension(40, 40));
-		// Counter colour = wController.getGame().getBoard().getPosition(i, j);
- /*
-		System.out.println("I " + i);
-		System.out.println("J " + j);
-		System.out.println("Counter " + colour);
-		System.out.println("=========");
-*/
+		button.setBackground(new Color(207,207,207));
+		button.setIcon(new ImageIcon(Resources.RESOURCES_URL + "empty.png"));
+		
 		//if (this.wController.get  .getClass() == ComplicaRules.class || colour == Counter.EMPTY) {
 			button.addActionListener(new ActionListener() {
 				@Override
@@ -257,24 +264,14 @@ public class MainWindow extends JFrame implements GameObserver {
 						wController.makeMove(i + 1, j + 1, wController.getGame().getTurn());
 						wController.getGame().getBoard().printBoard(); 
 						middlePanelLeft.revalidate();
+						
 					}	
 				}
 			});
 		// }
-		return button;	
-		
-		/*
-		JButton x = new JButton(v == 0 ? "" : v + ""); 
-		x.addActionListener(new ActionListener() { 
-			public void actionPerformed(ActionEvent e) { 
-				if (active) wController.makeMove(i + 1, j + 1, wController.getGame().getTurn()); 
-			} 
-		});
-		return x; 
-		*/
+		return button;	 
 	}
-
-
+ 
 	
 	/*
 	 * Callback functions
@@ -310,11 +307,10 @@ public class MainWindow extends JFrame implements GameObserver {
 
 	@Override
 	public void onUndoNotPossible() {
-		// NOTHING TO UNDO
-		
+		JFrame msgFrame = new JFrame();
+		JOptionPane.showMessageDialog(msgFrame, "Nothing to undo"); 
 	}
-	
-	
+	 
 	public void refresh() {
 		for(int i = 0; i < numberColums; i++) {
 			for (int j = 0; j < numberRows; j++) {
@@ -351,93 +347,13 @@ public class MainWindow extends JFrame implements GameObserver {
  
 		for(int i = 0; i < numberColums; i++) {
 			for (int j = 0; j < numberRows; j++) {
- 
 				c = configureConstraint(GridBagConstraints.BOTH, i, j, 1, 1); // gridX, gridY, weightX, weightY 
 				buttons[i][j] = createButton(i, j); 
 				middlePanelLeft.add(buttons[i][j],c); // All to empty
-				
-				/*
-				if (board.getPosition(i, j) == Counter.EMPTY) {
-					b.setText("EMPTY");
-					b.setBackground(new Color(207,207,207)); 
-					middlePanelLeft.add(b,c); // All to empty
-				
-				} else if (board.getPosition(i, j) == Counter.WHITE) {
-					b.setText("WHITE");
-					b.setBackground(new Color(255,255,255));
-					middlePanelLeft.add(b,c); // All to empty
-				} else if (board.getPosition(i, j) == Counter.BLACK) {
-					b.setText("BLACK");
-					b.setBackground(new Color(0,0,0));
-					middlePanelLeft.add(b,c); // All to empty
-				}
-				*/
 			}
 		}
 		this.active = true;
 		middlePanelLeft.revalidate();
 	}
 	
-	/*
-
-	@Override
-	public void reset(ReadOnlyBoard board, Counter player, Boolean undoPossible) { 
-		int rows = board.getWidth(), cols = board.getHeight();
-		GridBagConstraints c = new GridBagConstraints();
-		buttons = new JButton[rows][cols];
-		
-		this.removeAll();
-		middlePanelLeft.removeAll(); // remove previous buttons from grid layout
- 
-		for(int i = 0; i < rows; i++) {
-			// c.gridx = i;
-			for (int j = 0; j < cols; j++) {
-				c = configureConstraint(GridBagConstraints.BOTH, i, j, 1, 1); // gridX, gridY, weightX, weightY 
-				buttons[i][j] = createButton(i, j);
-				// c.gridy = j;
-				this.add(buttons[i][j], c);
-				
-				
-				if (board.getPosition(i, j) == Counter.EMPTY) {
-					buttons[i][j].setText("EMPTY");
-					buttons[i][j].setBackground(new Color(207,207,207)); 			
-				} else if (board.getPosition(i, j) == Counter.WHITE) {
-					buttons[i][j].setText("WHITE");
-					buttons[i][j].setBackground(new Color(255,255,255));
-				} else if (board.getPosition(i, j) == Counter.BLACK) {
-					buttons[i][j].setText("BLACK");
-					buttons[i][j].setBackground(new Color(0,0,0));
-				}
-				middlePanelLeft.add(buttons[i][j],c); // All to empty
-				 
-				 
-				 
-				 //// NOT USED
-				c = configureConstraint(GridBagConstraints.BOTH, i, j, 1, 1); // gridX, gridY, weightX, weightY 
-				
-				Counter v = board.getPosition(i + 1, j + 1); 
-				b = createButton(i, j, v);
-								
-				if (board.getPosition(i, j) == Counter.EMPTY) {
-					b.setText("EMPTY");
-					b.setBackground(new Color(207,207,207)); 
-					middlePanelLeft.add(b,c); // All to empty
-				
-				} else if (board.getPosition(i, j) == Counter.WHITE) {
-					b.setText("WHITE");
-					b.setBackground(new Color(255,255,255));
-					middlePanelLeft.add(b,c); // All to empty
-				} else if (board.getPosition(i, j) == Counter.BLACK) {
-					b.setText("BLACK");
-					b.setBackground(new Color(0,0,0));
-					middlePanelLeft.add(b,c); // All to empty
-				} 
-				
-			}
-		}
-		this.revalidate();
-		active = true;
-	}
-	*/
-
 }
