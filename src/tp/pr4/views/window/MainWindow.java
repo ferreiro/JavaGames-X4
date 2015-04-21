@@ -242,25 +242,33 @@ public class MainWindow extends JFrame implements GameObserver {
 	private JButton createButton(final int i, final int j) {
 		JButton button = new JButton();
 		button.setPreferredSize(new Dimension(40, 40));
-		final Counter colour = wController.getGame().getTurn();
+		Counter colour = wController.getGame().getBoard().getPosition(i, j);
 		
 		switch(colour) {
 		case BLACK:
+			button.setBackground(new Color(0,0,0));
 			button.setIcon(new ImageIcon("src/tp/pr4/icons/black.png"));
 			break;
 		case WHITE:
+			button.setBackground(new Color(255,255,255));
 			button.setIcon(new ImageIcon("src/tp/pr4/icons/white.png"));
 			break;
 		default:
-			
+			button.setBackground(new Color(207,207,207));
 			break;
 		}
+		
+		System.out.println("I " + i);
+		System.out.println("J " + j);
+		System.out.println("Counter " + colour);
+		System.out.println("=========");
+		
 		//if (this.wController.get  .getClass() == ComplicaRules.class || colour == Counter.EMPTY) {
 			button.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					if (active) {
-						wController.makeMove(i + 1, j + 1, colour);
+						wController.makeMove(i + 1, j + 1, wController.getGame().getTurn());
 					}	
 				}
 			});
@@ -293,7 +301,7 @@ public class MainWindow extends JFrame implements GameObserver {
 
 	@Override
 	public void moveExecStart(Counter player) {
-		System.out.println("Hola, cómo estás?");
+		// System.out.println("Hola, cómo estás?");
 	}
 
 	@Override
@@ -331,8 +339,10 @@ public class MainWindow extends JFrame implements GameObserver {
 			for (int j = 0; j < y; j++) {
  
 				c = configureConstraint(GridBagConstraints.BOTH, i, j, 1, 1); // gridX, gridY, weightX, weightY 
-				b = new JButton(); 
-								
+				b = createButton(i, j); 
+				middlePanelLeft.add(b,c); // All to empty
+				
+				/*
 				if (board.getPosition(i, j) == Counter.EMPTY) {
 					b.setText("EMPTY");
 					b.setBackground(new Color(207,207,207)); 
@@ -347,8 +357,10 @@ public class MainWindow extends JFrame implements GameObserver {
 					b.setBackground(new Color(0,0,0));
 					middlePanelLeft.add(b,c); // All to empty
 				}
+				*/
 			}
 		}
+		this.active = true;
 		middlePanelLeft.revalidate();
 	}
 	
