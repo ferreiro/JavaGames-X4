@@ -45,8 +45,8 @@ import tp.pr4.logic.GameType;
 import tp.pr4.logic.ReadOnlyBoard;
 
 public class MainWindow extends JFrame implements GameObserver {
-	private JPanel mainPanel, topPanel, bottomPanel, leftMargin, rightMargin, middlePanelLeft, middlePanelRight, middlePanel;
-	private JTextArea inputTxt;
+	private JPanel mainPanel, topPanel, bottomPanel, leftMargin, rightMargin, middlePanelLeft, middlePanelRight, middlePanel, changeDimensions;
+	private JTextField txtFieldRow, txtFieldColumn;
 	private JComboBox<GameType> Cbox;
 	private WindowController wController;
 	private boolean active = false;
@@ -169,25 +169,33 @@ public class MainWindow extends JFrame implements GameObserver {
 		c = configureConstraint(GridBagConstraints.NONE, 0, 1, 0.1, 0.3); // gridX, gridY, weightX, weightY 
 		anotherPanel.add(Cbox,c);
 
+		Cbox.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				GameType name = (GameType) Cbox.getSelectedItem();
+				changeDimensions.setVisible(false);
+				if (name.equals(GameType.Gravity)) changeDimensions.setVisible(true);
+			}
+		});
+		
 		// INPUTS
 		
-		JPanel changeDimensions = new JPanel();
+		changeDimensions = new JPanel();
 		changeDimensions.setBackground(Color.BLUE); 
-		changeDimensions.setVisible(true);
+		changeDimensions.setVisible(false);
 		c = configureConstraint(GridBagConstraints.NONE, 0, 1, 1, 0.3); // gridX, gridY, weightX, weightY 
 		anotherPanel.add(changeDimensions,c);
-
-		JTextField dimX = new JTextField();
-		dimX.setVisible(true);
+		
+		txtFieldRow = new JTextField();
+		txtFieldRow.setVisible(true);
 		c = configureConstraint(GridBagConstraints.NONE, 0, 2, 0.1, 0.3);
-		dimX.setPreferredSize(new Dimension(30, 30));
-		changeDimensions.add(dimX,c);
+		txtFieldRow.setPreferredSize(new Dimension(30, 30));
+		changeDimensions.add(txtFieldRow,c);
 
-		JTextField dimY = new JTextField();
-		dimX.setVisible(true);
+		txtFieldColumn = new JTextField();
+		txtFieldColumn.setVisible(true);
 		c = configureConstraint(GridBagConstraints.NONE, 0, 2, 0.1, 0.3);
-		dimY.setPreferredSize(new Dimension(30, 30));
-		changeDimensions.add(dimY,c);	
+		txtFieldColumn.setPreferredSize(new Dimension(30, 30));
+		changeDimensions.add(txtFieldColumn,c);	
 		
 		JPanel blankPanel = new JPanel();
 		blankPanel.setBackground(new Color(238, 238, 238, 80)); 
