@@ -214,7 +214,9 @@ public class MainWindow extends JFrame implements GameObserver {
 		changeButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				GameType name = (GameType)Cbox.getSelectedItem();
-				wController.changeGame(name, 8, 8);
+				int row = Integer.parseInt(txtFieldRow.getText());
+				int column = Integer.parseInt(txtFieldColumn.getText());
+				wController.changeGame(name, row, column);
 			}
 		});
 		
