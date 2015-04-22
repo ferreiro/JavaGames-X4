@@ -154,18 +154,19 @@ public class MainWindow extends JFrame implements GameObserver {
 		middlePannelRightBottom.setBackground(new Color(0,0,0,30));
 		middlePannelRightBottom.setPreferredSize(new Dimension(50,50));	
 		
-
-		JPanel anotherPanel = new JPanel();
-		anotherPanel.setBackground(Color.RED); 
+		JPanel anotherPanel = new JPanel(); 
 		anotherPanel.setVisible(true);
+		anotherPanel.setBackground( new Color(0, 0, 0, 30));
+		anotherPanel.setPreferredSize(new Dimension(200, 100));
 		c = configureConstraint(GridBagConstraints.BOTH, 0, 1, .70, 0); // gridX, gridY, weightX, weightY 
 		middlePannelRightBottom.add(anotherPanel,c);
 		
-		//COMBOBOX
+		// COMBOBOX
 		Cbox = new JComboBox<GameType>(names);
 		Cbox.setSelectedIndex(0); 
 		Cbox.setFont(new Font("Arial", Font.BOLD, 24)); 
 		Cbox.setBorder(new EmptyBorder(10, 10, 10, 10));
+		Cbox.setLocation(0, 40);
 		c = configureConstraint(GridBagConstraints.NONE, 0, 1, 0.1, 0.3); // gridX, gridY, weightX, weightY 
 		anotherPanel.add(Cbox,c);
 
@@ -180,7 +181,6 @@ public class MainWindow extends JFrame implements GameObserver {
 		// INPUTS
 		
 		changeDimensions = new JPanel();
-		changeDimensions.setBackground(Color.BLUE); 
 		changeDimensions.setVisible(false);
 		c = configureConstraint(GridBagConstraints.NONE, 0, 1, 1, 0.3); // gridX, gridY, weightX, weightY 
 		anotherPanel.add(changeDimensions,c);
@@ -188,21 +188,19 @@ public class MainWindow extends JFrame implements GameObserver {
 		txtFieldColumn = new JTextField();
 		txtFieldColumn.setVisible(true);
 		c = configureConstraint(GridBagConstraints.NONE, 0, 2, 0.1, 0.3);
-		txtFieldColumn.setPreferredSize(new Dimension(30, 30));
+		txtFieldColumn.setPreferredSize(new Dimension(40, 40));
 		changeDimensions.add(txtFieldColumn,c);	
 		
 		txtFieldRow = new JTextField();
 		txtFieldRow.setVisible(true);
 		c = configureConstraint(GridBagConstraints.NONE, 0, 2, 0.1, 0.3);
-		txtFieldRow.setPreferredSize(new Dimension(30, 30));
+		txtFieldRow.setPreferredSize(new Dimension(40, 40));
 		changeDimensions.add(txtFieldRow,c);
 		
 		JPanel blankPanel = new JPanel();
-		blankPanel.setBackground(new Color(238, 238, 238, 80)); 
 		blankPanel.setVisible(true);
 		c = configureConstraint(GridBagConstraints.BOTH, 0, 1, .70, 0); // gridX, gridY, weightX, weightY 
 		middlePannelRightBottom.add(blankPanel,c);
-		
 		
 		//BUTTON FOR CHANGING
 		JButton changeButton = createAuxButton(230,  100, "Change", Resources.RESOURCES_URL + "check.png", new Color(62,218,103), false);
@@ -222,8 +220,7 @@ public class MainWindow extends JFrame implements GameObserver {
 						wController.changeGame(type, column, row);
 					}
 					catch (NumberFormatException e2) {
-						JFrame msgFrame = new JFrame();
-						JOptionPane.showMessageDialog(new JFrame(), "Input are supposed to be a number", "Bad input!", JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(new JFrame(), "Your input is not a number", "Wrong input", JOptionPane.ERROR_MESSAGE);
 					}
 				}
 				else {
