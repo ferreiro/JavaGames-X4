@@ -184,18 +184,18 @@ public class MainWindow extends JFrame implements GameObserver {
 		changeDimensions.setVisible(false);
 		c = configureConstraint(GridBagConstraints.NONE, 0, 1, 1, 0.3); // gridX, gridY, weightX, weightY 
 		anotherPanel.add(changeDimensions,c);
-		
-		txtFieldRow = new JTextField();
-		txtFieldRow.setVisible(true);
-		c = configureConstraint(GridBagConstraints.NONE, 0, 2, 0.1, 0.3);
-		txtFieldRow.setPreferredSize(new Dimension(30, 30));
-		changeDimensions.add(txtFieldRow,c);
 
 		txtFieldColumn = new JTextField();
 		txtFieldColumn.setVisible(true);
 		c = configureConstraint(GridBagConstraints.NONE, 0, 2, 0.1, 0.3);
 		txtFieldColumn.setPreferredSize(new Dimension(30, 30));
 		changeDimensions.add(txtFieldColumn,c);	
+		
+		txtFieldRow = new JTextField();
+		txtFieldRow.setVisible(true);
+		c = configureConstraint(GridBagConstraints.NONE, 0, 2, 0.1, 0.3);
+		txtFieldRow.setPreferredSize(new Dimension(30, 30));
+		changeDimensions.add(txtFieldRow,c);
 		
 		JPanel blankPanel = new JPanel();
 		blankPanel.setBackground(new Color(238, 238, 238, 80)); 
@@ -213,10 +213,23 @@ public class MainWindow extends JFrame implements GameObserver {
 				
 		changeButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				GameType name = (GameType)Cbox.getSelectedItem();
-				int row = Integer.parseInt(txtFieldRow.getText());
-				int column = Integer.parseInt(txtFieldColumn.getText());
-				wController.changeGame(name, row, column);
+				GameType type = (GameType)Cbox.getSelectedItem();
+				
+				if (type.equals(GameType.Gravity)) {
+					try {
+						int column = Integer.parseInt(txtFieldColumn.getText());
+						int row = Integer.parseInt(txtFieldRow.getText());
+						wController.changeGame(type, column, row);
+					}
+					catch (NumberFormatException e2) {
+						JFrame msgFrame = new JFrame();
+						JOptionPane.showMessageDialog(new JFrame(), "Input are supposed to be a number", "Bad input!", JOptionPane.ERROR_MESSAGE);
+					}
+				}
+				else {
+					wController.changeGame(type, 0, 0);
+				}
+			
 			}
 		});
 		
