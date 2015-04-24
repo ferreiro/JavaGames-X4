@@ -34,17 +34,6 @@ public class Main {
 		GameTypeFactory factory = new Connect4Factory();
 		Controller controller;
 		
-		// Test some stuff
-		/*
-		GameRules testR = new Connect4Rules();
-		Game testG = new Game(testR); 
-		GameTypeFactory testF = new Connect4Factory();
-		testG.addObserver(new MainWindow(testF, testG));
-		WindowController testW = new WindowController(testF, testG);
-		testW.run();
-		System.out.println("Finishing game test");
-		*/
-		
 		for (int i = 0; i< args.length; i++) {
 			deque.addLast(args[i].toLowerCase());
 		}

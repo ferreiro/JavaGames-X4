@@ -28,9 +28,9 @@ public class ComplicaMove extends Move {
 			
 			else {// Columna llena: Guardar en lostMove la celda actual y mover fichas
 				this.lostMove = board.getPosition(column, board.getHeight()); 
-				board.printBoard();
+				// board.printBoard();
 				Resources.moveColumnDown(board, column);
-				board.printBoard();
+				// board.printBoard();
 				board.setPosition(column, 1, super.getPlayer());
 			}
 		}

@@ -1,5 +1,8 @@
 package tp.pr4.control;																																							
 
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
 import tp.pr4.Resources.Resources;
 import tp.pr4.logic.Counter;
 import tp.pr4.logic.Game;
@@ -24,9 +27,7 @@ public class WindowController extends Controller {
 	
 	public void makeMove(int col, int row, Counter turn) {
 		boolean valid;
-		
-		System.out.println("make a move Window Controller");
-		
+	
 		try {
 			Move mov = getGameTypeFactory().createMove(col, row, turn);
 			valid = game.executeMove(mov);
@@ -42,6 +43,7 @@ public class WindowController extends Controller {
 		try {
 			getGame().executeMove(rMove);
 		} catch (InvalidMove e) {
+			// nothing to do
 		}
 	}
 	
@@ -56,17 +58,7 @@ public class WindowController extends Controller {
 	}
 	
 	public void run() {
-		System.out.println("To here");
-		
-		
-		/*while(!game.isFinished()) {
-			reset();
-			
-			
-			
-			
-		} 
-		*/
+		// Nothing here.
 	}
 	
 	public void undo() {

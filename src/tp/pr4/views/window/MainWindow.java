@@ -56,6 +56,7 @@ public class MainWindow extends JFrame implements GameObserver {
 	private int numberColums;
 	private int numberRows;
 	private JLabel currentColor;
+	private JButton undoButton;
 	
 	public MainWindow(GameTypeFactory gType, Game game) {
 		super(); 
@@ -126,7 +127,7 @@ public class MainWindow extends JFrame implements GameObserver {
 		});
 		
 		// UNDO BUTTON
-		JButton undoButton = new JButton("Undo");
+		undoButton = new JButton("Undo");
 		undoButton = createAuxButton(230,  100, "Undo", Resources.RESOURCES_URL + "undo.png", new Color(255,255,0), true);  
 		c = configureConstraint(GridBagConstraints.CENTER, 1, 0, 0.1, 0.3); // gridX, gridY, weightX, weightY 
 		middlePanelRightTop.add(undoButton,c);
@@ -321,7 +322,7 @@ public class MainWindow extends JFrame implements GameObserver {
 
 	@Override
 	public void moveExecStart(Counter player) {
-		
+
 	}
 
 	@Override
