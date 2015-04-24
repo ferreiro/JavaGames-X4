@@ -2,39 +2,15 @@ package tp.pr4.views.window;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.GridLayout;
-import java.awt.Insets;
-import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.util.Locale;
-
 //import javafx.scene.image.Image;
-
-
-
-
-
-
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-
-//import com.sun.glass.ui.Size;
-
-
-
-
-
-
 import tp.pr4.Resources.Resources;
 import tp.pr4.control.GameTypeFactory;
 import tp.pr4.control.WindowController;
@@ -45,7 +21,7 @@ import tp.pr4.logic.GameType;
 import tp.pr4.logic.ReadOnlyBoard;
 
 public class MainWindow extends JFrame implements GameObserver {
-	private JPanel mainPanel, topPanel, bottomPanel, leftMargin, rightMargin, 
+	private JPanel mainPanel, topPanel, leftMargin, rightMargin, 
 				   middlePanelLeft, middlePanelRight, middlePanel, changeDimensions,
 				   bottomInfoPanel;
 	private JTextField txtFieldRow, txtFieldColumn;
@@ -346,7 +322,7 @@ public class MainWindow extends JFrame implements GameObserver {
 	@Override
 	public void onGameOver(ReadOnlyBoard board, Counter winner) {
 		JFrame msgFrame = new JFrame();
-		JOptionPane.showMessageDialog(msgFrame, "The Winner is" + winner + ".");//TODO method toString and finish the function
+		JOptionPane.showMessageDialog(msgFrame, "The Winner is" + winner + ".");
 	}
 
 	@Override
@@ -394,8 +370,7 @@ public class MainWindow extends JFrame implements GameObserver {
 		numberRows = board.getHeight();
 		numberColums = board.getWidth();
 		buttons = new JButton[numberColums][numberRows];
-		GridBagConstraints c = new GridBagConstraints();
-		JButton b;
+		GridBagConstraints c = new GridBagConstraints(); 
 		
 		middlePanelLeft.removeAll(); // remove previous buttons from grid layout
 
