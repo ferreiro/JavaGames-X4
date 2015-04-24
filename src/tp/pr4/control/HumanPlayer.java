@@ -19,8 +19,9 @@ public class HumanPlayer implements Player {
 	
 	public Move getMove(Board board, Counter counter) {
 		int col, row = -1;
+		@SuppressWarnings("unused")
 		String auxStr;
-
+		
 		System.out.print("Please provide the column number: ");
 
 		col = this.in.nextInt();

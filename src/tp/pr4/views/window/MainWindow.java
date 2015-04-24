@@ -8,9 +8,11 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 //import javafx.scene.image.Image;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+
 import tp.pr4.Resources.Resources;
 import tp.pr4.control.GameTypeFactory;
 import tp.pr4.control.WindowController;
@@ -20,6 +22,7 @@ import tp.pr4.logic.GameObserver;
 import tp.pr4.logic.GameType;
 import tp.pr4.logic.ReadOnlyBoard;
 
+@SuppressWarnings("serial")
 public class MainWindow extends JFrame implements GameObserver {
 	private JPanel mainPanel, topPanel, leftMargin, rightMargin, 
 				   middlePanelLeft, middlePanelRight, middlePanel, changeDimensions,

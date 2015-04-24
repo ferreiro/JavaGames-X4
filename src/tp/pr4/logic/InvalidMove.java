@@ -3,6 +3,7 @@ package tp.pr4.logic;
 import java.lang.String;
 import java.lang.Throwable;
 
+@SuppressWarnings("serial")
 public class InvalidMove extends Exception {
 
 	public InvalidMove() {

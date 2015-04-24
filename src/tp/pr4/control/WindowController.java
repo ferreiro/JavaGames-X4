@@ -1,8 +1,5 @@
 package tp.pr4.control;																																							
 
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-
 import tp.pr4.Resources.Resources;
 import tp.pr4.logic.Counter;
 import tp.pr4.logic.Game;
@@ -17,6 +14,7 @@ public class WindowController extends Controller {
 		super(factory,g, in);
 	}
 	
+	@SuppressWarnings("static-access")
 	public void changeGame(GameType gameType, int dimX, int dimY) {
 		if (gameType == gameType.Gravity) {
 			Resources.setGravityDimX(dimX); 

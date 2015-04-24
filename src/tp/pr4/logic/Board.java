@@ -6,6 +6,7 @@ public class Board implements ReadOnlyBoard {
 	private int width, 
 				height, 
 				occupiedCells;
+	@SuppressWarnings("unused")
 	private boolean full;
 	private Counter [][] board;
 	
