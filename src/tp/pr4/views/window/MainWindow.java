@@ -243,11 +243,14 @@ public class MainWindow extends JFrame implements GameObserver {
 		
 		// Panel for showing color of the current Player
 		
-		bottomInfoPanel = createPanel(new Color(0,0,0,0), 100, 50);
+		bottomInfoPanel = createPanel(new Color(255, 255, 255), 100, 50);
 		mainPanel.add(bottomInfoPanel, BorderLayout.PAGE_END);
 		
 		String colorStr = "" + wController.getGame().getTurn(); 
 		currentColor = new JLabel(colorStr + " to Move");
+		currentColor.setBackground(new Color(0,0,0,0)); 
+		currentColor.setPreferredSize(new Dimension(200, 45));
+		currentColor.setFont(new Font("Arial", Font.BOLD, 20));
 		bottomInfoPanel.add(currentColor);
 		
 		this.setVisible(true);
