@@ -303,9 +303,6 @@ public class MainWindow extends JFrame implements GameObserver {
 				public void actionPerformed(ActionEvent e) {
 					if (active) {
 						wController.makeMove(i + 1, j + 1, wController.getGame().getTurn());
-						wController.getGame().getBoard().printBoard(); 
-						middlePanelLeft.revalidate();
-						
 					}	
 				}
 			});
