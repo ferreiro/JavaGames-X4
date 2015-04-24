@@ -45,7 +45,9 @@ import tp.pr4.logic.GameType;
 import tp.pr4.logic.ReadOnlyBoard;
 
 public class MainWindow extends JFrame implements GameObserver {
-	private JPanel mainPanel, topPanel, bottomPanel, leftMargin, rightMargin, middlePanelLeft, middlePanelRight, middlePanel, changeDimensions;
+	private JPanel mainPanel, topPanel, bottomPanel, leftMargin, rightMargin, 
+				   middlePanelLeft, middlePanelRight, middlePanel, changeDimensions,
+				   bottomInfoPanel;
 	private JTextField txtFieldRow, txtFieldColumn;
 	private JComboBox<GameType> Cbox;
 	private WindowController wController;
@@ -53,6 +55,7 @@ public class MainWindow extends JFrame implements GameObserver {
 	private JButton[][] buttons;
 	private int numberColums;
 	private int numberRows;
+	private JLabel currentColor;
 	
 	public MainWindow(GameTypeFactory gType, Game game) {
 		super(); 
@@ -234,10 +237,18 @@ public class MainWindow extends JFrame implements GameObserver {
 		middlePanelRight.add(middlePannelRightBottom,c);
 		
 		c = configureConstraint(GridBagConstraints.BOTH, 1, 0, .75, .75); //the characteristics of dark in general
+		
 		middlePanel.add(middlePanelRight, c);
-		
-		
 		mainPanel.add(middlePanel, BorderLayout.CENTER);
+		
+		// Panel for showing color of the current Player
+		
+		bottomInfoPanel = createPanel(new Color(0,0,0,0), 100, 50);
+		mainPanel.add(bottomInfoPanel, BorderLayout.PAGE_END);
+		
+		String colorStr = "" + wController.getGame().getTurn(); 
+		currentColor = new JLabel(colorStr + " to Move");
+		bottomInfoPanel.add(currentColor);
 		
 		this.setVisible(true);
 		this.setContentPane(mainPanel);
@@ -250,7 +261,7 @@ public class MainWindow extends JFrame implements GameObserver {
 	 * Auxiliary Functions 
 	 */
 
-	private JPanel createPanel(Color color, int x, int y){
+	private JPanel createPanel(Color color, int x, int y) {
 		JPanel panel = new JPanel();
 		panel.setBackground(color);
 		panel.setPreferredSize(new Dimension(x,y));
@@ -302,11 +313,15 @@ public class MainWindow extends JFrame implements GameObserver {
 	
 	@Override
 	public void moveExecFinished(ReadOnlyBoard board, Counter player, Counter nextPlayer) {
-		refresh();
+		refresh(board);
+		// Update player color on the label
+		String colorStr = "" + wController.getGame().getTurn(); 
+		currentColor.setText(colorStr + " to Move");
 	}
 
 	@Override
 	public void moveExecStart(Counter player) {
+		
 	}
 
 	@Override
@@ -322,7 +337,7 @@ public class MainWindow extends JFrame implements GameObserver {
 
 	@Override
 	public void onUndo(ReadOnlyBoard board, Counter nextPlayer, boolean undoPossible) {
-		refresh();
+		refresh(board);
 	}
 
 	@Override 
@@ -331,10 +346,10 @@ public class MainWindow extends JFrame implements GameObserver {
 		JOptionPane.showMessageDialog(msgFrame, "Nothing to undo"); 
 	}
 	 
-	public void refresh() {
+	public void refresh(ReadOnlyBoard board) {	
 		for(int i = 0; i < numberColums; i++) {
 			for (int j = 0; j < numberRows; j++) {
-				Counter colour = wController.getGame().getBoard().getPosition(i+1, j+1);
+				Counter colour = board.getPosition(i+1, j+1);
 				
 				switch(colour) {
 				case BLACK:
@@ -364,7 +379,12 @@ public class MainWindow extends JFrame implements GameObserver {
 		JButton b;
 		
 		middlePanelLeft.removeAll(); // remove previous buttons from grid layout
- 
+
+		// Update player color on the label
+		String colorStr = "" + wController.getGame().getTurn(); 
+		currentColor.setText(colorStr + " to Move");
+		
+		
 		for(int i = 0; i < numberColums; i++) {
 			for (int j = 0; j < numberRows; j++) {
 				c = configureConstraint(GridBagConstraints.BOTH, i, j, 1, 1); // gridX, gridY, weightX, weightY 
