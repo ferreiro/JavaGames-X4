@@ -205,8 +205,8 @@ public class MainWindow extends JFrame implements GameObserver {
 		blankPanel.setVisible(true);
 		c = configureConstraint(GridBagConstraints.BOTH, 0, 1, .70, 0); // gridX, gridY, weightX, weightY 
 		middlePannelRightBottom.add(blankPanel,c);
-		
-		//BUTTON FOR CHANGING
+
+		// BUTTON FOR CHANGING
 		JButton changeButton = createAuxButton(230,  100, "Change", Resources.RESOURCES_URL + "check.png", new Color(62,218,103), false);
 		changeButton.setForeground(Color.WHITE);
 		changeButton.setFont(new Font("Arial", Font.BOLD, 24));
@@ -235,7 +235,7 @@ public class MainWindow extends JFrame implements GameObserver {
 		});
 		
 		c = configureConstraint(GridBagConstraints.BOTH, 0, 1, 1, 1); // For the bottom of the dark side panel 
-		middlePanelRight.add(middlePannelRightBottom,c);
+		middlePanelRight.add(middlePannelRightBottom,c);		
 		
 		c = configureConstraint(GridBagConstraints.BOTH, 1, 0, .75, .75); //the characteristics of dark in general
 		
@@ -254,6 +254,20 @@ public class MainWindow extends JFrame implements GameObserver {
 		currentColor.setFont(new Font("Arial", Font.BOLD, 20));
 		bottomInfoPanel.add(currentColor);
 		
+
+		// BUTTON FOR EXIT
+		JButton exitButton = createAuxButton(150,  40, "Close", Resources.RESOURCES_URL + "exit.png", new Color(62,218,103), false);
+		exitButton.setForeground(Color.WHITE);
+		exitButton.setFont(new Font("Arial", Font.BOLD, 24));
+		c = configureConstraint(GridBagConstraints.NONE, 0, 4, 0.1, 0.1); // gridX, gridY, weightX, weightY 
+		bottomInfoPanel.add(exitButton,c);
+		
+		exitButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				closeWindow();
+			}
+		});
+		 
 		this.setVisible(true);
 		this.setContentPane(mainPanel);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -265,6 +279,10 @@ public class MainWindow extends JFrame implements GameObserver {
 	 * Auxiliary Functions 
 	 */
 
+	final private void closeWindow() {
+		this.setVisible(false);
+	}
+	
 	private JPanel createPanel(Color color, int x, int y) {
 		JPanel panel = new JPanel();
 		panel.setBackground(color);
