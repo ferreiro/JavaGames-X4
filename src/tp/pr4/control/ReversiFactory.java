@@ -5,31 +5,26 @@ import java.util.Scanner;
 import tp.pr4.logic.Counter;
 import tp.pr4.logic.GameRules;
 import tp.pr4.logic.Move;
+import tp.pr4.logic.ReversiMove;
+import tp.pr4.logic.ReversiRules;
 
 public class ReversiFactory implements GameTypeFactory {
 
 	@Override
 	public GameRules createRules() {
-		// TODO Auto-generated method stub
-		return null;
+		return new ReversiRules();
 	}
-
-	@Override
+	
 	public Move createMove(int col, int row, Counter colour) {
-		// TODO Auto-generated method stub
-		return null;
+		return new ReversiMove(col, row, colour);
 	}
 
-	@Override
 	public Player createHumanPlayerAtConsole(Scanner in) {
-		// TODO Auto-generated method stub
-		return null;
+		return new HumanPlayer(false, in, this);
 	}
 
-	@Override
 	public Player createRandomPlayer() {
-		// TODO Auto-generated method stub
-		return null;
+		return new RandomReversiPlayer();
 	}
 
 }
