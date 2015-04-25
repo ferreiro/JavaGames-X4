@@ -11,11 +11,9 @@ public class ComplicaRules implements GameRules {
 	private Counter winner;  
 
 	public ComplicaRules() {  
-		winner = Counter.EMPTY; // Non winner when created
+		winner = Counter.EMPTY;
 	}
 		 
-	//  Basic methods
-	
 	public Board newBoard() {
 		return new Board(dimX, dimY); // Creates a new Board
 	}

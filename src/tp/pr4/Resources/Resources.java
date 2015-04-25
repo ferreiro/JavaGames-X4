@@ -21,7 +21,8 @@ public class Resources {
 		MAX_STACK = 100,
 		TILES_TO_WIN = 4,
 		DIMX_CONNECT4 = 7, DIMY_CONNECT4 = 6,
-		DIMX_COMPLICA = 4, DIMY_COMPLICA = 7;
+		DIMX_COMPLICA = 4, DIMY_COMPLICA = 7,
+		DIMX_REVERSI = 6, DIMY_REVERSI = 6;
 
 	// Checks if there's an empty cell given a column
 	
