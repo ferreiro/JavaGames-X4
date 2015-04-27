@@ -22,7 +22,7 @@ public class Resources {
 		TILES_TO_WIN = 4,
 		DIMX_CONNECT4 = 7, DIMY_CONNECT4 = 6,
 		DIMX_COMPLICA = 4, DIMY_COMPLICA = 7,
-		DIMX_REVERSI = 6, DIMY_REVERSI = 6;
+		DIMX_REVERSI = 8, DIMY_REVERSI = 8;
 
 	// Checks if there's an empty cell given a column
 	
@@ -204,7 +204,7 @@ public class Resources {
 		}
 	}
 	
-	// He tenido que escribir de nuevo la función de pedro para 
+	// He tenido que escribir de nuevo la funciÃ³n de pedro para 
 	// que funcione el conecta 4.
 	
 	public static boolean fullColumn(int column, Board b) {
