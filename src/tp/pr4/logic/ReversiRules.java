@@ -4,7 +4,7 @@ import tp.pr4.Resources.Resources;
 
 public class ReversiRules implements GameRules {
 
-	private int	dimX = Resources.DIMX_REVERSI;
+	private int dimX = Resources.DIMX_REVERSI;
 	private int dimY = Resources.DIMY_REVERSI;
 	private Counter winner;
 	
@@ -28,7 +28,7 @@ public class ReversiRules implements GameRules {
 	}
 
 	public Counter initialPlayer() {
-		return Counter.WHITE;
+		return Counter.BLACK;
 	}
 
 	public Counter nextTurn(Counter lastMove, Board b) {
