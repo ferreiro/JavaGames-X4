@@ -14,8 +14,8 @@ public class RandomReversiPlayer implements Player {
 		int column = 0, row = 0;
 		
 		do { 
-			row    = (int) ((Math.random() * Resources.DIMY_GRAVITY) + 1);
-			column = (int) ((Math.random() * Resources.DIMX_GRAVITY) + 1);
+			row    = (int) ((Math.random() * Resources.DIMY_REVERSI) + 1);
+			column = (int) ((Math.random() * Resources.DIMX_REVERSI) + 1);
 			 
 			if (board.getPosition(column, row) == Counter.EMPTY) {
 				valid = true;
