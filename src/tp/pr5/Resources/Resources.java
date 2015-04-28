@@ -103,6 +103,9 @@ public class Resources {
 					else if (words[1].equals("CO")) {
 						option = 5;
 					}
+					else if (words[1].equals("RV")) {
+						option = 12;
+					}
 					else {
 						System.err.println(lowerCaseStr + ": command not understood, please try again");
 					}
@@ -178,7 +181,7 @@ public class Resources {
 				System.err.println(lowerCaseStr + ": command not understood, please try again");
 			}
 			
-			if ((option >= 0) && (option <= 11)) {
+			if ((option >= 0) && (option <= 12)) {
 				valid = true;
 			}
 		}

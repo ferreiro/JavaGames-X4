@@ -79,6 +79,12 @@ public class ConsoleController extends Controller{
 				initGame();
 
 				break;
+			case 12:
+				// PLAY Reversi
+				setGameType(new ReversiFactory()); 
+				initGame();
+				
+				break;
 			case 7:
 				Resources.help();
 				break;
@@ -100,6 +106,7 @@ public class ConsoleController extends Controller{
 			case 11:
 				// BLACK RANDOM
 				setPlayerInPosition(getGameType().createRandomPlayer(),1);
+				
 			}
 			 
 			// If it's finished. Then exit the loop.
