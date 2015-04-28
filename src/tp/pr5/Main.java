@@ -11,12 +11,14 @@ import tp.pr5.control.ConsoleController;
 import tp.pr5.control.Controller;
 import tp.pr5.control.GameTypeFactory;
 import tp.pr5.control.GravityFactory;
+import tp.pr5.control.ReversiFactory;
 import tp.pr5.control.WindowController;
 import tp.pr5.logic.ComplicaRules;
 import tp.pr5.logic.Connect4Rules;
 import tp.pr5.logic.Game;
 import tp.pr5.logic.GameRules;
 import tp.pr5.logic.GravityRules;
+import tp.pr5.logic.ReversiRules;
 import tp.pr5.views.console.ConsoleView;
 import tp.pr5.views.window.MainWindow;
 
@@ -57,8 +59,12 @@ public class Main {
 					deque.removeFirst();
 					gameInt = 2;
 				}
+				else if (deque.getFirst().equals("rv")){
+					deque.removeFirst();
+					gameInt = 3;
+				}
 				else {
-					System.err.println("Incorrect use: game ’" + deque.getFirst().toLowerCase() + "’ incorrect.");
+					System.err.println("Incorrect use: game â€™" + deque.getFirst().toLowerCase() + "â€™ incorrect.");
 					System.err.println("For more details, use -h|--help.");
 					valid = false;
 				}
@@ -122,6 +128,11 @@ public class Main {
 			g = new Game(r);	// The game is the model
 			factory = new GravityFactory(Resources.DIMX_GRAVITY, Resources.DIMY_GRAVITY);
 		}
+		else if (gameInt == 3){
+			r = new ReversiRules();
+			g = new Game(r);	// The game is the model
+			factory = new ReversiFactory();
+		}
 		
 		if (modeInt == 0) {
 			controller = new WindowController(factory, g);
@@ -142,6 +153,10 @@ public class Main {
 		}
 	}
 }
+	
+	
+
+
 	
 	
 
