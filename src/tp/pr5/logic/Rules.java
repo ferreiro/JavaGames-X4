@@ -19,4 +19,3 @@ public enum Rules {
 };
 
 //https://docs.oracle.com/javase/tutorial/java/javaOO/enum.html
-
