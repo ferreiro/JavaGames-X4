@@ -20,20 +20,30 @@ public class ReversiMove extends Move {
 				// Un movimiento es válido si puede revertir alguna celda formada
 				// Y además las posiciones están dentro del tablero y es una celda vacía
 				
-				valid = checkHorizontal(b, column, row, true); // True = left Part
-				if(!valid) valid = checkHorizontal(b, column, row, false); // False = right part
-					if (!valid) valid = checkVertical(b, column, row, true); // True = Up part
-						if (!valid) valid = checkVertical(b, column, row, false); // True = Up part	
-							if (!valid) valid = checkDiagonal(b, column, row, true); // True = topLeft
-								if (!valid) valid = checkDiagonal(b, column, row, false); // False = Bottom Right
-		}	 
-		
+				checkHorizontal(b, column, row, true); // True = left Part
+				checkHorizontal(b, column, row, false); // False = right part
+				checkVertical(b, column, row, true); // True = Up part
+				checkVertical(b, column, row, false); // True = Up part	
+				checkDiagonal(b, column, row, true); // True = topLeft
+				checkDiagonal(b, column, row, false); // False = Bottom Right
+				
+				// Mirar al vector de posiciones.
+				// Vector de posiciones:
+				// 		=> array de posiciones
+				//	    => integer con el número total de posiciones
+				// if (totalVectores >= 1) {
+				//	   Entonces, marcar posiciones
+				//		y poner el movimiento como válido.
+				
+								
+								
+				// marcar 
+		}	 		
 		return valid;
 	}
 
 	// CheckHorizontal: Function to Check left and right colors given a fixed position
-	public boolean checkHorizontal(Board b, int x, int y, boolean left) {
-		boolean valid = false;
+	public void checkHorizontal(Board b, int x, int y, boolean left) {
 		int auxColumn = x, total = 0;
 		// Counter color = b.getPosition(x, y);
 		Counter color = super.currentPlayer;
@@ -43,7 +53,7 @@ public class ReversiMove extends Move {
 				total += 1; auxColumn -= 1; 
 			} 
 			if ((total >= 1) && (b.getPosition(auxColumn - 1, y) == color)) {
-				valid = true; // Se pueden formar celdas entre medias y hay una ficha en el extremo, del mismo color que la original.
+				// valid = true; // Se pueden formar celdas entre medias y hay una ficha en el extremo, del mismo color que la original.
 				
 				b.setPosition(x, y, color); // poner la celda con el color del jugador
 				for (int i = 0; i < total; i++) {
@@ -59,7 +69,7 @@ public class ReversiMove extends Move {
 				total += 1; auxColumn += 1; 
 			} 
 			if ((total >= 1) && (b.getPosition(auxColumn + 1, y) == color)) {
-				valid = true; // Se pueden formar celdas entre medias y hay una ficha en el extremo, del mismo color que la original.
+				// valid = true; // Se pueden formar celdas entre medias y hay una ficha en el extremo, del mismo color que la original.
 				
 				b.setPosition(x, y, color); // poner la celda con el color del jugador
 				for (int i = 0; i < total; i++) {
@@ -69,15 +79,12 @@ public class ReversiMove extends Move {
 				// TODO: Guardar en el array la última posición válida de este movimiento (auxColumn, y)
 		
 			}			
-		}
- 
-		return valid;
+		} 
 	}
 
 	// CheckVertical: Function to Check top and bottom colors given a fixed position
-	public boolean checkVertical(Board b, int x, int y, boolean up) {
-		boolean valid = false;
-		int auxRow = y, total = 0;
+	public void checkVertical(Board b, int x, int y, boolean up) {
+ 		int auxRow = y, total = 0;
 		Counter color = b.getPosition(x, y);
 		 
 		if (up) {
@@ -85,7 +92,7 @@ public class ReversiMove extends Move {
 				total += 1; auxRow -= 1; 
 			} 
 			if ((total >= 1) && (b.getPosition(x, auxRow - 1) == color)) {
-				valid = true; // Se pueden formar celdas entre medias y hay una ficha en el extremo, del mismo color que la original.
+				// valid = true; // Se pueden formar celdas entre medias y hay una ficha en el extremo, del mismo color que la original.
 				
 				b.setPosition(x, y, color); // poner la celda con el color del jugador
 				for (int i = 0; i < total; i++) {
@@ -101,7 +108,7 @@ public class ReversiMove extends Move {
 				total += 1; auxRow += 1; 
 			} 
 			if ((total >= 1) && (b.getPosition(x, auxRow + 1) == color)) {
-				valid = true; // Se pueden formar celdas entre medias y hay una ficha en el extremo, del mismo color que la original.
+				// valid = true; // Se pueden formar celdas entre medias y hay una ficha en el extremo, del mismo color que la original.
 				
 				b.setPosition(x, y, color); // poner la celda con el color del jugador
 				for (int i = 0; i < total; i++) {
@@ -111,14 +118,12 @@ public class ReversiMove extends Move {
 				// TODO: Guardar en el array la última posición válida de este movimiento (column, auxRow)
 				
 			}			
-		} 
-		return valid;
+		}  
 	}
 	
 	// CheckHorizontal: Function to Check diagonals given a fixed position
-	public boolean checkDiagonal(Board b, int x, int y, boolean topLeft) {
-		boolean valid = false;
-		int auxColumn = x, auxRow = x, total = 0;
+	public void checkDiagonal(Board b, int x, int y, boolean topLeft) {
+ 		int auxColumn = x, auxRow = x, total = 0;
 		Counter color = b.getPosition(x, y);
  
 		if (topLeft) {
@@ -126,7 +131,7 @@ public class ReversiMove extends Move {
 				total += 1; auxColumn -= 1; auxRow -= 1; 
 			} 
 			if ((total >= 1) && (b.getPosition(auxColumn - 1, auxRow - 1) == color)) {
-				valid = true; // Se pueden formar celdas entre medias y hay una ficha en el extremo, del mismo color que la original.
+				// valid = true; // Se pueden formar celdas entre medias y hay una ficha en el extremo, del mismo color que la original.
 
 				// TODO: Guardar en el array la última posición válida de este movimiento (auxColumn, auxRow)
 				
@@ -137,14 +142,12 @@ public class ReversiMove extends Move {
 				total += 1; auxColumn += 1; auxRow += 1; 
 			} 
 			if ((total >= 1) && (b.getPosition(auxColumn + 1, auxRow + 1) == color)) {
-				valid = true; // Se pueden formar celdas entre medias y hay una ficha en el extremo, del mismo color que la original.
+				// valid = true; // Se pueden formar celdas entre medias y hay una ficha en el extremo, del mismo color que la original.
 
 				// TODO: Guardar en el array la última posición válida de este movimiento (auxColumn, auxRow)
 				
 			}			
-		}
- 
-		return valid;
+		} 
 	}
 	
 	@Override

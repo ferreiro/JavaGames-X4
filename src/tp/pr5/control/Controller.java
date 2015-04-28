@@ -5,7 +5,6 @@ import java.util.Scanner;
 import tp.pr5.logic.Counter;
 import tp.pr5.logic.Game;
 import tp.pr5.logic.GameType;
-import tp.pr5.logic.ReversiRules;
 
 public abstract class Controller {
 	protected Game game;

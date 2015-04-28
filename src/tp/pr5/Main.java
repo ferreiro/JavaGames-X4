@@ -12,16 +12,12 @@ import tp.pr5.control.Controller;
 import tp.pr5.control.GameTypeFactory;
 import tp.pr5.control.GravityFactory;
 import tp.pr5.control.ReversiFactory;
-import tp.pr5.control.WindowController;
-import tp.pr5.logic.Board;
+import tp.pr5.control.WindowController; 
 import tp.pr5.logic.ComplicaRules;
-import tp.pr5.logic.Connect4Rules;
-import tp.pr5.logic.Counter;
+import tp.pr5.logic.Connect4Rules; 
 import tp.pr5.logic.Game;
 import tp.pr5.logic.GameRules;
-import tp.pr5.logic.GravityRules;
-import tp.pr5.logic.Move;
-import tp.pr5.logic.ReversiMove;
+import tp.pr5.logic.GravityRules; 
 import tp.pr5.logic.ReversiRules;
 import tp.pr5.views.console.ConsoleView;
 import tp.pr5.views.window.MainWindow;
@@ -122,17 +118,17 @@ public class Main {
 			counter++;
 		}
 		
-		if (gameInt == 1){
+		if (gameInt == 1) {
 			r = new ComplicaRules();
 			g = new Game(r);	// The game is the model
 			factory = new ComplicaFactory();
 		}
-		else if (gameInt == 2){
+		else if (gameInt == 2) {
 			r = new GravityRules(Resources.DIMX_GRAVITY, Resources.DIMY_GRAVITY);
 			g = new Game(r);	// The game is the model
 			factory = new GravityFactory(Resources.DIMX_GRAVITY, Resources.DIMY_GRAVITY);
 		}
-		else if (gameInt == 3){
+		else if (gameInt == 3) {
 			r = new ReversiRules();
 			g = new Game(r);	// The game is the model
 			factory = new ReversiFactory();
@@ -148,7 +144,6 @@ public class Main {
 		
 		if(valid) {
 			g = new Game(r);
-				
 			controller.run();
 		}
 		else{
