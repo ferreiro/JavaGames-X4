@@ -11,8 +11,16 @@ public class ReversiMove extends Move {
 
 	@Override
 	public boolean executeMove(Board board) throws InvalidMove {
-		// TODO Auto-generated method stub
-		return false;
+		boolean validMove = false;
+		
+		if ((column >= 1 && column <= Resources.DIMX_REVERSI) && (row >= 1 && row <= Resources.DIMY_REVERSI)) {
+			if (board.getPosition(column, row) == Counter.EMPTY) {
+				validMove = true;
+				//TODO: terminnar execute move
+			}
+		}	
+		
+		return validMove;
 	}
 
 	@Override
