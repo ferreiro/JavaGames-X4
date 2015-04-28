@@ -48,8 +48,9 @@ public class ReversiRules implements GameRules {
 	public Counter winningMove(Move lastMove, Board b) {
 		boolean valid = false;
 		Counter c = Counter.EMPTY;
-			
-		valid = checkHorizontal(b, lastMove.column, lastMove.getRow(), false);
+
+		valid = checkHorizontal(b, lastMove.column, lastMove.getRow(), true); // True = left Part
+		valid = checkHorizontal(b, lastMove.column, lastMove.getRow(), false); // False = right part
  
 		
 		return c;
@@ -60,35 +61,57 @@ public class ReversiRules implements GameRules {
 		int auxColumn = x, total = 0;
 		Counter color = b.getPosition(x, y);
 
-		// DEBUG System.out.println("X, Y = " + x + " " + y);
-		// DEBUG System.out.println("Color = " + color);
-		// DEBUG System.out.println("AuxColumn = " + auxColumn);
+		System.out.println("X, Y = " + x + " " + y); // DEBUG
+		System.out.println("Color = " + color); // DEBUG
+		System.out.println("AuxColumn = " + auxColumn); // DEBUG
 		
-		while((auxColumn > 1) && (b.getPosition(auxColumn - 1, y) != color)) {
+		if (left) {
+			while((auxColumn > 1) && (b.getPosition(auxColumn - 1, y) != color)) {
 
-			total += 1; auxColumn -= 1; 
-			
-			// DEBUG System.out.println("----");
-			// DEBUG System.out.println("WHILE " + total);
-			// DEBUG System.out.println("Total = " + total);
-			// DEBUG System.out.println("AuxColumn = " + auxColumn);
-		} 
-		if ((total >= 1) && (b.getPosition(auxColumn - 1, y) == color)) {
-			// DEBUG System.out.println("----");
-			// DEBUG System.out.println("Valid");
+				total += 1; auxColumn -= 1; 
+				
+				System.out.println("----"); // DEBUG
+				System.out.println("WHILE " + total); // DEBUG
+				System.out.println("Total = " + total); // DEBUG
+				System.out.println("AuxColumn = " + auxColumn); // DEBUG
+			} 
+			if ((total >= 1) && (b.getPosition(auxColumn - 1, y) == color)) {
+				System.out.println("----"); // DEBUG
+				System.out.println("Valid"); // DEBUG
 
-			valid = true; // If there is unless one Counter of the other color and the last counter is the same as the move color
-			
-			// TODO Si se han formado celdas y la última ficha es del mismo color que la primera 
-			// TODO: Marcar las celdas
-			// Posición final para guardar: (auxColumn, y)
+				valid = true; // If there is unless one Counter of the other color and the last counter is the same as the move color
+				
+				// TODO Si se han formado celdas y la última ficha es del mismo color que la primera 
+				// TODO: Marcar las celdas
+				// Posición final para guardar: (auxColumn, y)
+			}
+		}
+		else {
+			while((auxColumn < b.getWidth()) && (b.getPosition(auxColumn + 1, y) != color)) {
+
+				total += 1; auxColumn += 1; 
+				
+				System.out.println("----"); // DEBUG
+				System.out.println("WHILE " + total); // DEBUG
+				System.out.println("Total = " + total); // DEBUG
+				System.out.println("AuxColumn = " + auxColumn); // DEBUG
+			} 
+			if ((total >= 1) && (b.getPosition(auxColumn + 1, y) == color)) {
+				System.out.println("----"); // DEBUG
+				System.out.println("Valid"); // DEBUG
+
+				valid = true; // If there is unless one Counter of the other color and the last counter is the same as the move color
+				
+				// TODO Si se han formado celdas y la última ficha es del mismo color que la primera 
+				// TODO: Marcar las celdas
+				// Posición final para guardar: (auxColumn, y)
+			}			
 		}
 
-		// DEBUG System.out.println("====================================");
+		System.out.println("===================================="); // DEBUG
 	 
 		return valid;
 	}
-	
 	
 	
 	
