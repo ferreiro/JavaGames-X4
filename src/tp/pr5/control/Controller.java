@@ -5,6 +5,7 @@ import java.util.Scanner;
 import tp.pr5.logic.Counter;
 import tp.pr5.logic.Game;
 import tp.pr5.logic.GameType;
+import tp.pr5.logic.ReversiRules;
 
 public abstract class Controller {
 	protected Game game;
@@ -27,7 +28,12 @@ public abstract class Controller {
 		game.reset(gameType.createRules()); // Reset a new game
 		players[0] = gameType.createHumanPlayerAtConsole(in);
 		players[1] = gameType.createHumanPlayerAtConsole(in);
-		currentPlayer = 0;
+		if (game.getTurn() == Counter.WHITE) {
+			currentPlayer = 0;
+		}
+		else {
+			currentPlayer = 1;
+		}
 	}
 	
 	void changeG(GameType gameType, int x, int y) {

@@ -30,7 +30,7 @@ public class Game implements Observable<GameObserver> {
 		turn = rules.initialPlayer();
 		winner = Counter.EMPTY;
 		finished = false;
-		stack.clear();
+		stack.clear(); 
 		for (GameObserver o : obsList)
 			o.reset(board, turn, false);
 	}
