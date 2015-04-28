@@ -4,7 +4,7 @@ public interface GameRules {
 	
 	// Build a board that is to be used in the game, according to the rules of that game.
 	public Board newBoard();
-
+ 	
 	// Consulta si hay empate. tablas(Ficha ultimoEnPoner, Tablero t) 
 	
 	public boolean isDraw(Counter lastMove, Board b);

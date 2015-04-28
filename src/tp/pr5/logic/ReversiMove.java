@@ -3,12 +3,10 @@ package tp.pr5.logic;
 import tp.pr5.Resources.Resources;
 
 public class ReversiMove extends Move {
-	
-	private int row;
 
 	public ReversiMove(int moveColumn, int moveRow, Counter moveColour) {
 		super(moveColour, moveColumn);
-		this.row = moveRow;
+		super.row = moveRow;
 	}
 
 	@Override
@@ -32,7 +30,11 @@ public class ReversiMove extends Move {
 	}
 
 	@Override
-	public int getColumn() {return this.column;}
-	public int getRow() {return this.row;}
+	public int getColumn() {
+		return this.column;
+	}
+	public int getRow() {
+		return this.row;
+	}
 
 }

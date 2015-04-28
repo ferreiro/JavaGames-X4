@@ -13,17 +13,39 @@ import tp.pr5.control.GameTypeFactory;
 import tp.pr5.control.GravityFactory;
 import tp.pr5.control.ReversiFactory;
 import tp.pr5.control.WindowController;
+import tp.pr5.logic.Board;
 import tp.pr5.logic.ComplicaRules;
 import tp.pr5.logic.Connect4Rules;
+import tp.pr5.logic.Counter;
 import tp.pr5.logic.Game;
 import tp.pr5.logic.GameRules;
 import tp.pr5.logic.GravityRules;
+import tp.pr5.logic.Move;
+import tp.pr5.logic.ReversiMove;
 import tp.pr5.logic.ReversiRules;
 import tp.pr5.views.console.ConsoleView;
 import tp.pr5.views.window.MainWindow;
 
 public class Main {
-
+	
+	/*
+	public static void main(String[] args) {
+		GameRules r = new ReversiRules();
+		Board b = new Board(3, 1);
+		Counter valid;
+		
+		for (int i = 1; i <= 3; i++) {
+			if (i % 2==1) b.setPosition(i, 1, Counter.BLACK);
+			else 		  b.setPosition(i, 1, Counter.WHITE);
+		}
+		
+		b.printBoard();
+		
+		ReversiMove m = new ReversiMove(3, 1, b.getPosition(3, 1));
+		valid =  r.winningMove(m, b);
+			
+	}
+	*/ 
 	public static void main(String[] args) {
 		boolean valid = true;
 		Deque<String> deque = new ArrayDeque<>();
@@ -151,11 +173,8 @@ public class Main {
 			System.exit(1);
 		}
 	}
+	
+	 
+	
+	
 }
-	
-	
-
-
-	
-	
-

@@ -3,11 +3,10 @@ package tp.pr5.logic;
 import tp.pr5.Resources.Resources;
 
 public class GravityMove extends Move{
-	private int row;
 
 	public GravityMove(int moveColumn, int moveRow, Counter moveColour) {
 		super(moveColour, moveColumn);
-		this.row = moveRow;
+		super.row = moveRow;
 	}
 
 	@Override

@@ -35,4 +35,9 @@ public class Connect4Move extends Move {
 	public int getColumn() {
 		return this.column;
 	}
+
+	@Override
+	public int getRow() { 
+		return this.row;
+	}
 }

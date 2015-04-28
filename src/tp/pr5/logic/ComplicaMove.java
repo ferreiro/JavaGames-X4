@@ -54,5 +54,10 @@ public class ComplicaMove extends Move {
 	public int getColumn() {
 		return this.column;
 	}
+
+	@Override
+	public int getRow() {
+		return this.row;
+	}
 	
 }
