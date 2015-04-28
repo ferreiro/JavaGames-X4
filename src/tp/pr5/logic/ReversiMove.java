@@ -45,8 +45,7 @@ public class ReversiMove extends Move {
 	// CheckHorizontal: Function to Check left and right colors given a fixed position
 	public void checkHorizontal(Board b, int x, int y, boolean left) {
 		int auxColumn = x, total = 0;
-		// Counter color = b.getPosition(x, y);
-		Counter color = super.currentPlayer;
+		Counter color = b.getPosition(x, y);
  
 		if (left) {
 			while((auxColumn > 1) && (b.getPosition(auxColumn - 1, y) != color)) {
