@@ -21,13 +21,13 @@ public class ReversiMove extends Move {
 				// Y además las posiciones están dentro del tablero y es una celda vacía
 				
 				valid = checkHorizontal(b, column, row, true); // True = left Part
-					if(!valid) valid = checkHorizontal(b, column, row, false); // False = right part
-						if (!valid) valid = checkVertical(b, column, row, true); // True = Up part
-							if (!valid) valid = checkVertical(b, column, row, false); // True = Up part	
-								if (!valid) valid = checkDiagonal(b, column, row, true); // True = topLeft
-									if (!valid) valid = checkDiagonal(b, column, row, false); // False = Bottom Right
-		}	
-		 
+				if(!valid) valid = checkHorizontal(b, column, row, false); // False = right part
+					if (!valid) valid = checkVertical(b, column, row, true); // True = Up part
+						if (!valid) valid = checkVertical(b, column, row, false); // True = Up part	
+							if (!valid) valid = checkDiagonal(b, column, row, true); // True = topLeft
+								if (!valid) valid = checkDiagonal(b, column, row, false); // False = Bottom Right
+		}	 
+		
 		return valid;
 	}
 
@@ -35,7 +35,8 @@ public class ReversiMove extends Move {
 	public boolean checkHorizontal(Board b, int x, int y, boolean left) {
 		boolean valid = false;
 		int auxColumn = x, total = 0;
-		Counter color = b.getPosition(x, y);
+		// Counter color = b.getPosition(x, y);
+		Counter color = super.currentPlayer;
  
 		if (left) {
 			while((auxColumn > 1) && (b.getPosition(auxColumn - 1, y) != color)) {
@@ -43,7 +44,12 @@ public class ReversiMove extends Move {
 			} 
 			if ((total >= 1) && (b.getPosition(auxColumn - 1, y) == color)) {
 				valid = true; // Se pueden formar celdas entre medias y hay una ficha en el extremo, del mismo color que la original.
-
+				
+				b.setPosition(x, y, color); // poner la celda con el color del jugador
+				for (int i = 0; i < total; i++) {
+					b.setPosition(auxColumn + i, y, color); // swap color on cells
+				}
+				
 				// TODO: Guardar en el array la última posición válida de este movimiento (auxColumn, y)
 				
 			}
@@ -54,7 +60,12 @@ public class ReversiMove extends Move {
 			} 
 			if ((total >= 1) && (b.getPosition(auxColumn + 1, y) == color)) {
 				valid = true; // Se pueden formar celdas entre medias y hay una ficha en el extremo, del mismo color que la original.
-
+				
+				b.setPosition(x, y, color); // poner la celda con el color del jugador
+				for (int i = 0; i < total; i++) {
+					b.setPosition(auxColumn - i, y, color); // swap color on cells
+				}
+				
 				// TODO: Guardar en el array la última posición válida de este movimiento (auxColumn, y)
 		
 			}			
@@ -75,7 +86,12 @@ public class ReversiMove extends Move {
 			} 
 			if ((total >= 1) && (b.getPosition(x, auxRow - 1) == color)) {
 				valid = true; // Se pueden formar celdas entre medias y hay una ficha en el extremo, del mismo color que la original.
-
+				
+				b.setPosition(x, y, color); // poner la celda con el color del jugador
+				for (int i = 0; i < total; i++) {
+					b.setPosition(x, auxRow - i, color); // swap color on cells
+				}
+				
 				// TODO: Guardar en el array la última posición válida de este movimiento (column, auxRow)
 				
 			}
@@ -86,7 +102,12 @@ public class ReversiMove extends Move {
 			} 
 			if ((total >= 1) && (b.getPosition(x, auxRow + 1) == color)) {
 				valid = true; // Se pueden formar celdas entre medias y hay una ficha en el extremo, del mismo color que la original.
-
+				
+				b.setPosition(x, y, color); // poner la celda con el color del jugador
+				for (int i = 0; i < total; i++) {
+					b.setPosition(x, auxRow + i, color); // swap color on cells
+				}
+				
 				// TODO: Guardar en el array la última posición válida de este movimiento (column, auxRow)
 				
 			}			

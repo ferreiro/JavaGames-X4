@@ -3,7 +3,7 @@ package tp.pr5.logic;
 import java.util.ArrayList; 
 
 public abstract class Move {
-	private Counter currentPlayer;
+	protected Counter currentPlayer;
 	protected int column;
 	protected int row;
 	private ArrayList<SwappedMove> swapTiles;
