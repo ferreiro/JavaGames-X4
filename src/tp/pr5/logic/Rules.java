@@ -5,7 +5,8 @@ import tp.pr5.Resources.Resources;
 public enum Rules {
 	C4 (new Connect4Rules()) ,
 	CO (new ComplicaRules()) ,
-	GR (new GravityRules(Resources.DIMX_GRAVITY, Resources.DIMY_GRAVITY));
+	GR (new GravityRules(Resources.DIMX_GRAVITY, Resources.DIMY_GRAVITY)),
+	RV (new ReversiRules());
 		
 	private final GameRules gameRules;
 	
