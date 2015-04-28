@@ -1,5 +1,7 @@
 package tp.pr5.logic;
 
+import tp.pr5.Resources.Resources;
+
 public class ReversiMove extends Move {
 	
 	private int row;
