@@ -204,7 +204,7 @@ public class Resources {
 		}
 	}
 	
-	// He tenido que escribir de nuevo la función de pedro para 
+	// He tenido que escribir de nuevo la funciÃ³n de pedro para 
 	// que funcione el conecta 4.
 	
 	public static boolean fullColumn(int column, Board b) {
@@ -324,7 +324,7 @@ public class Resources {
 	
 	public static void helpInit() {
 		System.out.println("usage: tp.pr3.Main [-g <game>] [-h] [-x <columnNumber>] [-y <rowNumber>]");
-		System.out.println(" -g,--game <game>           Type of game (c4, co, gr). By default, c4.");
+		System.out.println(" -g,--game <game>           Type of game (c4, co, gr, rv). By default, c4.");
 		System.out.println(" -h,--help                  Displays this help.");
 		System.out.println(" -u,--ui<tipo>              Type of interface (console,window).");
 		System.out.println("                            by default console.");
