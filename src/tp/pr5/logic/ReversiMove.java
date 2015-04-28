@@ -16,13 +16,16 @@ public class ReversiMove extends Move {
 		if ((column >= 1 && column <= Resources.DIMX_REVERSI) && 
 			(row >= 1 && row <= Resources.DIMY_REVERSI) && 
 			(b.getPosition(column, row) == Counter.EMPTY)) { 
-				//TODO: terminnar execute move
+				
+				// Un movimiento es válido si puede revertir alguna celda formada
+				// Y además las posiciones están dentro del tablero y es una celda vacía
 				
 				valid = checkHorizontal(b, column, row, true); // True = left Part
 					if(!valid) valid = checkHorizontal(b, column, row, false); // False = right part
 						if (!valid) valid = checkVertical(b, column, row, true); // True = Up part
 							if (!valid) valid = checkVertical(b, column, row, false); // True = Up part	
-				
+								if (!valid) valid = checkDiagonal(b, column, row, true); // True = topLeft
+									if (!valid) valid = checkDiagonal(b, column, row, false); // False = Bottom Right
 		}	
 		 
 		return valid;
