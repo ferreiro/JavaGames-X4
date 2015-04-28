@@ -26,27 +26,13 @@ public class ReversiRules implements GameRules {
 		boolean valid = false;
 		int auxColumn = x, total = 0;
 		Counter color = b.getPosition(x, y);
-
-		// DEBUG System.out.println("X, Y = " + x + " " + y); // DEBUG
-		// DEBUG System.out.println("Color = " + color); // DEBUG
-		// DEBUG System.out.println("AuxColumn = " + auxColumn); // DEBUG
-		
+ 
 		if (left) {
 			while((auxColumn > 1) && (b.getPosition(auxColumn - 1, y) != color)) {
-
 				total += 1; auxColumn -= 1; 
-				
-				// DEBUG System.out.println("----"); // DEBUG
-				// DEBUG System.out.println("WHILE " + total); // DEBUG
-				// DEBUG System.out.println("Total = " + total); // DEBUG
-				// DEBUG System.out.println("AuxColumn = " + auxColumn); // DEBUG
 			} 
 			if ((total >= 1) && (b.getPosition(auxColumn - 1, y) == color)) {
-				// DEBUG System.out.println("----"); // DEBUG
-				// DEBUG System.out.println("Valid"); // DEBUG
-
 				valid = true; // If there is unless one Counter of the other color and the last counter is the same as the move color
-				
 				// TODO Si se han formado celdas y la última ficha es del mismo color que la primera 
 				// TODO: Marcar las celdas
 				// Posición final para guardar: (auxColumn, y)
@@ -54,18 +40,9 @@ public class ReversiRules implements GameRules {
 		}
 		else {
 			while((auxColumn < b.getWidth()) && (b.getPosition(auxColumn + 1, y) != color)) {
-
 				total += 1; auxColumn += 1; 
-				
-				// DEBUG System.out.println("----"); // DEBUG
-				// DEBUG System.out.println("WHILE " + total); // DEBUG
-				// DEBUG System.out.println("Total = " + total); // DEBUG
-				// DEBUG System.out.println("AuxColumn = " + auxColumn); // DEBUG
 			} 
 			if ((total >= 1) && (b.getPosition(auxColumn + 1, y) == color)) {
-				// DEBUG System.out.println("----"); // DEBUG
-				// DEBUG System.out.println("Valid"); // DEBUG
-
 				valid = true; // If there is unless one Counter of the other color and the last counter is the same as the move color
 				
 				// TODO Si se han formado celdas y la última ficha es del mismo color que la primera 
@@ -78,13 +55,9 @@ public class ReversiRules implements GameRules {
 			System.out.println("Valid move!");
 		}
 		
-		// DEBUG System.out.println("===================================="); // DEBUG
-	 
+		
 		return valid;
 	}
-	
-	
-	
 	
 	public Board newBoard() {
 		Board b = new Board(dimX, dimY);
