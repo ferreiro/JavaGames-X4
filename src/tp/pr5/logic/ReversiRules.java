@@ -60,28 +60,31 @@ public class ReversiRules implements GameRules {
 		int auxColumn = x, total = 0;
 		Counter color = b.getPosition(x, y);
 
-		System.out.println("X, Y = " + x + " " + y);
-		System.out.println("Color = " + color);
-		System.out.println("AuxColumn = " + auxColumn);
+		// DEBUG System.out.println("X, Y = " + x + " " + y);
+		// DEBUG System.out.println("Color = " + color);
+		// DEBUG System.out.println("AuxColumn = " + auxColumn);
 		
 		while((auxColumn > 1) && (b.getPosition(auxColumn - 1, y) != color)) {
 
 			total += 1; auxColumn -= 1; 
 			
-			System.out.println("----");
-			System.out.println("WHILE " + total);
-			System.out.println("Total = " + total);
-			System.out.println("AuxColumn = " + auxColumn);
+			// DEBUG System.out.println("----");
+			// DEBUG System.out.println("WHILE " + total);
+			// DEBUG System.out.println("Total = " + total);
+			// DEBUG System.out.println("AuxColumn = " + auxColumn);
 		} 
 		if ((total >= 1) && (b.getPosition(auxColumn - 1, y) == color)) {
-			System.out.println("----");
-			System.out.println("Valid");
+			// DEBUG System.out.println("----");
+			// DEBUG System.out.println("Valid");
+
 			valid = true; // If there is unless one Counter of the other color and the last counter is the same as the move color
-			// Si se han formado celdas y la última ficha es del mismo color que la primera 
+			
+			// TODO Si se han formado celdas y la última ficha es del mismo color que la primera 
 			// TODO: Marcar las celdas
 			// Posición final para guardar: (auxColumn, y)
 		}
-		System.out.println("====================================");
+
+		// DEBUG System.out.println("====================================");
 	 
 		return valid;
 	}
