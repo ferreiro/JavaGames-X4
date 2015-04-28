@@ -20,7 +20,7 @@ public class ReversiFactory implements GameTypeFactory {
 	}
 
 	public Player createHumanPlayerAtConsole(Scanner in) {
-		return new HumanPlayer(false, in, this);
+		return new HumanPlayer(true, in, this);
 	}
 
 	public Player createRandomPlayer() {
