@@ -40,6 +40,9 @@ public abstract class Controller {
 		else if(gameType == GameType.Gravity){
 			this.gameType = new GravityFactory(x, y);
 		}
+		else if(gameType == GameType.reversi){
+			this.gameType = new ReversiFactory();
+		}
 		initGame();
 	}
 	
