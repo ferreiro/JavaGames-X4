@@ -18,7 +18,6 @@ public class ReversiRules implements GameRules {
 
 		valid = checkHorizontal(b, lastMove.column, lastMove.getRow(), true); // True = left Part
 		valid = checkHorizontal(b, lastMove.column, lastMove.getRow(), false); // False = right part
- 
 		
 		return c;
 	}
@@ -28,23 +27,23 @@ public class ReversiRules implements GameRules {
 		int auxColumn = x, total = 0;
 		Counter color = b.getPosition(x, y);
 
-		System.out.println("X, Y = " + x + " " + y); // DEBUG
-		System.out.println("Color = " + color); // DEBUG
-		System.out.println("AuxColumn = " + auxColumn); // DEBUG
+		// DEBUG System.out.println("X, Y = " + x + " " + y); // DEBUG
+		// DEBUG System.out.println("Color = " + color); // DEBUG
+		// DEBUG System.out.println("AuxColumn = " + auxColumn); // DEBUG
 		
 		if (left) {
 			while((auxColumn > 1) && (b.getPosition(auxColumn - 1, y) != color)) {
 
 				total += 1; auxColumn -= 1; 
 				
-				System.out.println("----"); // DEBUG
-				System.out.println("WHILE " + total); // DEBUG
-				System.out.println("Total = " + total); // DEBUG
-				System.out.println("AuxColumn = " + auxColumn); // DEBUG
+				// DEBUG System.out.println("----"); // DEBUG
+				// DEBUG System.out.println("WHILE " + total); // DEBUG
+				// DEBUG System.out.println("Total = " + total); // DEBUG
+				// DEBUG System.out.println("AuxColumn = " + auxColumn); // DEBUG
 			} 
 			if ((total >= 1) && (b.getPosition(auxColumn - 1, y) == color)) {
-				System.out.println("----"); // DEBUG
-				System.out.println("Valid"); // DEBUG
+				// DEBUG System.out.println("----"); // DEBUG
+				// DEBUG System.out.println("Valid"); // DEBUG
 
 				valid = true; // If there is unless one Counter of the other color and the last counter is the same as the move color
 				
@@ -58,14 +57,14 @@ public class ReversiRules implements GameRules {
 
 				total += 1; auxColumn += 1; 
 				
-				System.out.println("----"); // DEBUG
-				System.out.println("WHILE " + total); // DEBUG
-				System.out.println("Total = " + total); // DEBUG
-				System.out.println("AuxColumn = " + auxColumn); // DEBUG
+				// DEBUG System.out.println("----"); // DEBUG
+				// DEBUG System.out.println("WHILE " + total); // DEBUG
+				// DEBUG System.out.println("Total = " + total); // DEBUG
+				// DEBUG System.out.println("AuxColumn = " + auxColumn); // DEBUG
 			} 
 			if ((total >= 1) && (b.getPosition(auxColumn + 1, y) == color)) {
-				System.out.println("----"); // DEBUG
-				System.out.println("Valid"); // DEBUG
+				// DEBUG System.out.println("----"); // DEBUG
+				// DEBUG System.out.println("Valid"); // DEBUG
 
 				valid = true; // If there is unless one Counter of the other color and the last counter is the same as the move color
 				
@@ -75,7 +74,11 @@ public class ReversiRules implements GameRules {
 			}			
 		}
 
-		System.out.println("===================================="); // DEBUG
+		if (valid) {
+			System.out.println("Valid move!");
+		}
+		
+		// DEBUG System.out.println("===================================="); // DEBUG
 	 
 		return valid;
 	}
