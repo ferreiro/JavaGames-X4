@@ -44,7 +44,7 @@ public class MainWindow extends JFrame implements GameObserver {
 	}
 	
 	private void initGUI() { 
-		GameType names[] = { GameType.connect4, GameType.complica, GameType.Gravity }; 
+		GameType names[] = { GameType.connect4, GameType.complica, GameType.Gravity, GameType.reversi  }; 
 		mainPanel = new JPanel(new BorderLayout()); 
 		
 		/////////////////// HEADER AND BOTTOM //////////////////
