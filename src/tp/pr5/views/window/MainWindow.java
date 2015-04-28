@@ -391,6 +391,8 @@ public class MainWindow extends JFrame implements GameObserver {
 		}
 		this.active = true;
 		middlePanelLeft.revalidate();
+		
+		refresh(board);
 	}
 	
 }

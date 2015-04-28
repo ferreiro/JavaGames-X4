@@ -48,7 +48,14 @@ public class ReversiRules implements GameRules {
 	
 	
 	public Board newBoard() {
-		return new Board(dimX, dimY);
+		Board b = new Board(dimX, dimY);
+		
+		b.setPosition(4, 4, Counter.BLACK);
+		b.setPosition(5, 5, Counter.BLACK);
+		b.setPosition(5, 4, Counter.WHITE);
+		b.setPosition(4, 5, Counter.WHITE);
+		
+		return b;
 	}
 
 	public boolean isDraw(Counter lastMove, Board b) {
