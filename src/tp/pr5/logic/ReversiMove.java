@@ -14,7 +14,7 @@ public class ReversiMove extends Move {
 		boolean valid = false;
 		
 		if ((column >= 1 && column <= Resources.DIMX_REVERSI) && 
-			(row >= 1 && row <= Resources.DIMY_REVERSI) && 
+			(row >= 1 && row <= Resources.DIMY_REVERSI) 	  && 
 			(b.getPosition(column, row) == Counter.EMPTY)) { 
 				
 				// Un movimiento es válido si puede revertir alguna celda formada
@@ -32,7 +32,6 @@ public class ReversiMove extends Move {
 	}
 
 	// CheckHorizontal: Function to Check left and right colors given a fixed position
-	
 	public boolean checkHorizontal(Board b, int x, int y, boolean left) {
 		boolean valid = false;
 		int auxColumn = x, total = 0;
@@ -43,11 +42,10 @@ public class ReversiMove extends Move {
 				total += 1; auxColumn -= 1; 
 			} 
 			if ((total >= 1) && (b.getPosition(auxColumn - 1, y) == color)) {
-				System.out.println("Valid move!"); // DEBUG
-				valid = true; // If there is unless one Counter of the other color and the last counter is the same as the move color
-				// TODO Si se han formado celdas y la última ficha es del mismo color que la primera 
-				// TODO: Marcar las celdas
-				// Posición final para guardar: (auxColumn, y)
+				valid = true; // Se pueden formar celdas entre medias y hay una ficha en el extremo, del mismo color que la original.
+
+				// TODO: Guardar en el array la última posición válida de este movimiento (auxColumn, y)
+				
 			}
 		}
 		else {
@@ -55,11 +53,10 @@ public class ReversiMove extends Move {
 				total += 1; auxColumn += 1; 
 			} 
 			if ((total >= 1) && (b.getPosition(auxColumn + 1, y) == color)) {
-				System.out.println("Valid move!"); // DEBUG
-				valid = true; // If there is unless one Counter of the other color and the last counter is the same as the move color
-				// TODO Si se han formado celdas y la última ficha es del mismo color que la primera 
-				// TODO: Marcar las celdas
-				// Posición final para guardar: (auxColumn, y)
+				valid = true; // Se pueden formar celdas entre medias y hay una ficha en el extremo, del mismo color que la original.
+
+				// TODO: Guardar en el array la última posición válida de este movimiento (auxColumn, y)
+		
 			}			
 		}
  
@@ -67,7 +64,6 @@ public class ReversiMove extends Move {
 	}
 
 	// CheckVertical: Function to Check top and bottom colors given a fixed position
-
 	public boolean checkVertical(Board b, int x, int y, boolean up) {
 		boolean valid = false;
 		int auxRow = y, total = 0;
@@ -78,11 +74,10 @@ public class ReversiMove extends Move {
 				total += 1; auxRow -= 1; 
 			} 
 			if ((total >= 1) && (b.getPosition(x, auxRow - 1) == color)) {
-				System.out.println("Valid move!"); // DEBUG
-				valid = true; // If there is unless one Counter of the other color and the last counter is the same as the move color
-				// TODO Si se han formado celdas y la última ficha es del mismo color que la primera 
-				// TODO: Marcar las celdas
-				// Posición final para guardar: (x, auxRow)
+				valid = true; // Se pueden formar celdas entre medias y hay una ficha en el extremo, del mismo color que la original.
+
+				// TODO: Guardar en el array la última posición válida de este movimiento (column, auxRow)
+				
 			}
 		} 
 		else {
@@ -90,18 +85,16 @@ public class ReversiMove extends Move {
 				total += 1; auxRow += 1; 
 			} 
 			if ((total >= 1) && (b.getPosition(x, auxRow + 1) == color)) {
-				System.out.println("Valid move!"); // DEBUG
-				valid = true; // If there is unless one Counter of the other color and the last counter is the same as the move color
-				// TODO Si se han formado celdas y la última ficha es del mismo color que la primera 
-				// TODO: Marcar las celdas
-				// Posición final para guardar: (auxColumn, y)
+				valid = true; // Se pueden formar celdas entre medias y hay una ficha en el extremo, del mismo color que la original.
+
+				// TODO: Guardar en el array la última posición válida de este movimiento (column, auxRow)
+				
 			}			
 		} 
 		return valid;
 	}
 	
 	// CheckHorizontal: Function to Check diagonals given a fixed position
-	
 	public boolean checkDiagonal(Board b, int x, int y, boolean topLeft) {
 		boolean valid = false;
 		int auxColumn = x, auxRow = x, total = 0;
@@ -112,11 +105,10 @@ public class ReversiMove extends Move {
 				total += 1; auxColumn -= 1; auxRow -= 1; 
 			} 
 			if ((total >= 1) && (b.getPosition(auxColumn - 1, auxRow - 1) == color)) {
-				System.out.println("Valid move!"); // DEBUG
-				valid = true; // If there is unless one Counter of the other color and the last counter is the same as the move color
-				// TODO Si se han formado celdas y la última ficha es del mismo color que la primera 
-				// TODO: Marcar las celdas
-				// Posición final para guardar: (auxColumn, y)
+				valid = true; // Se pueden formar celdas entre medias y hay una ficha en el extremo, del mismo color que la original.
+
+				// TODO: Guardar en el array la última posición válida de este movimiento (auxColumn, auxRow)
+				
 			}
 		}
 		else {
@@ -124,11 +116,10 @@ public class ReversiMove extends Move {
 				total += 1; auxColumn += 1; auxRow += 1; 
 			} 
 			if ((total >= 1) && (b.getPosition(auxColumn + 1, auxRow + 1) == color)) {
-				System.out.println("Valid move!"); // DEBUG
-				valid = true; // If there is unless one Counter of the other color and the last counter is the same as the move color
-				// TODO Si se han formado celdas y la última ficha es del mismo color que la primera 
-				// TODO: Marcar las celdas
-				// Posición final para guardar: (auxColumn, y)
+				valid = true; // Se pueden formar celdas entre medias y hay una ficha en el extremo, del mismo color que la original.
+
+				// TODO: Guardar en el array la última posición válida de este movimiento (auxColumn, auxRow)
+				
 			}			
 		}
  
