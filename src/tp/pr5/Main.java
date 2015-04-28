@@ -28,6 +28,52 @@ import tp.pr5.views.window.MainWindow;
 
 public class Main {
 	
+	public static void main(String[] args) {
+
+		GameRules r = new ReversiRules();
+		Counter valid;
+		int row, column;
+
+		// Test 1 
+		row = 3;
+		column = 3;
+		Board b = new Board(column, row);
+
+		for (int i = 1; i <= row; i++) {
+			for (int j = 1; j <= column; j++) {
+				if ((i % 2 == 1 && j % 2 == 1)) b.setPosition(i, j, Counter.BLACK);
+				else 		  b.setPosition(i, j, Counter.WHITE);
+			}
+		}
+		b.setPosition(2, 2, Counter.BLACK);
+		
+		b.printBoard();
+		ReversiMove m = new ReversiMove(3, 3, b.getPosition(2, 2));
+		valid =  r.winningMove(m, b); 
+
+		// Test 2 
+		row = 6;
+		column = 6;
+		Board b2 = new Board(column, row);
+
+		for (int i = 1; i <= row; i++) {
+			for (int j = 1; j <= column; j++) {
+				if ((i % 2 == 1 && j % 2 == 1)) b2.setPosition(i, j, Counter.BLACK);
+				else 		  b2.setPosition(i, j, Counter.WHITE);
+			}
+		}
+		b2.setPosition(2, 2, Counter.BLACK);
+		
+		b2.printBoard();
+		ReversiMove m2 = new ReversiMove(3, 3, b2.getPosition(2, 2));
+		valid =  r.winningMove(m2, b2); 
+
+	}
+	
+	
+	
+	
+	
 	
 	/** 
 	 * 	DESCOMENTA ESTO SI QUIERES HACER EL
@@ -119,6 +165,14 @@ public class Main {
 	
 	
 	
+	
+	 
+	
+	
+	
+	
+	
+	
 	/** 
 	 * 	ESTOS TESTS PARA PROBAR SI LOS ALGORITMOS A LA DERECHA
 	 * 	FUNCTIÓN
@@ -207,6 +261,15 @@ public class Main {
 	}
 	*/
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	/** 
 	 *  TESTS PARA PROBAR ALGORITMOS HACIA ARRIBA
 	public static void main(String[] args) {
@@ -260,9 +323,23 @@ public class Main {
 	}
 	*/
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	/** 
 	 *  TESTS PARA PROBAR ALGORITMOS HACIA ABAJO
-	 */
+
 	public static void main(String[] args) {
 
 		GameRules r = new ReversiRules();
@@ -312,6 +389,26 @@ public class Main {
 		valid =  r.winningMove(m3, b3); 
 		
 	}
+	*/
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	/*
