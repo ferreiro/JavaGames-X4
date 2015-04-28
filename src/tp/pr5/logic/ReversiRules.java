@@ -17,9 +17,8 @@ public class ReversiRules implements GameRules {
 		Counter c = Counter.EMPTY;
 
 		valid = checkHorizontal(b, lastMove.column, lastMove.getRow(), true); // True = left Part
-		// valid = checkHorizontal(b, lastMove.column, lastMove.getRow(), false); // False = right part
-
-		// valid = checkVertical(b, lastMove.column, lastMove.getRow(), true); // True = Up part
+		valid = checkHorizontal(b, lastMove.column, lastMove.getRow(), false); // False = right part
+		valid = checkVertical(b, lastMove.column, lastMove.getRow(), true); // True = Up part
 		valid = checkVertical(b, lastMove.column, lastMove.getRow(), false); // True = Up part
 
 		return c;
@@ -109,8 +108,16 @@ public class ReversiRules implements GameRules {
 	}
 
 	public boolean isDraw(Counter lastMove, Board b) {
-		// TODO Auto-generated method stub
-		return false;
+		boolean isDraw = false;
+		
+		if ((b.isFull()) && (winner == Counter.EMPTY)) {
+			isDraw = true;
+		}
+		else {
+			isDraw = false;
+		} 
+		 
+		return isDraw;
 	}
 
 	public Counter initialPlayer() {
