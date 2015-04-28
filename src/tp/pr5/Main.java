@@ -137,7 +137,6 @@ public class Main {
 		if (modeInt == 0) {
 			controller = new WindowController(factory, g);
 			g.addObserver(new MainWindow(factory, g));
-			g.addObserver(new ConsoleView(g));
 		} else {
 			controller = new ConsoleController(factory, g, in);
 			g.addObserver(new ConsoleView(g));
