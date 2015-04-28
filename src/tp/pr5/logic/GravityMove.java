@@ -1,6 +1,6 @@
-package tp.pr4.logic;
+package tp.pr5.logic;
 
-import tp.pr4.Resources.Resources;
+import tp.pr5.Resources.Resources;
 
 public class GravityMove extends Move{
 	private int row;

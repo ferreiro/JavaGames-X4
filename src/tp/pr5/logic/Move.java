@@ -1,4 +1,4 @@
-package tp.pr4.logic;
+package tp.pr5.logic;
 
 public abstract class Move {
 	private Counter currentPlayer;

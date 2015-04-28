@@ -1,4 +1,4 @@
-package tp.pr4.logic;
+package tp.pr5.logic;
 
 public enum Counter {
 	EMPTY, 

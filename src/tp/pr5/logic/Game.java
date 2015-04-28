@@ -1,13 +1,13 @@
-package tp.pr4.logic;
+package tp.pr5.logic;
  
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Deque;
 
-import tp.pr4.logic.Counter;
-import tp.pr4.logic.Board;
-import tp.pr4.logic.Move; 
+import tp.pr5.logic.Counter;
+import tp.pr5.logic.Board;
+import tp.pr5.logic.Move; 
 
 public class Game implements Observable<GameObserver> {
 	private Board board;
