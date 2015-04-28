@@ -61,11 +61,14 @@ public class ReversiRules implements GameRules {
 	
 	public Board newBoard() {
 		Board b = new Board(dimX, dimY);
+		int initX = dimX / 2, initY = dimY / 2;
+
+		// Initializing board with tiles
 		
-		b.setPosition(4, 4, Counter.BLACK);
-		b.setPosition(5, 5, Counter.BLACK);
-		b.setPosition(5, 4, Counter.WHITE);
-		b.setPosition(4, 5, Counter.WHITE);
+		b.setPosition(initX, initX+1, Counter.WHITE);
+		b.setPosition(initX, initY, Counter.BLACK);
+		b.setPosition(initX+1, initY+1, Counter.BLACK);
+		b.setPosition(initX+1, initY, Counter.WHITE);
 		
 		return b;
 	}
