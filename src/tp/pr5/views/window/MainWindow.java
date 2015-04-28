@@ -146,7 +146,7 @@ public class MainWindow extends JFrame implements GameObserver {
 		
 		// COMBOBOX
 		Cbox = new JComboBox<GameType>(names);
-		Cbox.setSelectedIndex(0); 
+		Cbox.setSelectedIndex(wController.getGame().getRules().intRules()); 
 		Cbox.setFont(new Font("Arial", Font.BOLD, 24)); 
 		Cbox.setBorder(new EmptyBorder(10, 10, 10, 10));
 		Cbox.setLocation(0, 40);
