@@ -31,11 +31,6 @@ public class ReversiMove extends Move {
 				checkDiagonal(b, column, row, true); 	// True = Top Left
 				checkDiagonal(b, column, row, false); 	// False = Bottom Right
 
-				// mirar si hay algÃºn elemento en el vector swappedcoorxinstes
-				// => si hay alguna coordenada, significa que hay alguna celda flrmDa, por tanto, el movimiento es valido
-				//     Si es valido, recorrer cada coordenada, restarla a la coordenada de origen y estese el tBlero del color contrario
-				//     Si no es valido, devolver el movimiento como no valido
-				
 				if (listCoordinates.size() >= 1) { // Algún movimiento se ha podido hacer y guardar
 					valid = true;
 					System.out.println("Yeah! Some tiles are moved");
@@ -46,9 +41,12 @@ public class ReversiMove extends Move {
 				}
 				else {
 					System.out.println("NO! There are no tiles formed");
-					valid = false;
 				}
 				
+				// mirar si hay algÃºn elemento en el vector swappedcoorxinstes
+				// => si hay alguna coordenada, significa que hay alguna celda flrmDa, por tanto, el movimiento es valido
+				//     Si es valido, recorrer cada coordenada, restarla a la coordenada de origen y estese el tBlero del color contrario
+				//     Si no es valido, devolver el movimiento como no valido			
 		}	 		
 		return valid;
 	}
@@ -70,7 +68,7 @@ public class ReversiMove extends Move {
 				}
 			} 
 		}
-		else if (column == moveColumn) { // Verical
+		else if (column == moveColumn) { // Vertical
 			iterations = absoluteValue(row, moveRow);
 			System.out.println("It's a vertical move");
 			if (moveRow < row) { // El movimiento está a la derecha de las columnas a mover ([][]][] <= Movimiento)
@@ -86,6 +84,18 @@ public class ReversiMove extends Move {
 		}
 		else {	// Diagonal
 			System.out.println("It's a Diagonal move");
+			iterations = diagonalIterations(column, row, moveColumn, moveRow);
+
+			if (moveRow < row) { // El movimiento está a la derecha de las columnas a mover ([][]][] <= Movimiento)
+				for (int i = 0; i <= iterations; i++) {
+					b.setPosition(column - i, row - i, color);
+				}
+			}
+			else if (moveRow > row) {	// El movimiento está a la izquierda de las columnas a mover (Movimiento => [][]][])
+				for (int i = 0; i <= iterations; i++) {
+					b.setPosition(column + i, row + i, color);
+				}
+			} 
 		}
 		
 	}
@@ -96,53 +106,43 @@ public class ReversiMove extends Move {
 		return total;
 	}
 	
-	/*
-	public void swapCells(Board b, int x, int y, SwappedMove m) {
-		// TODO: Swap the cells into the color given
-
-		int originX = x,
-			originY = y,
-			destinyX = m.getX(),
-			destinyY = m.getY();
-		Counter c = m.getColor();
+	public int diagonalIterations(int column, int row, int moveColumn, int moveRow) {
+		int total = 0;
 		
-		if (c != Counter.EMPTY) {
-
-			// Checks if the move is horizontal, vertical o diagonal.
-
-			if (((originY - destinyY) == 0) && (true)) {
-				// Horizontal
-				int columnGaps = destinyX - originX; // ¿Cuantos bloques hay desde el contador a la ficha?
-				
-				if (columnGaps >= 0) {
-					// Mover a la derecha
-					b.setPosition(x, y, changeColor(c)); // Poner la celda del movimiento
-					for (int i = 1; i <= columnGaps; i++) {
-						b.setPosition(x + i, y, changeColor(c)); // Cambiar color de la celda de dentro
+		if (column > moveColumn) {
+			// El movimiento que vamos a poner está más a la derecha (es más grande) que el movinento de destino
+			
+			for (int c = moveColumn; c <= column; c++) {
+				if (row > moveRow) {
+					for (int r = moveRow; r <= row; r++) {
+						total++;					
 					}
 				}
 				else {
-					// Mover a la izquierda
-					for (int i = 1; i <= columnGaps; i++) {
-						b.setPosition(x - i, y, changeColor(c)); 
+					for (int r = row; r <= moveRow; moveRow++) {
+						total++;					
 					}
 				}
-				System.out.println("Horizontal");
-				
 			}
-			else if ((originX - destinyX) == 0 && (true)) {
-				// Vertical
-				System.out.println("Vertical");
-			}
-			else {
-				// Diagonal
-				System.out.println("Diagonal");
+			
+		}
+		else {
+			// El movimiento de destino está más a la derecha que el movinento que vamos a poner
+			for (int c = moveColumn; c <= column; c++) {
+				if (row > moveRow) {
+					for (int r = moveRow; r <= row; r++) {
+						total++;					
+					}
+				}
+				else {
+					for (int r = row; r <= moveRow; moveRow++) {
+						total++;					
+					}
+				}
 			}
 		}
-		
-			
+		return total;
 	}
-	*/
 	
 	public Counter changeColor(Counter c) {
 		if (c == Counter.WHITE) return Counter.BLACK;
@@ -227,12 +227,10 @@ public class ReversiMove extends Move {
 			}
 		}
 	}
-
 	
 	@Override
-	public void undo(Board board) {
-		// TODO Auto-generated method stub
-
+	public void undo(Board b) {
+		// TODO UNDO
 	}
 
 	@Override
