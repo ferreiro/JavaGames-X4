@@ -162,33 +162,30 @@ public class ReversiMove extends Move {
 	
 	// CheckDiagonal: Function to Check diagonals given a fixed position
 	
-	public void checkDiagonal(Board b, int x, int y, boolean topLeft) {
- 		int auxColumn = x, auxRow = x, total = 0;
-		Counter color = currentPlayer;
-		boolean valid = false;
- 
-		if (topLeft) {
-			while((auxColumn > 1) && (auxRow > 1) && (b.getPosition(auxColumn - 1, auxRow - 1) != color)) {
-				total += 1; auxColumn -= 1; auxRow -= 1; 
-			} 
-			if ((total >= 1) && (b.getPosition(auxColumn - 1, auxRow - 1) == color)) {
-				valid = true; // Se pueden formar celdas entre medias y hay una ficha en el extremo, del mismo color que la original.				
+	public void checkDiagonal(Board b, int x, int y, boolean upLeft) {
+		int total = 0, auxColumn = x, auxRow = y;
+		Counter color = currentPlayer, nextColor = changeColor(color);
+		
+		if (upLeft) {
+			while((auxColumn >= 1) && (auxRow >= 1) && (b.getPosition(auxColumn - 1, auxRow - 1) == nextColor)) {
+				auxColumn--; auxRow--; total++;
+			}
+			if (total >= 1 && (b.getPosition(auxColumn - 1, auxRow - 1) == color)) {
+				SwappedMove s = new SwappedMove(auxColumn, auxRow, nextColor ); 	// Crea movimiento con la posición de la última ficha que vamos a swappear
+				listCoordinates.add(s);									// Guardar movimiento swappeado en la lista de coordenadas
 			}
 		}
-		else {
-			while((auxColumn < b.getWidth()) && (auxRow < b.getHeight()) && (b.getPosition(auxColumn + 1, auxRow + 1) != color)) {
-				total += 1; auxColumn += 1; auxRow += 1; 
-			} 
-			if ((total >= 1) && (b.getPosition(auxColumn + 1, auxRow + 1) == color)) {
-				valid = true; // Se pueden formar celdas entre medias y hay una ficha en el extremo, del mismo color que la original.			
-			}			
-		} 
-		
-		if (valid) {
-			SwappedMove s = new SwappedMove(auxColumn, auxRow, currentPlayer ); // Crear movimiento swappeado
-			listCoordinates.add(s);									// Guardar movimiento swappeado en la lista de coordenadas
+		else { // Down Right
+			while((auxColumn <= b.getWidth()) && (auxRow <= b.getHeight()) && (b.getPosition(auxColumn + 1, auxRow + 1) == nextColor)) {
+				auxColumn++; auxRow++; total++;
+			}
+			if (total >= 1 && (b.getPosition(auxColumn + 1, auxRow + 1) == color)) {
+				SwappedMove s = new SwappedMove(auxColumn, auxRow, nextColor ); 	// Crea movimiento con la posición de la última ficha que vamos a swappear
+				listCoordinates.add(s);									// Guardar movimiento swappeado en la lista de coordenadas
+			}
 		}
 	}
+
 	
 	@Override
 	public void undo(Board board) {
