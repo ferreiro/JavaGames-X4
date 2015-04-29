@@ -115,9 +115,8 @@ public class ReversiMove extends Move {
 	}
 	
 
-	
-
 	// CheckHorizontal: Function to Check left and right colors given a fixed position
+	
 	public void checkHorizontal(Board b, int x, int y, boolean left) {
 		int auxColumn = x, total = 0;
 		Counter color = b.getPosition(x, y);
@@ -150,24 +149,18 @@ public class ReversiMove extends Move {
 	}
 
 	// CheckVertical: Function to Check top and bottom colors given a fixed position
+	
 	public void checkVertical(Board b, int x, int y, boolean up) {
  		int auxRow = y, total = 0;
 		Counter color = b.getPosition(x, y);
+		boolean valid = false;
 		 
 		if (up) {
 			while((auxRow > 1) && (b.getPosition(x, auxRow - 1) != color)) {
 				total += 1; auxRow -= 1; 
 			} 
 			if ((total >= 1) && (b.getPosition(x, auxRow - 1) == color)) {
-				// valid = true; // Se pueden formar celdas entre medias y hay una ficha en el extremo, del mismo color que la original.
-				
-				b.setPosition(x, y, color); // poner la celda con el color del jugador
-				for (int i = 0; i < total; i++) {
-					b.setPosition(x, auxRow - i, color); // swap color on cells
-				}
-				
-				// TODO: Guardar en el array la última posición válida de este movimiento (column, auxRow)
-				
+				valid = true; // Se pueden formar celdas entre medias y hay una ficha en el extremo, del mismo color que la original.
 			}
 		} 
 		else {
@@ -175,33 +168,32 @@ public class ReversiMove extends Move {
 				total += 1; auxRow += 1; 
 			} 
 			if ((total >= 1) && (b.getPosition(x, auxRow + 1) == color)) {
-				// valid = true; // Se pueden formar celdas entre medias y hay una ficha en el extremo, del mismo color que la original.
-				
-				b.setPosition(x, y, color); // poner la celda con el color del jugador
-				for (int i = 0; i < total; i++) {
-					b.setPosition(x, auxRow + i, color); // swap color on cells
-				}
-				
-				// TODO: Guardar en el array la última posición válida de este movimiento (column, auxRow)
-				
+				valid = true; // Se pueden formar celdas entre medias y hay una ficha en el extremo, del mismo color que la original.
 			}			
 		}  
+		
+		if (valid) {
+			// Crear movimiento swappeado y guardarlo en la lista de coordenadas
+			SwappedMove s = new SwappedMove();
+			s.setX(x);
+			s.setY(auxRow);
+			listCoordinates.add(s);				
+		}
 	}
 	
-	// CheckHorizontal: Function to Check diagonals given a fixed position
+	// CheckDiagonal: Function to Check diagonals given a fixed position
+	
 	public void checkDiagonal(Board b, int x, int y, boolean topLeft) {
  		int auxColumn = x, auxRow = x, total = 0;
 		Counter color = b.getPosition(x, y);
+		boolean valid = false;
  
 		if (topLeft) {
 			while((auxColumn > 1) && (auxRow > 1) && (b.getPosition(auxColumn - 1, auxRow - 1) != color)) {
 				total += 1; auxColumn -= 1; auxRow -= 1; 
 			} 
 			if ((total >= 1) && (b.getPosition(auxColumn - 1, auxRow - 1) == color)) {
-				// valid = true; // Se pueden formar celdas entre medias y hay una ficha en el extremo, del mismo color que la original.
-
-				// TODO: Guardar en el array la última posición válida de este movimiento (auxColumn, auxRow)
-				
+				valid = true; // Se pueden formar celdas entre medias y hay una ficha en el extremo, del mismo color que la original.				
 			}
 		}
 		else {
@@ -209,12 +201,17 @@ public class ReversiMove extends Move {
 				total += 1; auxColumn += 1; auxRow += 1; 
 			} 
 			if ((total >= 1) && (b.getPosition(auxColumn + 1, auxRow + 1) == color)) {
-				// valid = true; // Se pueden formar celdas entre medias y hay una ficha en el extremo, del mismo color que la original.
-
-				// TODO: Guardar en el array la última posición válida de este movimiento (auxColumn, auxRow)
-				
+				valid = true; // Se pueden formar celdas entre medias y hay una ficha en el extremo, del mismo color que la original.			
 			}			
 		} 
+		
+		if (valid) {
+			// Crear movimiento swappeado y guardarlo en la lista de coordenadas
+			SwappedMove s = new SwappedMove();
+			s.setX(auxColumn);
+			s.setY(auxRow);
+			listCoordinates.add(s);				
+		}
 	}
 	
 	@Override
