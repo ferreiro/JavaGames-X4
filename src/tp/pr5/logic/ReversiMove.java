@@ -24,12 +24,12 @@ public class ReversiMove extends Move {
 				// Un movimiento es vÃ¡lido si puede revertir alguna celda formada
 				// Y ademÃ¡s las posiciones estÃ¡n dentro del tablero y es una celda vacÃ­a
 				
-				checkHorizontal(b, column, row, true); // True = left Part
-				checkHorizontal(b, column, row, false); // False = right part
-				checkVertical(b, column, row, true); // True = Up part
-				checkVertical(b, column, row, false); // True = Up part	
-				checkDiagonal(b, column, row, true); // True = topLeft
-				checkDiagonal(b, column, row, false); // False = Bottom Right
+				checkHorizontal(b, column, row, true); 	// True = Left
+				checkHorizontal(b, column, row, false); // False = Right
+				checkVertical(b, column, row, true); 	// True = Up
+				checkVertical(b, column, row, false); 	// False = Down	
+				checkDiagonal(b, column, row, true); 	// True = Top Left
+				checkDiagonal(b, column, row, false); 	// False = Bottom Right
 
 				// mirar si hay algÃºn elemento en el vector swappedcoorxinstes
 				// => si hay alguna coordenada, significa que hay alguna celda flrmDa, por tanto, el movimiento es valido
@@ -41,19 +41,8 @@ public class ReversiMove extends Move {
 					System.out.println("Yeah! Some tiles are moved");
 					
 					for (int i = 0; i < listCoordinates.size(); i++) {
-						swapCells(b, column, row, currentPlayer, listCoordinates.get(i));
+						swapCells(b, column, row, currentPlayer, listCoordinates.get(i)); // setear el tablero
 					}
-					
-					
-					
-					/*
-					b.setPosition(x, y, color); // poner la celda con el color del jugador
-					for (int i = 0; i < total; i++) {
-						b.setPosition(auxColumn + i, y, color); // swap color on cells
-					}
-					*/
-					// TODO: SETEAR EL TABLERO
-					
 				}
 				else {
 					System.out.println("NO! There are no tiles formed");
@@ -79,7 +68,7 @@ public class ReversiMove extends Move {
 
 			if (((originY - destinyY) == 0) && (true)) {
 				// Horizontal
-				float columnGaps = destinyX - originX; // ¿Cuantos bloques hay desde el contador a la ficha?
+				int columnGaps = destinyX - originX; // ¿Cuantos bloques hay desde el contador a la ficha?
 				
 				if (columnGaps >= 0) {
 					// Mover a la derecha
@@ -114,7 +103,6 @@ public class ReversiMove extends Move {
 		else return Counter.EMPTY;
 	}
 	
-
 	// CheckHorizontal: Function to Check left and right colors given a fixed position
 	
 	public void checkHorizontal(Board b, int x, int y, boolean left) {
@@ -140,11 +128,9 @@ public class ReversiMove extends Move {
 		} 
 		
 		if (valid) {
-			// Crear movimiento swappeado y guardarlo en la lista de coordenadas
-			SwappedMove s = new SwappedMove();
-			s.setX(auxColumn);
-			s.setY(y);
-			listCoordinates.add(s);				
+			Counter c = b.getPosition(auxColumn, y); 		  	// Color de la última ficha que vamos a swappear  
+			SwappedMove s = new SwappedMove(auxColumn, y, c ); 	// Crear movimiento swappeado
+			listCoordinates.add(s);								// Guardar movimiento swappeado en la lista de coordenadas
 		}
 	}
 
@@ -173,11 +159,9 @@ public class ReversiMove extends Move {
 		}  
 		
 		if (valid) {
-			// Crear movimiento swappeado y guardarlo en la lista de coordenadas
-			SwappedMove s = new SwappedMove();
-			s.setX(x);
-			s.setY(auxRow);
-			listCoordinates.add(s);				
+			Counter c = b.getPosition(x, auxRow); 		  		// Color de la última ficha que vamos a swappear  
+			SwappedMove s = new SwappedMove(x, auxRow, c ); 	// Crear movimiento swappeado
+			listCoordinates.add(s);								// Guardar movimiento swappeado en la lista de coordenadas
 		}
 	}
 	
@@ -206,11 +190,9 @@ public class ReversiMove extends Move {
 		} 
 		
 		if (valid) {
-			// Crear movimiento swappeado y guardarlo en la lista de coordenadas
-			SwappedMove s = new SwappedMove();
-			s.setX(auxColumn);
-			s.setY(auxRow);
-			listCoordinates.add(s);				
+			Counter c = b.getPosition(auxColumn, auxRow); 			// Color de la última ficha que vamos a swappear  
+			SwappedMove s = new SwappedMove(auxColumn, auxRow, c ); // Crear movimiento swappeado
+			listCoordinates.add(s);									// Guardar movimiento swappeado en la lista de coordenadas
 		}
 	}
 	

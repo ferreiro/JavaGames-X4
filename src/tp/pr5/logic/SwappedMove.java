@@ -5,6 +5,12 @@ public class SwappedMove {
 	private int y;
 	private Counter color;
 
+	public SwappedMove(int x, int y, Counter c) {
+		this.x = x;
+		this.y = y;
+		this.color = c;
+	}
+	
 	public int getX() {
 		return x;
 	}
@@ -16,6 +22,10 @@ public class SwappedMove {
 	}
 	public void setY(int y) {
 		this.y = y;
+	}
+
+	public void setColor(Counter c) {
+		this.color = c;
 	}
 	
 }
