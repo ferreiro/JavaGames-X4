@@ -1,15 +1,16 @@
 package tp.pr5.logic;
 
+import java.util.ArrayList;
+
 import tp.pr5.Resources.Resources;
 
 public class ReversiMove extends Move {
-        private ArrayList<SwappedMove> swappedCoordinates = new ArrayList<SwappedMove>();
-        private int swappedTiles; 
+    private ArrayList<SwappedMove> listCoordinates;
 
 	public ReversiMove(int moveColumn, int moveRow, Counter moveColour) {
 		super(moveColour, moveColumn);
 		super.row = moveRow;
-                this.swappedTiles = 0;  // puede que esto no haga falta si array list tiene metodos para saber la dimension 
+		listCoordinates = new ArrayList<SwappedMove>();		
 	}
 
 	@Override
@@ -29,35 +30,105 @@ public class ReversiMove extends Move {
 				checkVertical(b, column, row, false); // True = Up part	
 				checkDiagonal(b, column, row, true); // True = topLeft
 				checkDiagonal(b, column, row, false); // False = Bottom Right
-				
+
 				// mirar si hay algún elemento en el vector swappedcoorxinstes
 				// => si hay alguna coordenada, significa que hay alguna celda flrmDa, por tanto, el movimiento es valido
 				//     Si es valido, recorrer cada coordenada, restarla a la coordenada de origen y estese el tBlero del color contrario
 				//     Si no es valido, devolver el movimiento como no valido
-
+				
+				if (listCoordinates.size() >= 1) {
+					valid = true;
+					System.out.println("Yeah! Some tiles are moved");
+					
+					for (int i = 0; i < listCoordinates.size(); i++) {
+						swapCells(b, column, row, currentPlayer, listCoordinates.get(i));
+					}
+					
+					
+					
+					/*
+					b.setPosition(x, y, color); // poner la celda con el color del jugador
+					for (int i = 0; i < total; i++) {
+						b.setPosition(auxColumn + i, y, color); // swap color on cells
+					}
+					*/
+					// TODO: SETEAR EL TABLERO
+					
+				}
+				else {
+					System.out.println("NO! There are no tiles formed");
+					valid = false;
+				}
+				
 		}	 		
 		return valid;
 	}
+	
+	public void swapCells(Board b, int x, int y, Counter c, SwappedMove destiny) {
+		// TODO: Swap the cells into the color given
+
+		int originX = x,
+			originY = y,
+			destinyX = destiny.getX(),
+			destinyY = destiny.getY();
+		Counter newColor = changeColor(c);
+		
+		if (newColor != Counter.EMPTY) {
+
+			// Checks if the move is horizontal, vertical o diagonal.
+
+			if (((originY - destinyY) == 0) && (true)) {
+				// Horizontal
+				float columnGaps = destinyX - originX; // �Cuantos bloques hay desde el contador a la ficha?
+				
+				if (columnGaps >= 0) {
+					// Mover a la derecha
+					for (int i = 0; i < columnGaps; i++) {
+						b.setPosition(x + i, y, newColor);
+					}
+				}
+				else {
+					// Mover a la izquierda
+					for (int i = 0; i < columnGaps; i++) {
+						b.setPosition(x - i, y, newColor);
+					}
+				}
+				System.out.println("Horizontal");
+				
+			}
+			else if ((originX - destinyX) == 0 && (true)) {
+				// Vertical
+				System.out.println("Vertical");
+			}
+			else {
+				// Diagonal
+				System.out.println("Diagonal");
+			}
+		}
+		
+			
+	}
+	public Counter changeColor(Counter c) {
+		if (c == Counter.WHITE) return Counter.BLACK;
+		else if(c == Counter.BLACK) return Counter.WHITE;
+		else return Counter.EMPTY;
+	}
+	
+
+	
 
 	// CheckHorizontal: Function to Check left and right colors given a fixed position
 	public void checkHorizontal(Board b, int x, int y, boolean left) {
 		int auxColumn = x, total = 0;
 		Counter color = b.getPosition(x, y);
+		boolean valid = false;
  
 		if (left) {
 			while((auxColumn > 1) && (b.getPosition(auxColumn - 1, y) != color)) {
 				total += 1; auxColumn -= 1; 
 			} 
 			if ((total >= 1) && (b.getPosition(auxColumn - 1, y) == color)) {
-				// valid = true; // Se pueden formar celdas entre medias y hay una ficha en el extremo, del mismo color que la original.
-				
-				b.setPosition(x, y, color); // poner la celda con el color del jugador
-				for (int i = 0; i < total; i++) {
-					b.setPosition(auxColumn + i, y, color); // swap color on cells
-				}
-				
-				// TODO: Guardar en el array la última posición válida de este movimiento (auxColumn, y)
-				
+				valid = true; // Se pueden formar celdas entre medias y hay una ficha en el extremo, del mismo color que la original.
 			}
 		}
 		else {
@@ -65,17 +136,17 @@ public class ReversiMove extends Move {
 				total += 1; auxColumn += 1; 
 			} 
 			if ((total >= 1) && (b.getPosition(auxColumn + 1, y) == color)) {
-				// valid = true; // Se pueden formar celdas entre medias y hay una ficha en el extremo, del mismo color que la original.
-				
-				b.setPosition(x, y, color); // poner la celda con el color del jugador
-				for (int i = 0; i < total; i++) {
-					b.setPosition(auxColumn - i, y, color); // swap color on cells
-				}
-				
-				// TODO: Guardar en el array la última posición válida de este movimiento (auxColumn, y)
-		
+				valid = true; // Se pueden formar celdas entre medias y hay una ficha en el extremo, del mismo color que la original.
 			}			
 		} 
+		
+		if (valid) {
+			// Crear movimiento swappeado y guardarlo en la lista de coordenadas
+			SwappedMove s = new SwappedMove();
+			s.setX(auxColumn);
+			s.setY(y);
+			listCoordinates.add(s);				
+		}
 	}
 
 	// CheckVertical: Function to Check top and bottom colors given a fixed position

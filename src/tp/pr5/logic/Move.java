@@ -1,7 +1,5 @@
 package tp.pr5.logic;
 
-import java.util.ArrayList; 
-
 public abstract class Move {
 	protected Counter currentPlayer;
 	protected int column;
@@ -10,12 +8,6 @@ public abstract class Move {
 	public Move(Counter color, int column) {
 		currentPlayer = color;
 		this.column = column;
-	}
-	
-	public void addswapped() {
-
-		SwappedMove i = new SwappedMove();
-		swapTiles.add(i);
 	}
 	
 	// ejecutaMovimiento(Tablero tab)
