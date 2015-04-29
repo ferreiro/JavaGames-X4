@@ -3,10 +3,13 @@ package tp.pr5.logic;
 import tp.pr5.Resources.Resources;
 
 public class ReversiMove extends Move {
+        private ArrayList<SwappedMove> swapTiles = new ArrayList<SwappedMove>();
+        private int swappedTiles; 
 
 	public ReversiMove(int moveColumn, int moveRow, Counter moveColour) {
 		super(moveColour, moveColumn);
 		super.row = moveRow;
+                this.swappedTiles = 0;  // puede que esto no haga falta si array list tiene metodos para saber la dimension 
 	}
 
 	@Override
@@ -17,8 +20,8 @@ public class ReversiMove extends Move {
 			(row >= 1 && row <= Resources.DIMY_REVERSI) 	  && 
 			(b.getPosition(column, row) == Counter.EMPTY)) { 
 				
-				// Un movimiento es válido si puede revertir alguna celda formada
-				// Y además las posiciones están dentro del tablero y es una celda vacía
+				// Un movimiento es vÃ¡lido si puede revertir alguna celda formada
+				// Y ademÃ¡s las posiciones estÃ¡n dentro del tablero y es una celda vacÃ­a
 				
 				checkHorizontal(b, column, row, true); // True = left Part
 				checkHorizontal(b, column, row, false); // False = right part
@@ -30,10 +33,10 @@ public class ReversiMove extends Move {
 				// Mirar al vector de posiciones.
 				// Vector de posiciones:
 				// 		=> array de posiciones
-				//	    => integer con el número total de posiciones
+				//	    => integer con el nÃºmero total de posiciones
 				// if (totalVectores >= 1) {
 				//	   Entonces, marcar posiciones
-				//		y poner el movimiento como válido.
+				//		y poner el movimiento como vÃ¡lido.
 				
 								
 								
@@ -59,7 +62,7 @@ public class ReversiMove extends Move {
 					b.setPosition(auxColumn + i, y, color); // swap color on cells
 				}
 				
-				// TODO: Guardar en el array la última posición válida de este movimiento (auxColumn, y)
+				// TODO: Guardar en el array la Ãºltima posiciÃ³n vÃ¡lida de este movimiento (auxColumn, y)
 				
 			}
 		}
@@ -75,7 +78,7 @@ public class ReversiMove extends Move {
 					b.setPosition(auxColumn - i, y, color); // swap color on cells
 				}
 				
-				// TODO: Guardar en el array la última posición válida de este movimiento (auxColumn, y)
+				// TODO: Guardar en el array la Ãºltima posiciÃ³n vÃ¡lida de este movimiento (auxColumn, y)
 		
 			}			
 		} 
@@ -98,7 +101,7 @@ public class ReversiMove extends Move {
 					b.setPosition(x, auxRow - i, color); // swap color on cells
 				}
 				
-				// TODO: Guardar en el array la última posición válida de este movimiento (column, auxRow)
+				// TODO: Guardar en el array la Ãºltima posiciÃ³n vÃ¡lida de este movimiento (column, auxRow)
 				
 			}
 		} 
@@ -114,7 +117,7 @@ public class ReversiMove extends Move {
 					b.setPosition(x, auxRow + i, color); // swap color on cells
 				}
 				
-				// TODO: Guardar en el array la última posición válida de este movimiento (column, auxRow)
+				// TODO: Guardar en el array la Ãºltima posiciÃ³n vÃ¡lida de este movimiento (column, auxRow)
 				
 			}			
 		}  
@@ -132,7 +135,7 @@ public class ReversiMove extends Move {
 			if ((total >= 1) && (b.getPosition(auxColumn - 1, auxRow - 1) == color)) {
 				// valid = true; // Se pueden formar celdas entre medias y hay una ficha en el extremo, del mismo color que la original.
 
-				// TODO: Guardar en el array la última posición válida de este movimiento (auxColumn, auxRow)
+				// TODO: Guardar en el array la Ãºltima posiciÃ³n vÃ¡lida de este movimiento (auxColumn, auxRow)
 				
 			}
 		}
@@ -143,7 +146,7 @@ public class ReversiMove extends Move {
 			if ((total >= 1) && (b.getPosition(auxColumn + 1, auxRow + 1) == color)) {
 				// valid = true; // Se pueden formar celdas entre medias y hay una ficha en el extremo, del mismo color que la original.
 
-				// TODO: Guardar en el array la última posición válida de este movimiento (auxColumn, auxRow)
+				// TODO: Guardar en el array la Ãºltima posiciÃ³n vÃ¡lida de este movimiento (auxColumn, auxRow)
 				
 			}			
 		} 
