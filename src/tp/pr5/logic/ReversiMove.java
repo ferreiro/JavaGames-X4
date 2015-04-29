@@ -56,22 +56,36 @@ public class ReversiMove extends Move {
 	public void swapCells(Board b, int column, int row, SwappedMove m) {
 		int moveColumn = m.getX(), moveRow = m.getY(), iterations = 0;
 		Counter color = changeColor(m.getColor()); // El color de origen es el de los counters que envolvían a las fichas
-		
+				
 		if (row == moveRow) {	// Horizontal
 			iterations = absoluteValue(column, moveColumn);
-			if (moveColumn > column) {	// El número está por debajo de la ficha del movimiento
-				for (int i = 0; i <= iterations; i++) {
-					b.setPosition(column + i, row, color);
-				}
-			}
-			else if (moveColumn < column) {
+			if (moveColumn < column) { // El movimiento está a la derecha de las columnas a mover ([][]][] <= Movimiento)
 				for (int i = 0; i <= iterations; i++) {
 					b.setPosition(column - i, row, color);
 				}
 			}
+			else if (moveColumn > column) {	// El movimiento está a la izquierda de las columnas a mover (Movimiento => [][]][])
+				for (int i = 0; i <= iterations; i++) {
+					b.setPosition(column + i, row, color);
+				}
+			} 
 		}
-		else {
-			
+		else if (column == moveColumn) { // Verical
+			iterations = absoluteValue(row, moveRow);
+			System.out.println("It's a vertical move");
+			if (moveRow < row) { // El movimiento está a la derecha de las columnas a mover ([][]][] <= Movimiento)
+				for (int i = 0; i <= iterations; i++) {
+					b.setPosition(column, row - i, color);
+				}
+			}
+			else if (moveRow > row) {	// El movimiento está a la izquierda de las columnas a mover (Movimiento => [][]][])
+				for (int i = 0; i <= iterations; i++) {
+					b.setPosition(column, row + i, color);
+				}
+			} 
+		}
+		else {	// Diagonal
+			System.out.println("It's a Diagonal move");
 		}
 		
 	}
