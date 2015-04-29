@@ -28,18 +28,15 @@ public class ReversiMove extends Move {
 				checkHorizontal(b, column, row, false); // False = Right
 				checkVertical(b, column, row, true); 	// True  = UP	
 				checkVertical(b, column, row, false); 	// False = Down	
-				
-				/* 
 				checkDiagonal(b, column, row, true); 	// True = Top Left
 				checkDiagonal(b, column, row, false); 	// False = Bottom Right
-				*/
 
 				// mirar si hay algÃºn elemento en el vector swappedcoorxinstes
 				// => si hay alguna coordenada, significa que hay alguna celda flrmDa, por tanto, el movimiento es valido
 				//     Si es valido, recorrer cada coordenada, restarla a la coordenada de origen y estese el tBlero del color contrario
 				//     Si no es valido, devolver el movimiento como no valido
 				
-				if (listCoordinates.size() >= 1) {
+				if (listCoordinates.size() >= 1) { // Algún movimiento se ha podido hacer y guardar
 					valid = true;
 					System.out.println("Yeah! Some tiles are moved");
 					
@@ -56,6 +53,36 @@ public class ReversiMove extends Move {
 		return valid;
 	}
 	
+	public void swapCells(Board b, int column, int row, SwappedMove m) {
+		int moveColumn = m.getX(), moveRow = m.getY(), iterations = 0;
+		Counter color = changeColor(m.getColor()); // El color de origen es el de los counters que envolvían a las fichas
+		
+		if (row == moveRow) {	// Horizontal
+			iterations = absoluteValue(column, moveColumn);
+			if (moveColumn > column) {	// El número está por debajo de la ficha del movimiento
+				for (int i = 0; i <= iterations; i++) {
+					b.setPosition(column + i, row, color);
+				}
+			}
+			else if (moveColumn < column) {
+				for (int i = 0; i <= iterations; i++) {
+					b.setPosition(column - i, row, color);
+				}
+			}
+		}
+		else {
+			
+		}
+		
+	}
+	
+	public int absoluteValue(int a, int b) {
+		int total = a - b;
+		if (total < 0) total *= -1; // Change to positive value
+		return total;
+	}
+	
+	/*
 	public void swapCells(Board b, int x, int y, SwappedMove m) {
 		// TODO: Swap the cells into the color given
 
@@ -101,6 +128,7 @@ public class ReversiMove extends Move {
 		
 			
 	}
+	*/
 	
 	public Counter changeColor(Counter c) {
 		if (c == Counter.WHITE) return Counter.BLACK;
