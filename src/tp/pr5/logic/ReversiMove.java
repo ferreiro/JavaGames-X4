@@ -109,6 +109,7 @@ public class ReversiMove extends Move {
 	public int diagonalIterations(int column, int row, int moveColumn, int moveRow) {
 		int total = 0;
 		
+		/*
 		if (column > moveColumn) {
 			// El movimiento que vamos a poner está más a la derecha (es más grande) que el movinento de destino
 			
@@ -128,7 +129,7 @@ public class ReversiMove extends Move {
 		}
 		else {
 			// El movimiento de destino está más a la derecha que el movinento que vamos a poner
-			for (int c = moveColumn; c <= column; c++) {
+			for (int c = column; c <= moveColumn; c++) {
 				if (row > moveRow) {
 					for (int r = moveRow; r <= row; r++) {
 						total++;					
@@ -141,6 +142,7 @@ public class ReversiMove extends Move {
 				}
 			}
 		}
+		*/
 		return total;
 	}
 	
