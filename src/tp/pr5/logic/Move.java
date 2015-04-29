@@ -6,12 +6,10 @@ public abstract class Move {
 	protected Counter currentPlayer;
 	protected int column;
 	protected int row;
-	private ArrayList<SwappedMove> swapTiles;
 	
 	public Move(Counter color, int column) {
 		currentPlayer = color;
 		this.column = column;
-		swapTiles = new ArrayList<SwappedMove>();
 	}
 	
 	public void addswapped() {
