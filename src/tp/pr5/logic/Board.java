@@ -130,10 +130,10 @@ public class Board implements ReadOnlyBoard {
 				line += " ";
 			}
 			else if (getPosition(x, y) == Counter.BLACK) {
-				line +=  "X";
+				line +=  "B";
 			}
 			else if (getPosition(x, y) == Counter.WHITE) {
-				line += "O";
+				line += "W";
 			}			 
 		}
 		line += "|";

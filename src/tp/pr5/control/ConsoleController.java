@@ -25,6 +25,7 @@ public class ConsoleController extends Controller{
 			
 			switch(option) {
 			case 0: 
+				// Make a move
 				
 				move = getPlayers()[getCurrentPlayer()].getMove(getGame().getBoard(), getC()[getCurrentPlayer()]);
 				

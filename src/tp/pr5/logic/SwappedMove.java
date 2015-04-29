@@ -27,5 +27,9 @@ public class SwappedMove {
 	public void setColor(Counter c) {
 		this.color = c;
 	}
+
+	public Counter getColor() { 
+		return this.color;
+	}
 	
 }
