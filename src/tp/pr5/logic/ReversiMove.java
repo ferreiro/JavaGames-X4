@@ -3,7 +3,7 @@ package tp.pr5.logic;
 import tp.pr5.Resources.Resources;
 
 public class ReversiMove extends Move {
-        private ArrayList<SwappedMove> swapTiles = new ArrayList<SwappedMove>();
+        private ArrayList<SwappedMove> swappedCoordinates = new ArrayList<SwappedMove>();
         private int swappedTiles; 
 
 	public ReversiMove(int moveColumn, int moveRow, Counter moveColour) {
@@ -30,17 +30,11 @@ public class ReversiMove extends Move {
 				checkDiagonal(b, column, row, true); // True = topLeft
 				checkDiagonal(b, column, row, false); // False = Bottom Right
 				
-				// Mirar al vector de posiciones.
-				// Vector de posiciones:
-				// 		=> array de posiciones
-				//	    => integer con el número total de posiciones
-				// if (totalVectores >= 1) {
-				//	   Entonces, marcar posiciones
-				//		y poner el movimiento como válido.
-				
-								
-								
-				// marcar 
+				// mirar si hay algún elemento en el vector swappedcoorxinstes
+				// => si hay alguna coordenada, significa que hay alguna celda flrmDa, por tanto, el movimiento es valido
+				//     Si es valido, recorrer cada coordenada, restarla a la coordenada de origen y estese el tBlero del color contrario
+				//     Si no es valido, devolver el movimiento como no valido
+
 		}	 		
 		return valid;
 	}
