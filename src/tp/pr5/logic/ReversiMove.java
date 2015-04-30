@@ -21,78 +21,66 @@ public class ReversiMove extends Move {
 	public boolean executeMove(Board b) throws InvalidMove {
 		boolean valid = false;
 		
-		valid = tilesFormed(b); // Ver si se ha formado alguna celda
-		for (int i = 0; i < listCoordinates.size(); i++) {
-			swapCells(b, column, row, listCoordinates.get(i)); // setear el tablero
-		}
-		// Comprobar también si no se puede hacer algún movimiento en cualquier celda vacía
-	
-		return valid;
-	}
-	
-	public boolean tilesFormed(Board b) {
-		boolean valid = false;
-		
 		if ((column >= 1 && column <= Resources.DIMX_REVERSI) && 
 			(row >= 1 && row <= Resources.DIMY_REVERSI) 	  && 
 			(b.getPosition(column, row) == Counter.EMPTY)) { 
 				
-			checkHorizontal(b, column, row, true); 	// True  = Left
-			checkHorizontal(b, column, row, false); // False = Right
+			checkHorizontal(b, column, row, true);	// True  = Left
+			checkHorizontal(b, column, row, false);	// False = Right
 			checkVertical(b, column, row, true); 	// True  = UP	
 			checkVertical(b, column, row, false); 	// False = Down	
 			checkDiagonal1(b, column, row, true); 	// True = Top Left
-			checkDiagonal1(b, column, row, false); 	// False = Bottom Right
+			checkDiagonal1(b, column, row, false);  // False = Bottom Right
 			checkDiagonal2(b, column, row, true); 	// True = Top Right
-			checkDiagonal2(b, column, row, false); 	// False = Bottom Left
+			checkDiagonal2(b, column, row, false);  // False = Bottom Left
 
 			if (listCoordinates.size() >= 1) { // => si hay alguna coordenada, significa que hay alguna celda flrmDa, por tanto, el movimiento es valido
-				valid = true;				
+				valid = true;	
+				for (int i = 0; i < listCoordinates.size(); i++) {
+					swapCells(b, column, row, listCoordinates.get(i)); // setear el tablero
+				}
 			}	
 		}	 	
+		
+		/*
+		 * if (!valid) {
+			// Comprobar también si no se puede hacer algún movimiento en cualquier celda vacía
+			valid =  !validEmpty(b); // Algún movimiento se va a poder hacer, así que no es valido
+		}
+		*/
+		
 		return valid;
 	}
 	
-	/*
-	public boolean avaliableMove(Board b) {
-		int column = 1, row = 1;
-		boolean avaliable = false, valid = false;
-				
-		while(column <= b.getWidth() && !valid) {
-			while(row <= b.getHeight() && !valid) {
-				if (b.getPosition(column, row) == Counter.EMPTY) {
-
-					// Esto tratar de univificarlo con la de arriba que es igual
-					if ((column >= 1 && column <= Resources.DIMX_REVERSI) && 
-							(row >= 1 && row <= Resources.DIMY_REVERSI) 	  && 
-							(b.getPosition(column, row) == Counter.EMPTY)) { 
-								
-								checkHorizontal(b, column, row, true); 	// True  = Left
-								checkHorizontal(b, column, row, false); // False = Right
-								checkVertical(b, column, row, true); 	// True  = UP	
-								checkVertical(b, column, row, false); 	// False = Down	
-								checkDiagonal1(b, column, row, true); 	// True = Top Left
-								checkDiagonal1(b, column, row, false); 	// False = Bottom Right
-								checkDiagonal2(b, column, row, true); 	// True = Top Right
-								checkDiagonal2(b, column, row, false); 	// False = Bottom Left
-
-								if (listCoordinates.size() >= 1) { // => si hay alguna coordenada, significa que hay alguna celda flrmDa, por tanto, el movimiento es valido
-									valid = true;				
-									for (int i = 0; i < listCoordinates.size(); i++) {
-										swapCells(b, column, row, listCoordinates.get(i)); // setear el tablero
-									}
-								}	
-						}	 						
-					
-				}				
-				row++;
+	public boolean validEmpty(Board b) {
+		boolean valid = false; 
+		
+		valid = checkHorizontalEmpty(b, column, row, true);
+		
+		if (!valid) { 
+			valid = checkHorizontalEmpty(b, column, row, false);
+			if (!valid) {
+				valid = checkVerticalEmpty(b, column, row, false);
+				if (!valid) {
+					valid = checkVerticalEmpty(b, column, row, true);
+					if (!valid) {
+						valid = checkDiagonal1Empty(b, column, row, false);
+						if (!valid) {
+							valid = checkDiagonal1Empty(b, column, row, true);
+							if (!valid) {
+								valid = checkDiagonal2Empty(b, column, row, false);
+								if (!valid) {
+									valid = checkDiagonal2Empty(b, column, row, true);
+								}
+							}
+						}
+					}
+				}
 			}
-			column++;
 		}
 		
-		return avaliable;
+		return valid;
 	}
-	*/
 	
 	public void swapCells(Board b, int column, int row, SwappedMove m) {
 		int moveColumn = m.getX(), moveRow = m.getY(), iterations = 0;
@@ -166,7 +154,7 @@ public class ReversiMove extends Move {
 	
 	// CheckHorizontal: Function to Check left and right colors given a fixed position
 	
-	public void checkHorizontal(Board b, int x, int y, boolean left, boolean keepMove) {
+	public void checkHorizontal(Board b, int x, int y, boolean left) {
 		int total = 0, auxColumn = x;
 		Counter color = currentPlayer, nextColor = changeColor(color);
 		
@@ -266,6 +254,114 @@ public class ReversiMove extends Move {
 				listCoordinates.add(s);									// Guardar movimiento swappeado en la lista de coordenadas
 			}
 		}
+	}
+	
+	
+	// CheckHorizontal: Function to Check left and right colors given a fixed position
+	
+	public boolean checkHorizontalEmpty(Board b, int x, int y, boolean left) {
+		boolean valid = false;
+		int total = 0, auxColumn = x;
+		Counter color = currentPlayer, nextColor = changeColor(color);
+		
+		if (left) {
+			while((auxColumn >= 1) && (b.getPosition(auxColumn - 1, y) == nextColor)) {
+				auxColumn--; total++;
+			}
+			if (total >= 1 && (b.getPosition(auxColumn - 1, y) == color)) {
+				valid = true; // El movimiento es válido
+			}
+		}
+		else {
+			while((auxColumn <= b.getWidth()) && (b.getPosition(auxColumn + 1, y) == nextColor)) {
+				auxColumn++; total++;
+			}
+			if (total >= 1 && (b.getPosition(auxColumn + 1, y) == color)) {
+				valid = true; // El movimiento es válido
+			}
+		}
+		
+		return valid;
+	}
+
+	// CheckVertical: Function to Check top and bottom colors given a fixed position
+	
+	public boolean checkVerticalEmpty(Board b, int x, int y, boolean up) {
+		boolean valid = false;
+		int total = 0, auxRow = y;
+		Counter color = currentPlayer, nextColor = changeColor(color);
+		
+		if (up) {
+			while((auxRow >= 1) && (b.getPosition(x, auxRow - 1) == nextColor)) {
+				auxRow--; total++;
+			}
+			if (total >= 1 && (b.getPosition(x, auxRow - 1) == color)) {
+				valid = true; // El movimiento es válido
+			}
+		}
+		else {
+			while((auxRow <= b.getHeight()) && (b.getPosition(x, auxRow + 1) == nextColor)) {
+				auxRow++; total++;
+			}
+			if (total >= 1 && (b.getPosition(x, auxRow + 1) == color)) {
+				valid = true; // El movimiento es válido
+			}
+		}
+		return valid;
+	}
+
+	// CheckDiagonal1: Function to Check diagonals given a fixed position
+	
+	public boolean checkDiagonal1Empty(Board b, int x, int y, boolean upLeft) {
+		boolean valid = false;
+		int total = 0, auxColumn = x, auxRow = y;
+		Counter color = currentPlayer, nextColor = changeColor(color);
+		
+		if (upLeft) {
+			while((auxColumn >= 1) && (auxRow >= 1) && (b.getPosition(auxColumn - 1, auxRow - 1) == nextColor)) {
+				auxColumn--; auxRow--; total++;
+			}
+			if (total >= 1 && (b.getPosition(auxColumn - 1, auxRow - 1) == color)) {
+				valid = true; // El movimiento es válido
+			}
+		}
+		else { // Down Right
+			while((auxColumn <= b.getWidth()) && (auxRow <= b.getHeight()) && (b.getPosition(auxColumn + 1, auxRow + 1) == nextColor)) {
+				auxColumn++; auxRow++; total++;
+			}
+			if (total >= 1 && (b.getPosition(auxColumn + 1, auxRow + 1) == color)) {
+				valid = true; // El movimiento es válido
+			}
+		}
+		
+		return valid;
+	}
+
+	// CheckDiagonal2: Function to Check diagonals given a fixed position
+	
+	public boolean checkDiagonal2Empty(Board b, int x, int y, boolean upRight) {
+		boolean valid = false;
+		int total = 0, auxColumn = x, auxRow = y;
+		Counter color = currentPlayer, nextColor = changeColor(color);
+		
+		if (upRight) {
+			while((auxColumn <= b.getWidth()) && (auxRow >= 1) && (b.getPosition(auxColumn + 1, auxRow - 1) == nextColor)) {
+				auxColumn++; auxRow--; total++;
+			}
+			if (total >= 1 && (b.getPosition(auxColumn + 1, auxRow - 1) == color)) {
+				valid = true; // El movimiento es válido
+			}
+		}
+		else { // Bottom Left
+			while((auxColumn >= 1) && (auxRow <= b.getHeight()) && (b.getPosition(auxColumn - 1, auxRow + 1) == nextColor)) {
+				auxColumn--; auxRow++; total++;
+			}
+			if (total >= 1 && (b.getPosition(auxColumn - 1, auxRow + 1) == color)) {
+				valid = true; // El movimiento es válido
+			}
+		}
+		
+		return valid;
 	}
 	
 	@Override
