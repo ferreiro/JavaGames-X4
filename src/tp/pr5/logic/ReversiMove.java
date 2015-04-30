@@ -88,14 +88,24 @@ public class ReversiMove extends Move {
 			System.out.println("It's a Diagonal move");
 			iterations = absoluteValue(row, moveRow);
 
-			if (moveRow < row) { // El movimiento está a la derecha de las columnas a mover ([][]][] <= Movimiento)
+			if (moveRow < row && moveColumn < column) { // Bottom Right to TopLeft // El movimiento está a la derecha de las columnas a mover ([][]][] <= Movimiento)
 				for (int i = 0; i <= iterations; i++) {
 					b.setPosition(column - i, row - i, color);
 				}
 			}
-			else if (moveRow > row) {	// El movimiento está a la izquierda de las columnas a mover (Movimiento => [][]][])
+			else if (moveRow > row && column < moveColumn) {	// TopRight to BottomLeft // El movimiento está a la izquierda de las columnas a mover (Movimiento => [][]][])
 				for (int i = 0; i <= iterations; i++) {
 					b.setPosition(column + i, row + i, color);
+				}
+			} 
+			else if (row < moveRow && column > moveColumn) { // TopRight to BottomLeft // El movimiento está a la derecha de las columnas a mover ([][]][] <= Movimiento)
+				for (int i = 0; i <= iterations; i++) {
+					b.setPosition(column - i, row + i, color);
+				}
+			}
+			else if (row > moveRow && column < moveColumn) {	// BottomLeft to TopRight // El movimiento está a la izquierda de las columnas a mover (Movimiento => [][]][])
+				for (int i = 0; i <= iterations; i++) {
+					b.setPosition(column + i, row - i, color);
 				}
 			} 
 		}
