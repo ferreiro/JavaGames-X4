@@ -185,5 +185,9 @@ public class Game implements Observable<GameObserver> {
 	public void removeObserver(GameObserver o) {
 		obsList.remove(o);
 	}
+
+	public void setTurn(Counter c) {
+		this.turn = c;
+	}
 	
 }

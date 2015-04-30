@@ -14,15 +14,16 @@ public class ReversiMove extends Move {
 	}
 
 	@Override
+	
+	// Un movimiento es válido si puede revertir alguna celda formada
+	// Y además las posiciones estÃ¡n dentro del tablero y es una celda vacÃ­a
+	
 	public boolean executeMove(Board b) throws InvalidMove {
 		boolean valid = false;
-		
+
 		if ((column >= 1 && column <= Resources.DIMX_REVERSI) && 
 			(row >= 1 && row <= Resources.DIMY_REVERSI) 	  && 
 			(b.getPosition(column, row) == Counter.EMPTY)) { 
-				
-				// Un movimiento es válido si puede revertir alguna celda formada
-				// Y además las posiciones estÃ¡n dentro del tablero y es una celda vacÃ­a
 				
 				checkHorizontal(b, column, row, true); 	// True  = Left
 				checkHorizontal(b, column, row, false); // False = Right
@@ -33,22 +34,12 @@ public class ReversiMove extends Move {
 				checkDiagonal2(b, column, row, true); 	// True = Top Right
 				checkDiagonal2(b, column, row, false); 	// False = Bottom Left
 
-				if (listCoordinates.size() >= 1) { // Algún movimiento se ha podido hacer y guardar
-					valid = true;
-					System.out.println("Yeah! Some tiles are moved");
-					
+				if (listCoordinates.size() >= 1) { // => si hay alguna coordenada, significa que hay alguna celda flrmDa, por tanto, el movimiento es valido
+					valid = true;				
 					for (int i = 0; i < listCoordinates.size(); i++) {
 						swapCells(b, column, row, listCoordinates.get(i)); // setear el tablero
 					}
-				}
-				else {
-					System.out.println("NO! There are no tiles formed");
-				}
-				
-				// mirar si hay algÃºn elemento en el vector swappedcoorxinstes
-				// => si hay alguna coordenada, significa que hay alguna celda flrmDa, por tanto, el movimiento es valido
-				//     Si es valido, recorrer cada coordenada, restarla a la coordenada de origen y estese el tBlero del color contrario
-				//     Si no es valido, devolver el movimiento como no valido			
+				}	
 		}	 		
 		return valid;
 	}
