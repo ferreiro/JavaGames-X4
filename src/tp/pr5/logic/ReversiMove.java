@@ -20,72 +20,68 @@ public class ReversiMove extends Move {
 	
 	public boolean executeMove(Board b) throws InvalidMove {
 		boolean valid = false;
+		int total = 0;
 		
 		if ((column >= 1 && column <= Resources.DIMX_REVERSI) && 
 			(row >= 1 && row <= Resources.DIMY_REVERSI) 	  && 
 			(b.getPosition(column, row) == Counter.EMPTY)) { 
-				
-			checkHorizontal(b, column, row, true);	// True  = Left
-			checkHorizontal(b, column, row, false);	// False = Right
-			checkVertical(b, column, row, true); 	// True  = UP	
-			checkVertical(b, column, row, false); 	// False = Down	
-			checkDiagonal1(b, column, row, true); 	// True = Top Left
-			checkDiagonal1(b, column, row, false);  // False = Bottom Right
-			checkDiagonal2(b, column, row, true); 	// True = Top Right
-			checkDiagonal2(b, column, row, false);  // False = Bottom Left
+			
+			boolean keepMove = true;
+			
+			total += checkHorizontal(b, column, row, true, keepMove);	// True  = Left
+			total += checkHorizontal(b, column, row, false, keepMove);	// False = Right
+			total += checkVertical(b, column, row, true, keepMove); 	// True  = UP	
+			total += checkVertical(b, column, row, false, keepMove); 	// False = Down	
+			total += checkDiagonal1(b, column, row, true, keepMove); 	// True = Top Left
+			total += checkDiagonal1(b, column, row, false, keepMove);  // False = Bottom Right
+			total += checkDiagonal2(b, column, row, true, keepMove); 	// True = Top Right
+			total += checkDiagonal2(b, column, row, false, keepMove);  // False = Bottom Left
 
-			if (listCoordinates.size() >= 1) { // => si hay alguna coordenada, significa que hay alguna celda flrmDa, por tanto, el movimiento es valido
+			if (total >= 1) { // => Si se ha formado al menos una check, significa que hay alguna celda flrmDa, por tanto, el movimiento es valido
 				valid = true;	
 				for (int i = 0; i < listCoordinates.size(); i++) {
 					swapCells(b, column, row, listCoordinates.get(i)); // setear el tablero
 				}
+				setAvailableEmpty(b); // setear el atributo de si es posible hacer movimientos en las celdas empty
 			}	
 		}	 
-				
 		return valid;
 	}
 	
 	// Comprobar también si no se puede hacer algún movimiento en cualquier celda vacía
 
-	public boolean availableEmpty(Board b) {
-		int column = 1, row = 1;
+	public void setAvailableEmpty(Board b) {
+		int c = 1, r = 1, total = 0;
 		boolean valid = false; 
 		
-		while(column <= b.getWidth() && !valid) {
-			while(row <= b.getHeight() && !valid) {
-				
-				if (b.getPosition(column, row) == Counter.EMPTY) {
-					
-					valid = checkHorizontalEmpty(b, column, row, true);
-					if (!valid) { 
-						valid = checkHorizontalEmpty(b, column, row, false);
-						if (!valid) {
-							valid = checkVerticalEmpty(b, column, row, false);
-							if (!valid) {
-								valid = checkVerticalEmpty(b, column, row, true);
-								if (!valid) {
-									valid = checkDiagonal1Empty(b, column, row, false);
-									if (!valid) {
-										valid = checkDiagonal1Empty(b, column, row, true);
-										if (!valid) {
-											valid = checkDiagonal2Empty(b, column, row, false);
-											if (!valid) {
-												valid = checkDiagonal2Empty(b, column, row, true);
-											}
-										}
-									}
-								}
-							}
-						}
-					}
-				}				
-				
-				row++;
-			}
-			column++;
-		}		
+		super.emptyMoves = false; // No hay movimientos posibles en las celdas empty
 		
-		return valid;
+		while(r <= b.getHeight() && !valid) {
+			c = 1;
+			while(c <= b.getWidth() && !valid) {
+				if (b.getPosition(c, r) == Counter.EMPTY) {
+
+					total = 0;
+					boolean keepMove = false; // Aquí no queremos guardar las direcciones (porque solo comprobamos si es posible los movimientos)
+					
+					total += checkHorizontal(b, c, r, true, keepMove);	// True  = Left
+					total += checkHorizontal(b, c, r, false, keepMove);	// False = Right
+					total += checkVertical(b, c, r, true, keepMove); 	// True  = UP	
+					total += checkVertical(b, c, r, false, keepMove); 	// False = Down	
+					total += checkDiagonal1(b, c, r, true, keepMove); 	// True = Top Left
+					total += checkDiagonal1(b, c, r, false, keepMove);  // False = Bottom Right
+					total += checkDiagonal2(b, c, r, true, keepMove); 	// True = Top Right
+					total += checkDiagonal2(b, c, r, false, keepMove);  // False = Bottom Left
+					
+					if (total >= 1) { // => Si se ha formado al menos una check, significa que hay alguna celda flrmDa, por tanto, el movimiento es valido
+						valid = true;		
+						super.emptyMoves = true;  // Sí hay movimientos posibles en las celdas empty
+					}	
+				}
+				c++;
+			}
+			r++;
+		}		
 	}
 	
 	public void swapCells(Board b, int column, int row, SwappedMove m) {
@@ -107,7 +103,6 @@ public class ReversiMove extends Move {
 		}
 		else if (column == moveColumn) { // Vertical
 			iterations = absoluteValue(row, moveRow);
-			System.out.println("It's a vertical move");
 			if (moveRow < row) { // El movimiento está a la derecha de las columnas a mover ([][]][] <= Movimiento)
 				for (int i = 0; i <= iterations; i++) {
 					b.setPosition(column, row - i, color);
@@ -154,214 +149,154 @@ public class ReversiMove extends Move {
 	 
 	// CheckHorizontal: Function to Check left and right colors given a fixed position
 	
-	public void checkHorizontal(Board b, int x, int y, boolean left) {
-		int total = 0, auxColumn = x;
+	public int checkHorizontal(Board b, int x, int y, boolean left, boolean keepMove) {
+		boolean isFormed = false;
+		int accumulateTiles = 0, auxColumn = x;
 		Counter color = currentPlayer, nextColor = changeColor(color);
 		
 		if (left) {
 			while((auxColumn >= 1) && (b.getPosition(auxColumn - 1, y) == nextColor)) {
-				auxColumn--; total++;
+				auxColumn--; accumulateTiles++;
 			}
-			if (total >= 1 && (b.getPosition(auxColumn - 1, y) == color)) {
+			if (accumulateTiles >= 1 && (b.getPosition(auxColumn - 1, y) == color)) {
+				isFormed = true;
 				SwappedMove s = new SwappedMove(auxColumn, y, x, y, nextColor ); 	// Crea movimiento con la posición de la última ficha que vamos a swappear
-				listCoordinates.add(s);									// Guardar movimiento swappeado en la lista de coordenadas
+				if(keepMove) {
+					listCoordinates.add(s);		// Guardar movimiento swappeado en la lista de coordenadas
+				}
 			}
 		}
 		else {
 			while((auxColumn <= b.getWidth()) && (b.getPosition(auxColumn + 1, y) == nextColor)) {
-				auxColumn++; total++;
+				auxColumn++; accumulateTiles++;
 			}
-			if (total >= 1 && (b.getPosition(auxColumn + 1, y) == color)) {
+			if (accumulateTiles >= 1 && (b.getPosition(auxColumn + 1, y) == color)) {
+				isFormed = true;
 				SwappedMove s = new SwappedMove(auxColumn, y, x, y, nextColor ); 	// Crea movimiento con la posición de la última ficha que vamos a swappear
-				listCoordinates.add(s);										// Guardar movimiento swappeado en la lista de coordenadas
+				if(keepMove) {
+					listCoordinates.add(s);		// Guardar movimiento swappeado en la lista de coordenadas
+				}									
 			}
 		}
+		
+		if (isFormed) 
+			return 1; // Sumar uno, porque se ha formado celdas
+		else 		  
+			return 0;	
 	}
 
 	// CheckVertical: Function to Check top and bottom colors given a fixed position
 	
-	public void checkVertical(Board b, int x, int y, boolean up) {
-		int total = 0, auxRow = y;
+	public int checkVertical(Board b, int x, int y, boolean up, boolean keepMove) {
+		boolean isFormed = false;
+		int accumulateTiles = 0, auxRow = y;
 		Counter color = currentPlayer, nextColor = changeColor(color);
 		
 		if (up) {
 			while((auxRow >= 1) && (b.getPosition(x, auxRow - 1) == nextColor)) {
-				auxRow--; total++;
+				auxRow--; accumulateTiles++;
 			}
-			if (total >= 1 && (b.getPosition(x, auxRow - 1) == color)) {
+			if (accumulateTiles >= 1 && (b.getPosition(x, auxRow - 1) == color)) {
+				isFormed = true;
 				SwappedMove s = new SwappedMove(x, auxRow, x, y, nextColor ); 	// Crea movimiento con la posición de la última ficha que vamos a swappear
-				listCoordinates.add(s);									// Guardar movimiento swappeado en la lista de coordenadas
+				if(keepMove) {
+					listCoordinates.add(s);		// Guardar movimiento swappeado en la lista de coordenadas
+				}								
 			}
 		}
 		else {
 			while((auxRow <= b.getHeight()) && (b.getPosition(x, auxRow + 1) == nextColor)) {
-				auxRow++; total++;
+				auxRow++; accumulateTiles++;
 			}
-			if (total >= 1 && (b.getPosition(x, auxRow + 1) == color)) {
+			if (accumulateTiles >= 1 && (b.getPosition(x, auxRow + 1) == color)) {
+				isFormed = true;
 				SwappedMove s = new SwappedMove(x, auxRow, x, y, nextColor ); 	// Crea movimiento con la posición de la última ficha que vamos a swappear
-				listCoordinates.add(s);									// Guardar movimiento swappeado en la lista de coordenadas
+				if(keepMove) {
+					listCoordinates.add(s);		// Guardar movimiento swappeado en la lista de coordenadas
+				}								
 			}
 		}
+		
+		if (isFormed) 
+			return 1; // Sumar uno, porque se ha formado celdas
+		else 		  
+			return 0;
 	}
 
 	// CheckDiagonal1: Function to Check diagonals given a fixed position
 	
-	public void checkDiagonal1(Board b, int x, int y, boolean upLeft) {
-		int total = 0, auxColumn = x, auxRow = y;
+	public int checkDiagonal1(Board b, int x, int y, boolean upLeft, boolean keepMove) {
+		boolean isFormed = false;
+		int accumulateTiles = 0, auxColumn = x, auxRow = y;
 		Counter color = currentPlayer, nextColor = changeColor(color);
 		
 		if (upLeft) {
 			while((auxColumn >= 1) && (auxRow >= 1) && (b.getPosition(auxColumn - 1, auxRow - 1) == nextColor)) {
-				auxColumn--; auxRow--; total++;
+				auxColumn--; auxRow--; accumulateTiles++;
 			}
-			if (total >= 1 && (b.getPosition(auxColumn - 1, auxRow - 1) == color)) {
+			if (accumulateTiles >= 1 && (b.getPosition(auxColumn - 1, auxRow - 1) == color)) {
+				isFormed = true;
 				SwappedMove s = new SwappedMove(auxColumn, auxRow, x, y, nextColor ); 	// Crea movimiento con la posición de la última ficha que vamos a swappear
-				listCoordinates.add(s);									// Guardar movimiento swappeado en la lista de coordenadas
+				if(keepMove) {
+					listCoordinates.add(s);		// Guardar movimiento swappeado en la lista de coordenadas
+				}										
 			}
 		}
 		else { // Down Right
 			while((auxColumn <= b.getWidth()) && (auxRow <= b.getHeight()) && (b.getPosition(auxColumn + 1, auxRow + 1) == nextColor)) {
-				auxColumn++; auxRow++; total++;
+				auxColumn++; auxRow++; accumulateTiles++;
 			}
-			if (total >= 1 && (b.getPosition(auxColumn + 1, auxRow + 1) == color)) {
+			if (accumulateTiles >= 1 && (b.getPosition(auxColumn + 1, auxRow + 1) == color)) {
+				isFormed = true;
 				SwappedMove s = new SwappedMove(auxColumn, auxRow, x, y, nextColor ); 	// Crea movimiento con la posición de la última ficha que vamos a swappear
-				listCoordinates.add(s);									// Guardar movimiento swappeado en la lista de coordenadas
+				if(keepMove) {
+					listCoordinates.add(s);		// Guardar movimiento swappeado en la lista de coordenadas
+				}										
 			}
 		}
+		
+		if (isFormed) 
+			return 1; // Sumar uno, porque se ha formado celdas
+		else 		  
+			return 0;		
 	}
 
 	// CheckDiagonal2: Function to Check diagonals given a fixed position
 	
-	public void checkDiagonal2(Board b, int x, int y, boolean upRight) {
-		int total = 0, auxColumn = x, auxRow = y;
+	public int checkDiagonal2(Board b, int x, int y, boolean upRight, boolean keepMove) {
+		boolean isFormed = false;
+		int accumulateTitles = 0, auxColumn = x, auxRow = y;
 		Counter color = currentPlayer, nextColor = changeColor(color);
 		
 		if (upRight) {
 			while((auxColumn <= b.getWidth()) && (auxRow >= 1) && (b.getPosition(auxColumn + 1, auxRow - 1) == nextColor)) {
-				auxColumn++; auxRow--; total++;
+				auxColumn++; auxRow--; accumulateTitles++;
 			}
-			if (total >= 1 && (b.getPosition(auxColumn + 1, auxRow - 1) == color)) {
+			if (accumulateTitles >= 1 && (b.getPosition(auxColumn + 1, auxRow - 1) == color)) {
+				isFormed = true;
 				SwappedMove s = new SwappedMove(auxColumn, auxRow, x, y, nextColor ); 	// Crea movimiento con la posición de la última ficha que vamos a swappear
-				listCoordinates.add(s);									// Guardar movimiento swappeado en la lista de coordenadas
+				if(keepMove) {
+					listCoordinates.add(s);		// Guardar movimiento swappeado en la lista de coordenadas
+				}									
 			}
 		}
 		else { // Bottom Left
 			while((auxColumn >= 1) && (auxRow <= b.getHeight()) && (b.getPosition(auxColumn - 1, auxRow + 1) == nextColor)) {
-				auxColumn--; auxRow++; total++;
+				auxColumn--; auxRow++; accumulateTitles++;
 			}
-			if (total >= 1 && (b.getPosition(auxColumn - 1, auxRow + 1) == color)) {
+			if (accumulateTitles >= 1 && (b.getPosition(auxColumn - 1, auxRow + 1) == color)) {
+				isFormed = true;
 				SwappedMove s = new SwappedMove(auxColumn, auxRow, x, y, nextColor ); 	// Crea movimiento con la posición de la última ficha que vamos a swappear
-				listCoordinates.add(s);									// Guardar movimiento swappeado en la lista de coordenadas
-			}
-		}
-	}
-	
-	
-	// CheckHorizontal: Function to Check left and right colors given a fixed position
-	
-	public boolean checkHorizontalEmpty(Board b, int x, int y, boolean left) {
-		boolean valid = false;
-		int total = 0, auxColumn = x;
-		Counter color = currentPlayer, nextColor = changeColor(color);
-		
-		if (left) {
-			while((auxColumn >= 1) && (b.getPosition(auxColumn - 1, y) == nextColor)) {
-				auxColumn--; total++;
-			}
-			if (total >= 1 && (b.getPosition(auxColumn - 1, y) == color)) {
-				valid = true; // El movimiento es válido
-			}
-		}
-		else {
-			while((auxColumn <= b.getWidth()) && (b.getPosition(auxColumn + 1, y) == nextColor)) {
-				auxColumn++; total++;
-			}
-			if (total >= 1 && (b.getPosition(auxColumn + 1, y) == color)) {
-				valid = true; // El movimiento es válido
+				if(keepMove) {
+					listCoordinates.add(s);		// Guardar movimiento swappeado en la lista de coordenadas
+				}								
 			}
 		}
 		
-		return valid;
-	}
-
-	// CheckVertical: Function to Check top and bottom colors given a fixed position
-	
-	public boolean checkVerticalEmpty(Board b, int x, int y, boolean up) {
-		boolean valid = false;
-		int total = 0, auxRow = y;
-		Counter color = currentPlayer, nextColor = changeColor(color);
-		
-		if (up) {
-			while((auxRow >= 1) && (b.getPosition(x, auxRow - 1) == nextColor)) {
-				auxRow--; total++;
-			}
-			if (total >= 1 && (b.getPosition(x, auxRow - 1) == color)) {
-				valid = true; // El movimiento es válido
-			}
-		}
-		else {
-			while((auxRow <= b.getHeight()) && (b.getPosition(x, auxRow + 1) == nextColor)) {
-				auxRow++; total++;
-			}
-			if (total >= 1 && (b.getPosition(x, auxRow + 1) == color)) {
-				valid = true; // El movimiento es válido
-			}
-		}
-		return valid;
-	}
-
-	// CheckDiagonal1: Function to Check diagonals given a fixed position
-	
-	public boolean checkDiagonal1Empty(Board b, int x, int y, boolean upLeft) {
-		boolean valid = false;
-		int total = 0, auxColumn = x, auxRow = y;
-		Counter color = currentPlayer, nextColor = changeColor(color);
-		
-		if (upLeft) {
-			while((auxColumn >= 1) && (auxRow >= 1) && (b.getPosition(auxColumn - 1, auxRow - 1) == nextColor)) {
-				auxColumn--; auxRow--; total++;
-			}
-			if (total >= 1 && (b.getPosition(auxColumn - 1, auxRow - 1) == color)) {
-				valid = true; // El movimiento es válido
-			}
-		}
-		else { // Down Right
-			while((auxColumn <= b.getWidth()) && (auxRow <= b.getHeight()) && (b.getPosition(auxColumn + 1, auxRow + 1) == nextColor)) {
-				auxColumn++; auxRow++; total++;
-			}
-			if (total >= 1 && (b.getPosition(auxColumn + 1, auxRow + 1) == color)) {
-				valid = true; // El movimiento es válido
-			}
-		}
-		
-		return valid;
-	}
-
-	// CheckDiagonal2: Function to Check diagonals given a fixed position
-	
-	public boolean checkDiagonal2Empty(Board b, int x, int y, boolean upRight) {
-		boolean valid = false;
-		int total = 0, auxColumn = x, auxRow = y;
-		Counter color = currentPlayer, nextColor = changeColor(color);
-		
-		if (upRight) {
-			while((auxColumn <= b.getWidth()) && (auxRow >= 1) && (b.getPosition(auxColumn + 1, auxRow - 1) == nextColor)) {
-				auxColumn++; auxRow--; total++;
-			}
-			if (total >= 1 && (b.getPosition(auxColumn + 1, auxRow - 1) == color)) {
-				valid = true; // El movimiento es válido
-			}
-		}
-		else { // Bottom Left
-			while((auxColumn >= 1) && (auxRow <= b.getHeight()) && (b.getPosition(auxColumn - 1, auxRow + 1) == nextColor)) {
-				auxColumn--; auxRow++; total++;
-			}
-			if (total >= 1 && (b.getPosition(auxColumn - 1, auxRow + 1) == color)) {
-				valid = true; // El movimiento es válido
-			}
-		}
-		
-		return valid;
+		if (isFormed) 
+			return 1; // Sumar uno, porque se ha formado celdas
+		else 		  
+			return 0;	
 	}
 	
 	@Override

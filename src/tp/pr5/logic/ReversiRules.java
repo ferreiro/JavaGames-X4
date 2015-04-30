@@ -50,6 +50,7 @@ public class ReversiRules implements GameRules {
 					total++;
 			}
 		}
+
 		return total;
 	}
 	

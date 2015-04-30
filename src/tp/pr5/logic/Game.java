@@ -40,6 +40,7 @@ public class Game implements Observable<GameObserver> {
 		boolean valid = false, draw; 
 		Counter wonColor, currentPlayer = mov.getPlayer();
 		
+		/*
 		if (rules.intRules() == 3) { // Si estamos en reversi, ver si no hay ningún movimiento disponible en las empty cells
 			boolean isAvaliableEmpty = mov.availableEmpty(board);
 			if (!isAvaliableEmpty) {
@@ -51,6 +52,7 @@ public class Game implements Observable<GameObserver> {
 				}				
 			}
 		}
+		*/
 		
 		if ((mov.getPlayer() == turn) && (!finished)) { // No puede permitir hacer movimientos fuera de turno o se ha terminado el juego
 			winner = Counter.EMPTY;  
@@ -60,7 +62,7 @@ public class Game implements Observable<GameObserver> {
 			}
 			
 			valid = mov.executeMove(board);
-
+			
 			if (valid) { 
  
 				wonColor = rules.winningMove(mov, board); // Checks if there's a Counter Winner or not
@@ -81,19 +83,12 @@ public class Game implements Observable<GameObserver> {
 					} 
 				}
 			}
-			else{
-				if (rules.intRules() == 3) { // Si estamos en reversi, ver si no hay ningún movimiento disponible en las empty cells
-					boolean isAvaliableEmpty = mov.availableEmpty(board);
-					if (!isAvaliableEmpty) {
-						turn = rules.nextTurn(mov.getPlayer(), board); // Change turn
-						for (GameObserver o : obsList) 
-							o.onMoveError("This is an invalid movement, please try again");
-					}
-				}
-				else {
-					for (GameObserver o : obsList) 
-						o.onMoveError("This is an invalid movement, please try again");
-				}
+			else if (!mov.emptyMoves) { // Para el reversi: No es posible hacer movimientos en las celdas empty. Cmabiar usuario
+				this.turn = nextPlayer(mov.currentPlayer);
+			}
+			else if (!valid) {
+				for (GameObserver o : obsList) 
+					o.onMoveError("This is an invalid movement, please try again");
 			}
 		}
 		else {
