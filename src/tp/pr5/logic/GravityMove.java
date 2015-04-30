@@ -27,11 +27,7 @@ public class GravityMove extends Move{
 	}
 
 	public void undo(Board board) {
-		int columnToUndo, rowToUndo;
-		
-		columnToUndo = column;
-		rowToUndo = row;
-		board.setPosition(columnToUndo, rowToUndo, Counter.EMPTY); 
+		board.setPosition(column, row, Counter.EMPTY); 
 	}
 	
 	public int getColumn() {

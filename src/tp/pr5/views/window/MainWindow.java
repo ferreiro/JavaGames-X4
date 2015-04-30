@@ -155,9 +155,12 @@ public class MainWindow extends JFrame implements GameObserver {
 
 		Cbox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				Cbox.repaint();
+				Cbox.revalidate();
 				GameType name = (GameType) Cbox.getSelectedItem();
 				changeDimensions.setVisible(false);
 				if (name.equals(GameType.Gravity)) changeDimensions.setVisible(true);
+
 			}
 		});
 		

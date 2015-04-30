@@ -25,11 +25,9 @@ public class Connect4Move extends Move {
 	}
 
 	public void undo(Board board) {
-		int columnToUndo, rowToUndo;
+		int rowToUndo = Resources.occupiedRowPosition(board, column); 
 		
-		columnToUndo = column;
-		rowToUndo = Resources.occupiedRowPosition(board, columnToUndo); 
-		board.setPosition(columnToUndo, rowToUndo, Counter.EMPTY); 
+		board.setPosition(column, rowToUndo, Counter.EMPTY); 
 	}
 	
 	public int getColumn() {

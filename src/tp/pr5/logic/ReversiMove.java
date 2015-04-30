@@ -135,7 +135,7 @@ public class ReversiMove extends Move {
 				auxColumn--; total++;
 			}
 			if (total >= 1 && (b.getPosition(auxColumn - 1, y) == color)) {
-				SwappedMove s = new SwappedMove(auxColumn, y, nextColor ); 	// Crea movimiento con la posición de la última ficha que vamos a swappear
+				SwappedMove s = new SwappedMove(auxColumn, y, x, y, nextColor ); 	// Crea movimiento con la posición de la última ficha que vamos a swappear
 				listCoordinates.add(s);									// Guardar movimiento swappeado en la lista de coordenadas
 			}
 		}
@@ -144,7 +144,7 @@ public class ReversiMove extends Move {
 				auxColumn++; total++;
 			}
 			if (total >= 1 && (b.getPosition(auxColumn + 1, y) == color)) {
-				SwappedMove s = new SwappedMove(auxColumn, y, nextColor ); 	// Crea movimiento con la posición de la última ficha que vamos a swappear
+				SwappedMove s = new SwappedMove(auxColumn, y, x, y, nextColor ); 	// Crea movimiento con la posición de la última ficha que vamos a swappear
 				listCoordinates.add(s);										// Guardar movimiento swappeado en la lista de coordenadas
 			}
 		}
@@ -161,7 +161,7 @@ public class ReversiMove extends Move {
 				auxRow--; total++;
 			}
 			if (total >= 1 && (b.getPosition(x, auxRow - 1) == color)) {
-				SwappedMove s = new SwappedMove(x, auxRow, nextColor ); 	// Crea movimiento con la posición de la última ficha que vamos a swappear
+				SwappedMove s = new SwappedMove(x, auxRow, x, y, nextColor ); 	// Crea movimiento con la posición de la última ficha que vamos a swappear
 				listCoordinates.add(s);									// Guardar movimiento swappeado en la lista de coordenadas
 			}
 		}
@@ -170,7 +170,7 @@ public class ReversiMove extends Move {
 				auxRow++; total++;
 			}
 			if (total >= 1 && (b.getPosition(x, auxRow + 1) == color)) {
-				SwappedMove s = new SwappedMove(x, auxRow, nextColor ); 	// Crea movimiento con la posición de la última ficha que vamos a swappear
+				SwappedMove s = new SwappedMove(x, auxRow, x, y, nextColor ); 	// Crea movimiento con la posición de la última ficha que vamos a swappear
 				listCoordinates.add(s);									// Guardar movimiento swappeado en la lista de coordenadas
 			}
 		}
@@ -187,7 +187,7 @@ public class ReversiMove extends Move {
 				auxColumn--; auxRow--; total++;
 			}
 			if (total >= 1 && (b.getPosition(auxColumn - 1, auxRow - 1) == color)) {
-				SwappedMove s = new SwappedMove(auxColumn, auxRow, nextColor ); 	// Crea movimiento con la posición de la última ficha que vamos a swappear
+				SwappedMove s = new SwappedMove(auxColumn, auxRow, x, y, nextColor ); 	// Crea movimiento con la posición de la última ficha que vamos a swappear
 				listCoordinates.add(s);									// Guardar movimiento swappeado en la lista de coordenadas
 			}
 		}
@@ -196,7 +196,7 @@ public class ReversiMove extends Move {
 				auxColumn++; auxRow++; total++;
 			}
 			if (total >= 1 && (b.getPosition(auxColumn + 1, auxRow + 1) == color)) {
-				SwappedMove s = new SwappedMove(auxColumn, auxRow, nextColor ); 	// Crea movimiento con la posición de la última ficha que vamos a swappear
+				SwappedMove s = new SwappedMove(auxColumn, auxRow, x, y, nextColor ); 	// Crea movimiento con la posición de la última ficha que vamos a swappear
 				listCoordinates.add(s);									// Guardar movimiento swappeado en la lista de coordenadas
 			}
 		}
@@ -213,7 +213,7 @@ public class ReversiMove extends Move {
 				auxColumn++; auxRow--; total++;
 			}
 			if (total >= 1 && (b.getPosition(auxColumn + 1, auxRow - 1) == color)) {
-				SwappedMove s = new SwappedMove(auxColumn, auxRow, nextColor ); 	// Crea movimiento con la posición de la última ficha que vamos a swappear
+				SwappedMove s = new SwappedMove(auxColumn, auxRow, x, y, nextColor ); 	// Crea movimiento con la posición de la última ficha que vamos a swappear
 				listCoordinates.add(s);									// Guardar movimiento swappeado en la lista de coordenadas
 			}
 		}
@@ -222,7 +222,7 @@ public class ReversiMove extends Move {
 				auxColumn--; auxRow++; total++;
 			}
 			if (total >= 1 && (b.getPosition(auxColumn - 1, auxRow + 1) == color)) {
-				SwappedMove s = new SwappedMove(auxColumn, auxRow, nextColor ); 	// Crea movimiento con la posición de la última ficha que vamos a swappear
+				SwappedMove s = new SwappedMove(auxColumn, auxRow, x, y, nextColor ); 	// Crea movimiento con la posición de la última ficha que vamos a swappear
 				listCoordinates.add(s);									// Guardar movimiento swappeado en la lista de coordenadas
 			}
 		}
@@ -230,7 +230,16 @@ public class ReversiMove extends Move {
 	
 	@Override
 	public void undo(Board b) {
-		// TODO UNDO
+		if (listCoordinates.size() >= 1) {
+			for (int i = 0; i < listCoordinates.size(); i++) {
+				SwappedMove m = listCoordinates.get(i);
+				m.setColor(changeColor(m.getColor()));
+				// Setear en la posición del movimiento EMPTY
+				swapCells(b, column, row, m); // setear el tablero
+				b.setPosition(m.getOrigenX(), m.getOrigenY(), Counter.EMPTY);
+			}
+		}
+		
 	}
 
 	@Override
