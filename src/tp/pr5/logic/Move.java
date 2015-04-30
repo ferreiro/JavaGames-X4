@@ -22,5 +22,26 @@ public abstract class Move {
 	public abstract void undo(Board board);
 	public abstract int getColumn();
 	public abstract int getRow();
+
+	// Metodo para el reversi Move
+	public boolean availableEmpty(Board board) {
+		return false;
+	}
+
+	public Counter getCurrentPlayer() {
+		return this.currentPlayer;
+	}
+
+	public void setCurrentPlayer(Counter c) {
+		currentPlayer = c;
+	}
+	
+	public Counter changeColor(Counter c) {
+		if (c == Counter.WHITE) return Counter.BLACK;
+		else if(c == Counter.BLACK) return Counter.WHITE;
+		else return Counter.EMPTY;
+	}
+	
+	
 	
 }

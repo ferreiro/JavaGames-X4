@@ -40,44 +40,50 @@ public class ReversiMove extends Move {
 					swapCells(b, column, row, listCoordinates.get(i)); // setear el tablero
 				}
 			}	
-		}	 	
-		
-		/*
-		 * if (!valid) {
-			// Comprobar también si no se puede hacer algún movimiento en cualquier celda vacía
-			valid =  !validEmpty(b); // Algún movimiento se va a poder hacer, así que no es valido
-		}
-		*/
-		
+		}	 
+				
 		return valid;
 	}
 	
-	public boolean validEmpty(Board b) {
+	// Comprobar también si no se puede hacer algún movimiento en cualquier celda vacía
+
+	public boolean availableEmpty(Board b) {
+		int column = 1, row = 1;
 		boolean valid = false; 
 		
-		valid = checkHorizontalEmpty(b, column, row, true);
-		
-		if (!valid) { 
-			valid = checkHorizontalEmpty(b, column, row, false);
-			if (!valid) {
-				valid = checkVerticalEmpty(b, column, row, false);
-				if (!valid) {
-					valid = checkVerticalEmpty(b, column, row, true);
-					if (!valid) {
-						valid = checkDiagonal1Empty(b, column, row, false);
+		while(column <= b.getWidth() && !valid) {
+			while(row <= b.getHeight() && !valid) {
+				
+				if (b.getPosition(column, row) == Counter.EMPTY) {
+					
+					valid = checkHorizontalEmpty(b, column, row, true);
+					if (!valid) { 
+						valid = checkHorizontalEmpty(b, column, row, false);
 						if (!valid) {
-							valid = checkDiagonal1Empty(b, column, row, true);
+							valid = checkVerticalEmpty(b, column, row, false);
 							if (!valid) {
-								valid = checkDiagonal2Empty(b, column, row, false);
+								valid = checkVerticalEmpty(b, column, row, true);
 								if (!valid) {
-									valid = checkDiagonal2Empty(b, column, row, true);
+									valid = checkDiagonal1Empty(b, column, row, false);
+									if (!valid) {
+										valid = checkDiagonal1Empty(b, column, row, true);
+										if (!valid) {
+											valid = checkDiagonal2Empty(b, column, row, false);
+											if (!valid) {
+												valid = checkDiagonal2Empty(b, column, row, true);
+											}
+										}
+									}
 								}
 							}
 						}
 					}
-				}
+				}				
+				
+				row++;
 			}
-		}
+			column++;
+		}		
 		
 		return valid;
 	}
@@ -146,12 +152,6 @@ public class ReversiMove extends Move {
 		return total;
 	}
 	 
-	public Counter changeColor(Counter c) {
-		if (c == Counter.WHITE) return Counter.BLACK;
-		else if(c == Counter.BLACK) return Counter.WHITE;
-		else return Counter.EMPTY;
-	}
-	
 	// CheckHorizontal: Function to Check left and right colors given a fixed position
 	
 	public void checkHorizontal(Board b, int x, int y, boolean left) {
