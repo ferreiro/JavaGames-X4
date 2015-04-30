@@ -26,11 +26,12 @@ public class Game implements Observable<GameObserver> {
 
 	public void reset(GameRules rules) { // Reset all the Game Rules
 		this.rules = rules;
-		board = rules.newBoard();
+		board = rules.newBoard();		
 		turn = rules.initialPlayer();
 		winner = Counter.EMPTY;
 		finished = false;
 		stack.clear(); 
+				
 		for (GameObserver o : obsList)
 			o.reset(board, turn, false);
 	}
@@ -46,7 +47,7 @@ public class Game implements Observable<GameObserver> {
 				o.moveExecStart(mov.getPlayer());
 			}
 			valid = mov.executeMove(board);
-			
+
 			if (valid) { 
  
 				wonColor = rules.winningMove(mov, board); // Checks if there's a Counter Winner or not

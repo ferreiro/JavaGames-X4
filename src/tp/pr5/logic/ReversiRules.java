@@ -34,8 +34,9 @@ public class ReversiRules implements GameRules {
 			else if (totalWhite > totalBlack) {
 				colorWinner = Counter.WHITE;	// Hay más fichas BLANCAS! Gana
 			} 
+			winner = colorWinner;
 		}
-		winner = colorWinner;
+		
 		return colorWinner;
 	}
 	

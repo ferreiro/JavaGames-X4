@@ -20,29 +20,79 @@ public class ReversiMove extends Move {
 	
 	public boolean executeMove(Board b) throws InvalidMove {
 		boolean valid = false;
-
+		
+		valid = tilesFormed(b); // Ver si se ha formado alguna celda
+		for (int i = 0; i < listCoordinates.size(); i++) {
+			swapCells(b, column, row, listCoordinates.get(i)); // setear el tablero
+		}
+		// Comprobar también si no se puede hacer algún movimiento en cualquier celda vacía
+	
+		return valid;
+	}
+	
+	public boolean tilesFormed(Board b) {
+		boolean valid = false;
+		
 		if ((column >= 1 && column <= Resources.DIMX_REVERSI) && 
 			(row >= 1 && row <= Resources.DIMY_REVERSI) 	  && 
 			(b.getPosition(column, row) == Counter.EMPTY)) { 
 				
-				checkHorizontal(b, column, row, true); 	// True  = Left
-				checkHorizontal(b, column, row, false); // False = Right
-				checkVertical(b, column, row, true); 	// True  = UP	
-				checkVertical(b, column, row, false); 	// False = Down	
-				checkDiagonal1(b, column, row, true); 	// True = Top Left
-				checkDiagonal1(b, column, row, false); 	// False = Bottom Right
-				checkDiagonal2(b, column, row, true); 	// True = Top Right
-				checkDiagonal2(b, column, row, false); 	// False = Bottom Left
+			checkHorizontal(b, column, row, true); 	// True  = Left
+			checkHorizontal(b, column, row, false); // False = Right
+			checkVertical(b, column, row, true); 	// True  = UP	
+			checkVertical(b, column, row, false); 	// False = Down	
+			checkDiagonal1(b, column, row, true); 	// True = Top Left
+			checkDiagonal1(b, column, row, false); 	// False = Bottom Right
+			checkDiagonal2(b, column, row, true); 	// True = Top Right
+			checkDiagonal2(b, column, row, false); 	// False = Bottom Left
 
-				if (listCoordinates.size() >= 1) { // => si hay alguna coordenada, significa que hay alguna celda flrmDa, por tanto, el movimiento es valido
-					valid = true;				
-					for (int i = 0; i < listCoordinates.size(); i++) {
-						swapCells(b, column, row, listCoordinates.get(i)); // setear el tablero
-					}
-				}	
-		}	 		
+			if (listCoordinates.size() >= 1) { // => si hay alguna coordenada, significa que hay alguna celda flrmDa, por tanto, el movimiento es valido
+				valid = true;				
+			}	
+		}	 	
 		return valid;
 	}
+	
+	/*
+	public boolean avaliableMove(Board b) {
+		int column = 1, row = 1;
+		boolean avaliable = false, valid = false;
+				
+		while(column <= b.getWidth() && !valid) {
+			while(row <= b.getHeight() && !valid) {
+				if (b.getPosition(column, row) == Counter.EMPTY) {
+
+					// Esto tratar de univificarlo con la de arriba que es igual
+					if ((column >= 1 && column <= Resources.DIMX_REVERSI) && 
+							(row >= 1 && row <= Resources.DIMY_REVERSI) 	  && 
+							(b.getPosition(column, row) == Counter.EMPTY)) { 
+								
+								checkHorizontal(b, column, row, true); 	// True  = Left
+								checkHorizontal(b, column, row, false); // False = Right
+								checkVertical(b, column, row, true); 	// True  = UP	
+								checkVertical(b, column, row, false); 	// False = Down	
+								checkDiagonal1(b, column, row, true); 	// True = Top Left
+								checkDiagonal1(b, column, row, false); 	// False = Bottom Right
+								checkDiagonal2(b, column, row, true); 	// True = Top Right
+								checkDiagonal2(b, column, row, false); 	// False = Bottom Left
+
+								if (listCoordinates.size() >= 1) { // => si hay alguna coordenada, significa que hay alguna celda flrmDa, por tanto, el movimiento es valido
+									valid = true;				
+									for (int i = 0; i < listCoordinates.size(); i++) {
+										swapCells(b, column, row, listCoordinates.get(i)); // setear el tablero
+									}
+								}	
+						}	 						
+					
+				}				
+				row++;
+			}
+			column++;
+		}
+		
+		return avaliable;
+	}
+	*/
 	
 	public void swapCells(Board b, int column, int row, SwappedMove m) {
 		int moveColumn = m.getX(), moveRow = m.getY(), iterations = 0;
@@ -76,7 +126,6 @@ public class ReversiMove extends Move {
 			} 
 		}
 		else {	// Diagonal
-			System.out.println("It's a Diagonal move");
 			iterations = absoluteValue(row, moveRow);
 
 			if (moveRow < row && moveColumn < column) { // Bottom Right to TopLeft // El movimiento está a la derecha de las columnas a mover ([][]][] <= Movimiento)
@@ -117,7 +166,7 @@ public class ReversiMove extends Move {
 	
 	// CheckHorizontal: Function to Check left and right colors given a fixed position
 	
-	public void checkHorizontal(Board b, int x, int y, boolean left) {
+	public void checkHorizontal(Board b, int x, int y, boolean left, boolean keepMove) {
 		int total = 0, auxColumn = x;
 		Counter color = currentPlayer, nextColor = changeColor(color);
 		
