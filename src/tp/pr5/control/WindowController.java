@@ -16,7 +16,7 @@ public class WindowController extends Controller {
 	
 	@SuppressWarnings("static-access")
 	public void changeGame(GameType gameType, int dimX, int dimY) {
-		if (gameType == gameType.Gravity) {
+		if (gameType == gameType.gravity) {
 			Resources.setGravityDimX(dimX); 
 			Resources.setGravityDimY(dimY);
 		}

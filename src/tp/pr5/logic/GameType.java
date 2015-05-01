@@ -1,7 +1,7 @@
 package tp.pr5.logic;
 
 public enum GameType {
-	connect4("Connect4"), complica("Complica"), Gravity("Gravity"), reversi("Reversi");
+	connect4("Connect4"), complica("Complica"), gravity("Gravity"), reversi("Reversi");
 	@SuppressWarnings("unused")
 	private String name;
 	
