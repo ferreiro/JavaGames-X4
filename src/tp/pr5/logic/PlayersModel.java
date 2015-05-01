@@ -1,10 +1,7 @@
-package tp.pr5.views.window;
+package tp.pr5.logic;
 
 import javax.swing.ComboBoxModel;
 import javax.swing.event.ListDataListener;
-
-import tp.pr5.logic.Counter;
-import tp.pr5.logic.PlayerType;
 
 public class PlayersModel implements ComboBoxModel<PlayerType> {
 	

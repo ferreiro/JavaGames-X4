@@ -1,6 +1,13 @@
  package tp.pr5.Resources;
 
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.GridBagConstraints;
 import java.util.Scanner;
+
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JPanel;
 
 import tp.pr5.logic.Board;
 import tp.pr5.logic.Counter;
@@ -335,6 +342,37 @@ public class Resources {
 		System.out.println("                            By default, 10.");
 		System.out.println(" -y,--dimY <rowNumber>      Number of rows on the board (Gravity only). By");
 		System.out.println("                            default, 10.");
+	}
+	
+	
+	
+	//METHODS FOR THE VIEW
+	public static GridBagConstraints configureConstraint(int fill, int gridX, int gridY, double weightX, double weightY) {
+		GridBagConstraints c = new GridBagConstraints(); 
+		c.fill = fill;
+		c.gridx = gridX;
+		c.gridy = gridY;
+		c.weightx = weightX;
+		c.weighty = weightY;
+		return c;
+	}
+	
+	public static JPanel createPanel(Color color, int x, int y) {
+		JPanel panel = new JPanel();
+		panel.setBackground(color);
+		panel.setPreferredSize(new Dimension(x,y));
+		panel.setVisible(true); 
+		return panel;
+	}
+	
+	public static JButton createAuxButton(int w, int h, String name, String fileName, Color c, boolean border) {
+		JButton b = new JButton();
+		b.setBackground(c);
+		b.setPreferredSize(new Dimension(w, h)); 
+		if (fileName != "") b.setIcon(new ImageIcon(fileName));
+		if (name != "") b.setText(name);
+		if (!border) 	b.setBorder(null);
+		return b; 
 	}
 		
 }
