@@ -73,7 +73,7 @@ public class Game implements Observable<GameObserver> {
 			else if (!availableMoves) {
 				// Change Turn for the reversi
 				turn = rules.nextTurn(mov.getPlayer(), board); // Change turn
-				System.out.println("No hay movimientos disponibles. Cambiar turno");
+				// System.out.println("No hay movimientos disponibles. Cambiar turno");
 			}
 			else if (!valid) {
 				for (GameObserver o : obsList) 

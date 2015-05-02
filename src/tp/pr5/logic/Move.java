@@ -23,9 +23,9 @@ public abstract class Move {
 	public abstract int getColumn();
 	public abstract int getRow();
 
-	// Metodo para el reversi Move
+	// Devuelve si es posible formar tiles en celdas empty
 	public boolean availableEmpty(Board board) {
-		return true;
+		return true;	// This method is written on Reversi
 	}
 
 	public Counter getCurrentPlayer() {
@@ -35,11 +35,4 @@ public abstract class Move {
 	public void setCurrentPlayer(Counter c) {
 		currentPlayer = c;
 	}
-	/*
-	public Counter changeColor(Counter c) {
-		if (c == Counter.WHITE) return Counter.BLACK;
-		else if(c == Counter.BLACK) return Counter.WHITE;
-		else return Counter.EMPTY;
-	}
-	*/
 }
