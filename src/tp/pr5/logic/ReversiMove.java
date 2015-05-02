@@ -131,7 +131,7 @@ public class ReversiMove extends Move {
 		Counter color = currentPlayer, nextColor = changeColor(color);
 		
 		if (left) {
-			while((auxColumn >= 1) && (b.getPosition(auxColumn - 1, y) == nextColor)) {
+			while((auxColumn >= 1) && (b.getPosition(auxColumn, y) == nextColor)) {//-1
 				auxColumn--; total++;
 			}
 			if (total >= 1 && (b.getPosition(auxColumn - 1, y) == color)) {
@@ -230,7 +230,12 @@ public class ReversiMove extends Move {
 	
 	@Override
 	public void undo(Board b) {
-		// TODO UNDO
+		SwappedMove m;
+		for(int i = 0; i < listCoordinates.size(); i++){
+			m = listCoordinates.get(i);
+			b.setPosition(m.getX(), m.getY(), m.getColor());
+		}
+		b.setPosition(column, row, Counter.EMPTY);
 	}
 
 	@Override
