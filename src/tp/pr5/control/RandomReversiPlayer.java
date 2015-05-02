@@ -10,9 +10,9 @@ public class RandomReversiPlayer implements Player {
 
 	@Override
 	public Move getMove(Board board, Counter counter) {
-		boolean valid = false, moved = false;
+		boolean valid = false, keepMove = false;
 		ReversiMove m = null;
-		int column = 0, row = 0;
+		int column = 0, row = 0, total;
 		
 		do {
 			row    = (int) ((Math.random() * Resources.DIMY_REVERSI) + 1);
@@ -20,24 +20,18 @@ public class RandomReversiPlayer implements Player {
 			 
 			if (board.getPosition(column, row) == Counter.EMPTY) {
 				
-				int total = 0;
-				boolean keepMove = false;
-
 				m = new ReversiMove(column, row, counter);
-				
-				total += m.checkHorizontal(board, column, row, true, keepMove);	// True  = Left
-				total += m.checkHorizontal(board, column, row, false, keepMove);	// False = Right
-				total += m.checkVertical(board, column, row, true, keepMove); 	// True  = UP	
-				total += m.checkVertical(board, column, row, false, keepMove); 	// False = Down	
-				total += m.checkDiagonal1(board, column, row, true, keepMove); 	// True = Top Left
-				total += m.checkDiagonal1(board, column, row, false, keepMove);  // False = Bottom Right
-				total += m.checkDiagonal2(board, column, row, true, keepMove); 	// True = Top Right
-				total += m.checkDiagonal2(board, column, row, false, keepMove);  // False = Bottom Left
+				total = 0; 				
+				total += m.checkHorizontal(board, column, row, keepMove);	// True  = Left
+				total += m.checkVertical(board, column, row, keepMove); 	// True  = UP	
+				total += m.checkDiagonal1(board, column, row, keepMove); 	// True = Top Left
+				total += m.checkDiagonal2(board, column, row, keepMove); 	// True = Top Right
 
-				if (total >= 1) { // => Si se ha formado al menos una check, significa que hay alguna celda flrmDa, por tanto, el movimiento es valido
+				if (total >= 1) { 
 					valid = true;	 
 				}	 
 			}
+			
 		} while(!valid);
 		 
 		return m;

@@ -9,9 +9,7 @@ import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-
-
-//import javafx.scene.image.Image;
+// Import javafx.scene.image.Image;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 

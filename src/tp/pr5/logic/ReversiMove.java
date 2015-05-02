@@ -28,14 +28,10 @@ public class ReversiMove extends Move {
 			
 			boolean keepMove = true;
 			
-			total += checkHorizontal(b, column, row, true, keepMove);	// True  = Left
-			total += checkHorizontal(b, column, row, false, keepMove);	// False = Right
-			total += checkVertical(b, column, row, true, keepMove); 	// True  = UP	
-			total += checkVertical(b, column, row, false, keepMove); 	// False = Down	
-			total += checkDiagonal1(b, column, row, true, keepMove); 	// True = Top Left
-			total += checkDiagonal1(b, column, row, false, keepMove);  // False = Bottom Right
-			total += checkDiagonal2(b, column, row, true, keepMove); 	// True = Top Right
-			total += checkDiagonal2(b, column, row, false, keepMove);  // False = Bottom Left
+			total += checkHorizontal(b, column, row, keepMove);	// True  = Left
+			total += checkVertical(b, column, row, keepMove); 	// False = Down	
+			total += checkDiagonal1(b, column, row, keepMove);  // False = Bottom Right
+			total += checkDiagonal2(b, column, row, keepMove);  // False = Bottom Left
 
 			if (total >= 1) { // => Si se ha formado al menos una check, significa que hay alguna celda flrmDa, por tanto, el movimiento es valido
 				valid = true;	
@@ -61,14 +57,10 @@ public class ReversiMove extends Move {
 					total = 0;
 					boolean keepMove = false; // Aquí no queremos guardar las direcciones (porque solo comprobamos si es posible los movimientos)
 					
-					total += checkHorizontal(b, c, r, true, keepMove);	// True  = Left
-					total += checkHorizontal(b, c, r, false, keepMove);	// False = Right
-					total += checkVertical(b, c, r, true, keepMove); 	// True  = UP	
-					total += checkVertical(b, c, r, false, keepMove); 	// False = Down	
-					total += checkDiagonal1(b, c, r, true, keepMove); 	// True = Top Left
-					total += checkDiagonal1(b, c, r, false, keepMove);  // False = Bottom Right
-					total += checkDiagonal2(b, c, r, true, keepMove); 	// True = Top Right
-					total += checkDiagonal2(b, c, r, false, keepMove);  // False = Bottom Left
+					total += checkHorizontal(b, c, r, keepMove);
+					total += checkVertical(b, c, r, keepMove); 		
+					total += checkDiagonal1(b, c, r, keepMove); 	// True = Top Left
+					total += checkDiagonal2(b, c, r, keepMove); 	// True = Top Right
 					
 					if (total >= 1) { // => Si se ha formado al menos una check, significa que hay alguna celda flrmDa, por tanto, el movimiento es valido
 						valid = true;		
@@ -142,157 +134,119 @@ public class ReversiMove extends Move {
 		if (total < 0) total *= -1; // Change to positive value
 		return total;
 	}
-	 
+	  
 	// CheckHorizontal: Function to Check left and right colors given a fixed position
 	
-	public int checkHorizontal(Board b, int x, int y, boolean left, boolean keepMove) {
-		boolean isFormed = false;
-		int accumulateTiles = 0, auxColumn = x;
+	public int checkHorizontal(Board b, int x, int y, boolean keepMove) {
+		int total = 0, accumulateTiles = 0, auxColumn = x;
 		Counter color = currentPlayer, nextColor = changeColor(color);
-		
-		if (left) {
-			while((auxColumn >= 1) && (b.getPosition(auxColumn - 1, y) == nextColor)) {
-				auxColumn--; accumulateTiles++;
-			}
-			if (accumulateTiles >= 1 && (b.getPosition(auxColumn - 1, y) == color)) {
-				isFormed = true;
-				SwappedMove s = new SwappedMove(auxColumn, y, x, y, nextColor ); 	// Crea movimiento con la posición de la última ficha que vamos a swappear
-				if(keepMove) {
-					listCoordinates.add(s);		// Guardar movimiento swappeado en la lista de coordenadas
-				}
-			}
+		 
+		// Check Left tiles
+		while((auxColumn >= 1) && (b.getPosition(auxColumn - 1, y) == nextColor)) {
+			auxColumn--; accumulateTiles++;
 		}
-		else {
-			while((auxColumn <= b.getWidth()) && (b.getPosition(auxColumn + 1, y) == nextColor)) {
-				auxColumn++; accumulateTiles++;
-			}
-			if (accumulateTiles >= 1 && (b.getPosition(auxColumn + 1, y) == color)) {
-				isFormed = true;
-				SwappedMove s = new SwappedMove(auxColumn, y, x, y, nextColor ); 	// Crea movimiento con la posición de la última ficha que vamos a swappear
-				if(keepMove) {
-					listCoordinates.add(s);		// Guardar movimiento swappeado en la lista de coordenadas
-				}									
-			}
+		if (accumulateTiles >= 1 && (b.getPosition(auxColumn - 1, y) == color)) {
+			total++;
+			SwappedMove s = new SwappedMove(auxColumn, y, x, y, nextColor ); 	// Crea movimiento con la posición de la última ficha que vamos a swappear
+			if(keepMove) listCoordinates.add(s); // Guardar movimiento swappeado en la lista de coordenadas																			
+		} 
+		// Check Right tiles
+		while((auxColumn <= b.getWidth()) && (b.getPosition(auxColumn + 1, y) == nextColor)) {
+			auxColumn++; accumulateTiles++;
 		}
+		if (accumulateTiles >= 1 && (b.getPosition(auxColumn + 1, y) == color)) {
+			total++;
+			SwappedMove s = new SwappedMove(auxColumn, y, x, y, nextColor ); 	// Crea movimiento con la posición de la última ficha que vamos a swappear
+			if(keepMove) listCoordinates.add(s); // Guardar movimiento swappeado en la lista de coordenadas																											
+		} 
 		
-		if (isFormed) 
-			return 1; // Sumar uno, porque se ha formado celdas
-		else 		  
-			return 0;	
+		return total; // Sumar el número total de celdas válidas (formadas) 	
 	}
 
 	// CheckVertical: Function to Check top and bottom colors given a fixed position
 	
-	public int checkVertical(Board b, int x, int y, boolean up, boolean keepMove) {
-		boolean isFormed = false;
-		int accumulateTiles = 0, auxRow = y;
+	public int checkVertical(Board b, int x, int y, boolean keepMove) {
+		int total = 0, accumulateTiles = 0, auxRow = y;
 		Counter color = currentPlayer, nextColor = changeColor(color);
-		
-		if (up) {
-			while((auxRow >= 1) && (b.getPosition(x, auxRow - 1) == nextColor)) {
-				auxRow--; accumulateTiles++;
-			}
-			if (accumulateTiles >= 1 && (b.getPosition(x, auxRow - 1) == color)) {
-				isFormed = true;
-				SwappedMove s = new SwappedMove(x, auxRow, x, y, nextColor ); 	// Crea movimiento con la posición de la última ficha que vamos a swappear
-				if(keepMove) {
-					listCoordinates.add(s);		// Guardar movimiento swappeado en la lista de coordenadas
-				}								
-			}
+		 
+		// Check up Tiles
+		while((auxRow >= 1) && (b.getPosition(x, auxRow - 1) == nextColor)) {
+			auxRow--; accumulateTiles++;
 		}
-		else {
-			while((auxRow <= b.getHeight()) && (b.getPosition(x, auxRow + 1) == nextColor)) {
-				auxRow++; accumulateTiles++;
-			}
-			if (accumulateTiles >= 1 && (b.getPosition(x, auxRow + 1) == color)) {
-				isFormed = true;
-				SwappedMove s = new SwappedMove(x, auxRow, x, y, nextColor ); 	// Crea movimiento con la posición de la última ficha que vamos a swappear
-				if(keepMove) {
-					listCoordinates.add(s);		// Guardar movimiento swappeado en la lista de coordenadas
-				}								
-			}
+		if (accumulateTiles >= 1 && (b.getPosition(x, auxRow - 1) == color)) {
+			total++;
+			SwappedMove s = new SwappedMove(x, auxRow, x, y, nextColor ); 	// Crea movimiento con la posición de la última ficha que vamos a swappear
+			if(keepMove) listCoordinates.add(s); // Guardar movimiento swappeado en la lista de coordenadas																										
+		} 
+		// Check Down tiles
+		while((auxRow <= b.getHeight()) && (b.getPosition(x, auxRow + 1) == nextColor)) {
+			auxRow++; accumulateTiles++;
 		}
+		if (accumulateTiles >= 1 && (b.getPosition(x, auxRow + 1) == color)) {
+			total++;
+			SwappedMove s = new SwappedMove(x, auxRow, x, y, nextColor ); 	// Crea movimiento con la posición de la última ficha que vamos a swappear
+			if(keepMove) listCoordinates.add(s); // Guardar movimiento swappeado en la lista de coordenadas																										
+		} 
 		
-		if (isFormed) 
-			return 1; // Sumar uno, porque se ha formado celdas
-		else 		  
-			return 0;
+		return total;
 	}
 
 	// CheckDiagonal1: Function to Check diagonals given a fixed position
 	
-	public int checkDiagonal1(Board b, int x, int y, boolean upLeft, boolean keepMove) {
-		boolean isFormed = false;
-		int accumulateTiles = 0, auxColumn = x, auxRow = y;
+	public int checkDiagonal1(Board b, int x, int y, boolean keepMove) {
+		int total = 0, accumulateTiles = 0, auxColumn = x, auxRow = y;
 		Counter color = currentPlayer, nextColor = changeColor(color);
 		
-		if (upLeft) {
-			while((auxColumn >= 1) && (auxRow >= 1) && (b.getPosition(auxColumn - 1, auxRow - 1) == nextColor)) {
-				auxColumn--; auxRow--; accumulateTiles++;
-			}
-			if (accumulateTiles >= 1 && (b.getPosition(auxColumn - 1, auxRow - 1) == color)) {
-				isFormed = true;
-				SwappedMove s = new SwappedMove(auxColumn, auxRow, x, y, nextColor ); 	// Crea movimiento con la posición de la última ficha que vamos a swappear
-				if(keepMove) {
-					listCoordinates.add(s);		// Guardar movimiento swappeado en la lista de coordenadas
-				}										
-			}
+		// Check UpLeft  
+		while((auxColumn >= 1) && (auxRow >= 1) && (b.getPosition(auxColumn - 1, auxRow - 1) == nextColor)) {
+			auxColumn--; auxRow--; accumulateTiles++;
 		}
-		else { // Down Right
-			while((auxColumn <= b.getWidth()) && (auxRow <= b.getHeight()) && (b.getPosition(auxColumn + 1, auxRow + 1) == nextColor)) {
-				auxColumn++; auxRow++; accumulateTiles++;
-			}
-			if (accumulateTiles >= 1 && (b.getPosition(auxColumn + 1, auxRow + 1) == color)) {
-				isFormed = true;
-				SwappedMove s = new SwappedMove(auxColumn, auxRow, x, y, nextColor ); 	// Crea movimiento con la posición de la última ficha que vamos a swappear
-				if(keepMove) {
-					listCoordinates.add(s);		// Guardar movimiento swappeado en la lista de coordenadas
-				}										
-			}
+		if (accumulateTiles >= 1 && (b.getPosition(auxColumn - 1, auxRow - 1) == color)) {
+			total++;
+			SwappedMove s = new SwappedMove(auxColumn, auxRow, x, y, nextColor ); 	// Crea movimiento con la posición de la última ficha que vamos a swappear
+			if(keepMove) listCoordinates.add(s); // Guardar movimiento swappeado en la lista de coordenadas									
 		}
+
+		// Check DownRight
+		while((auxColumn <= b.getWidth()) && (auxRow <= b.getHeight()) && (b.getPosition(auxColumn + 1, auxRow + 1) == nextColor)) {
+			auxColumn++; auxRow++; accumulateTiles++;
+		}
+		if (accumulateTiles >= 1 && (b.getPosition(auxColumn + 1, auxRow + 1) == color)) {
+			total++;
+			SwappedMove s = new SwappedMove(auxColumn, auxRow, x, y, nextColor ); 	// Crea movimiento con la posición de la última ficha que vamos a swappear
+			if(keepMove) listCoordinates.add(s); // Guardar movimiento swappeado en la lista de coordenadas																			
+		} 
 		
-		if (isFormed) 
-			return 1; // Sumar uno, porque se ha formado celdas
-		else 		  
-			return 0;		
+		return total;		
 	}
 
 	// CheckDiagonal2: Function to Check diagonals given a fixed position
 	
-	public int checkDiagonal2(Board b, int x, int y, boolean upRight, boolean keepMove) {
-		boolean isFormed = false;
-		int accumulateTitles = 0, auxColumn = x, auxRow = y;
+	public int checkDiagonal2(Board b, int x, int y, boolean keepMove) {
+		int total = 0, accumulateTitles = 0, auxColumn = x, auxRow = y;
 		Counter color = currentPlayer, nextColor = changeColor(color);
 		
-		if (upRight) {
-			while((auxColumn <= b.getWidth()) && (auxRow >= 1) && (b.getPosition(auxColumn + 1, auxRow - 1) == nextColor)) {
-				auxColumn++; auxRow--; accumulateTitles++;
-			}
-			if (accumulateTitles >= 1 && (b.getPosition(auxColumn + 1, auxRow - 1) == color)) {
-				isFormed = true;
-				SwappedMove s = new SwappedMove(auxColumn, auxRow, x, y, nextColor ); 	// Crea movimiento con la posición de la última ficha que vamos a swappear
-				if(keepMove) {
-					listCoordinates.add(s);		// Guardar movimiento swappeado en la lista de coordenadas
-				}									
-			}
+		// Check Up Right
+		while((auxColumn <= b.getWidth()) && (auxRow >= 1) && (b.getPosition(auxColumn + 1, auxRow - 1) == nextColor)) {
+			auxColumn++; auxRow--; accumulateTitles++;
 		}
-		else { // Bottom Left
-			while((auxColumn >= 1) && (auxRow <= b.getHeight()) && (b.getPosition(auxColumn - 1, auxRow + 1) == nextColor)) {
-				auxColumn--; auxRow++; accumulateTitles++;
-			}
-			if (accumulateTitles >= 1 && (b.getPosition(auxColumn - 1, auxRow + 1) == color)) {
-				isFormed = true;
-				SwappedMove s = new SwappedMove(auxColumn, auxRow, x, y, nextColor ); 	// Crea movimiento con la posición de la última ficha que vamos a swappear
-				if(keepMove) {
-					listCoordinates.add(s);		// Guardar movimiento swappeado en la lista de coordenadas
-				}								
-			}
+		if (accumulateTitles >= 1 && (b.getPosition(auxColumn + 1, auxRow - 1) == color)) {
+			total++;
+			SwappedMove s = new SwappedMove(auxColumn, auxRow, x, y, nextColor ); 	// Crea movimiento con la posición de la última ficha que vamos a swappear
+			if(keepMove) listCoordinates.add(s); // Guardar movimiento swappeado en la lista de coordenadas																									
 		}
 		
-		if (isFormed) 
-			return 1; // Sumar uno, porque se ha formado celdas
-		else 		  
-			return 0;	
+		// Check Bottom Left 
+		while((auxColumn >= 1) && (auxRow <= b.getHeight()) && (b.getPosition(auxColumn - 1, auxRow + 1) == nextColor)) {
+			auxColumn--; auxRow++; accumulateTitles++;
+		}
+		if (accumulateTitles >= 1 && (b.getPosition(auxColumn - 1, auxRow + 1) == color)) {
+			total++;
+			SwappedMove s = new SwappedMove(auxColumn, auxRow, x, y, nextColor ); 	// Crea movimiento con la posición de la última ficha que vamos a swappear
+			if(keepMove) listCoordinates.add(s); // Guardar movimiento swappeado en la lista de coordenadas																										
+		} 
+		
+		return total;	
 	}
 	
 	
