@@ -25,7 +25,7 @@ public abstract class Move {
 
 	// Metodo para el reversi Move
 	public boolean availableEmpty(Board board) {
-		return false;
+		return true;
 	}
 
 	public Counter getCurrentPlayer() {

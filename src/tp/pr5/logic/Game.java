@@ -37,7 +37,7 @@ public class Game implements Observable<GameObserver> {
 	}
 	
 	public boolean executeMove(Move mov) throws InvalidMove {  
-		boolean valid = false, draw; 
+		boolean valid = false, draw, availableMoves; 
 		Counter wonColor, currentPlayer = mov.getPlayer();
 
 		if ((mov.getPlayer() == turn) && (!finished)) { // No puede permitir hacer movimientos fuera de turno o se ha terminado el juego
@@ -48,6 +48,7 @@ public class Game implements Observable<GameObserver> {
 			}
 			
 			valid = mov.executeMove(board);
+			availableMoves = mov.availableEmpty(board);
 			
 			if (valid) { 
  
@@ -68,6 +69,11 @@ public class Game implements Observable<GameObserver> {
 						finished = true;
 					} 
 				}
+			}
+			else if (!availableMoves) {
+				// Change Turn for the reversi
+				turn = rules.nextTurn(mov.getPlayer(), board); // Change turn
+				System.out.println("No hay movimientos disponibles. Cambiar turno");
 			}
 			else if (!valid) {
 				for (GameObserver o : obsList) 

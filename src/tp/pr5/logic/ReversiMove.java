@@ -43,9 +43,10 @@ public class ReversiMove extends Move {
 		return valid;
 	}
 	
-	// Comprobar también si no se puede hacer algún movimiento en cualquier celda vacía
+	// Reescribe método para el reversi
+	// Comprueba si alguna de las celdas empty, con el color del jugador actual, forman un posible movimiento
 
-	public boolean setAvailableEmpty(Board b) {
+	public boolean availableEmpty(Board b) {
 		int c = 1, r = 1, total = 0;
 		boolean valid = false; 
 		
