@@ -235,6 +235,10 @@ public class ReversiMove extends Move {
 		else if (c == Counter.WHITE) return Counter.BLACK;
 		return Counter.EMPTY;
 	}
+	
+	public int getListLength(){
+		return listCoordinates.size();
+	}
 
 	@Override
 	public int getColumn() {

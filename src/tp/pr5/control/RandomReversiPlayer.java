@@ -10,18 +10,28 @@ public class RandomReversiPlayer implements Player {
 
 	@Override
 	public Move getMove(Board board, Counter counter) {
-		boolean valid = false;
+		boolean valid = false, moved = false;
+		ReversiMove m = null;
 		int column = 0, row = 0;
 		
-		do { 
-			row    = (int) ((Math.random() * Resources.DIMY_REVERSI) + 1);
-			column = (int) ((Math.random() * Resources.DIMX_REVERSI) + 1);
-			 
-			if (board.getPosition(column, row) == Counter.EMPTY) {
-				valid = true;
+		while(!moved){
+			do { 
+				row    = (int) ((Math.random() * Resources.DIMY_REVERSI) + 1);
+				column = (int) ((Math.random() * Resources.DIMX_REVERSI) + 1);
+				 
+				if (board.getPosition(column, row) == Counter.EMPTY) {
+					valid = true;
+				}
+			}  while(!valid);
+			m = new ReversiMove(column, row, counter);
+			m.checkHorizontal(board,m.getColumn(), m.getRow());
+			m.checkVertical(board, m.getColumn(), m.getRow());
+			m.checkDiagonal1(board, m.getColumn(), m.getRow());
+			m.checkDiagonal2(board, m.getColumn(), m.getRow());
+			if(m.getListLength() > 0){
+				moved = true;
 			}
-		}  while(!valid);
-		
-		return new ReversiMove(column, row, counter);
+		}
+		return m;
 	}
 }
