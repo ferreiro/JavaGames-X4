@@ -1,7 +1,6 @@
 package tp.pr5.logic;
 
 import java.util.ArrayList;
-
 import tp.pr5.Resources.Resources;
 
 public class ReversiMove extends Move {
@@ -138,7 +137,6 @@ public class ReversiMove extends Move {
 				}
 			} 
 		}
-		
 	}
 	
 	public int absoluteValue(int a, int b) {
