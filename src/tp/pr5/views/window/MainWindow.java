@@ -357,6 +357,8 @@ public class MainWindow extends JFrame implements GameObserver {
 	@Override
 	public void onUndo(ReadOnlyBoard board, Counter nextPlayer, boolean undoPossible) {
 		refresh(board);
+		String colorStr = "" + wController.getGame().getTurn(); 
+		currentColor.setText(colorStr + " to Move");
 	}
 
 	@Override 
