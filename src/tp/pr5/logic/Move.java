@@ -4,11 +4,9 @@ public abstract class Move {
 	protected int column;
 	protected int row;
 	protected Counter currentPlayer;
-	protected boolean emptyMoves; // Hay movimientos disponibles en celdas vacías
 	
 	public Move(Counter color, int column) {
 		currentPlayer = color;
-		emptyMoves = true;
 		this.column = column;
 	}
 	

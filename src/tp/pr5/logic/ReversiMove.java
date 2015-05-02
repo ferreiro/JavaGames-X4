@@ -42,7 +42,6 @@ public class ReversiMove extends Move {
 				for (int i = 0; i < listCoordinates.size(); i++) {
 					swapCells(b, column, row, listCoordinates.get(i)); // setear el tablero
 				}
-				setAvailableEmpty(b); // setear el atributo de si es posible hacer movimientos en las celdas empty
 			}	
 		}	 
 		return valid;
@@ -50,11 +49,9 @@ public class ReversiMove extends Move {
 	
 	// Comprobar también si no se puede hacer algún movimiento en cualquier celda vacía
 
-	public void setAvailableEmpty(Board b) {
+	public boolean setAvailableEmpty(Board b) {
 		int c = 1, r = 1, total = 0;
 		boolean valid = false; 
-		
-		super.emptyMoves = false; // No hay movimientos posibles en las celdas empty
 		
 		while(r <= b.getHeight() && !valid) {
 			c = 1;
@@ -75,13 +72,13 @@ public class ReversiMove extends Move {
 					
 					if (total >= 1) { // => Si se ha formado al menos una check, significa que hay alguna celda flrmDa, por tanto, el movimiento es valido
 						valid = true;		
-						super.emptyMoves = true;  // Sí hay movimientos posibles en las celdas empty
 					}	
 				}
 				c++;
 			}
 			r++;
-		}		
+		}
+		return valid;		
 	}
 	
 	public void swapCells(Board b, int column, int row, SwappedMove m) {
