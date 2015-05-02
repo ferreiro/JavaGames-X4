@@ -1,6 +1,7 @@
 package tp.pr5.logic;
 
 import java.util.ArrayList;
+
 import tp.pr5.Resources.Resources;
 
 public class ReversiMove extends Move {
@@ -11,7 +12,7 @@ public class ReversiMove extends Move {
 		super.row = moveRow;
 		listCoordinates = new ArrayList<SwappedMove>();		
 	}
-
+ 
 	@Override
 	
 	// Un movimiento es válido si puede revertir alguna celda formada
@@ -121,7 +122,7 @@ public class ReversiMove extends Move {
 					b.setPosition(column - i, row - i, color);
 				}
 			}
-			else if (moveRow > row && column < moveColumn) {	// TopRight to BottomLeft // El movimiento está a la izquierda de las columnas a mover (Movimiento => [][]][])
+			else if (moveRow > row && column < moveColumn) {	// TopLeft to BottomRight // El movimiento está a la izquierda de las columnas a mover (Movimiento => [][]][])
 				for (int i = 0; i <= iterations; i++) {
 					b.setPosition(column + i, row + i, color);
 				}
@@ -297,8 +298,9 @@ public class ReversiMove extends Move {
 			return 0;	
 	}
 	
+	
 	@Override
-	public void undo(Board b) {
+	public void undo(Board b) { 
 		if (listCoordinates.size() >= 1) {
 			for (int i = 0; i < listCoordinates.size(); i++) {
 				SwappedMove m = listCoordinates.get(i);
@@ -307,8 +309,11 @@ public class ReversiMove extends Move {
 				swapCells(b, column, row, m); // setear el tablero
 				b.setPosition(m.getOrigenX(), m.getOrigenY(), Counter.EMPTY);
 			}
-		}
-		
+		} 
+	} 
+	
+	public int getListLength(){
+		return listCoordinates.size();
 	}
 
 	@Override
@@ -318,5 +323,12 @@ public class ReversiMove extends Move {
 	public int getRow() {
 		return this.row;
 	}
-
+	
+	public Counter changeColor(Counter c) {
+		if (c == Counter.WHITE) return Counter.BLACK;
+		else if(c == Counter.BLACK) return Counter.WHITE;
+		else return Counter.EMPTY;
+	}
+	 
+	
 }

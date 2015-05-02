@@ -37,13 +37,11 @@ public abstract class Move {
 	public void setCurrentPlayer(Counter c) {
 		currentPlayer = c;
 	}
-	
+	/*
 	public Counter changeColor(Counter c) {
 		if (c == Counter.WHITE) return Counter.BLACK;
 		else if(c == Counter.BLACK) return Counter.WHITE;
 		else return Counter.EMPTY;
 	}
-	
-	
-	
+	*/
 }

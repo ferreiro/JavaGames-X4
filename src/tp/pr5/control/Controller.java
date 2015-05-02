@@ -42,7 +42,7 @@ public abstract class Controller {
 		else if(gameType == GameType.complica){
 			this.gameType = new ComplicaFactory();
 		}
-		else if(gameType == GameType.Gravity){
+		else if(gameType == GameType.gravity){
 			this.gameType = new GravityFactory(x, y);
 		}
 		else if(gameType == GameType.reversi){

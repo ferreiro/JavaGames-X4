@@ -29,14 +29,15 @@ public class ReversiRules implements GameRules {
 			totalBlack = countTiles(Counter.BLACK, b);
 			
 			if (totalWhite < totalBlack) {
-				colorWinner = Counter.BLACK;
+				colorWinner = Counter.BLACK; 
 			}
 			else if (totalWhite > totalBlack) {
 				colorWinner = Counter.WHITE;	// Hay más fichas BLANCAS! Gana
 			} 
-			winner = colorWinner;
+			System.out.println("w:" + totalWhite);
+			System.out.println("b:" + totalBlack);			
 		}
-		
+		winner = colorWinner;
 		return colorWinner;
 	}
 	
@@ -44,8 +45,9 @@ public class ReversiRules implements GameRules {
 	
 	public int countTiles(Counter c, Board b) { 
 		int total = 0; 
-		for(int i = 0; i < dimX; i++) {
-			for(int j = 0; j < dimY; j++) {
+		
+		for(int i = 1; i <= dimX; i++) {
+			for(int j = 1; j <= dimX; j++) {
 				if (b.getPosition(i, j) == c) 
 					total++;
 			}
