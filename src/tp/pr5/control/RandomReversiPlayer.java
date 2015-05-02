@@ -24,10 +24,10 @@ public class RandomReversiPlayer implements Player {
 				}
 			}  while(!valid);
 			m = new ReversiMove(column, row, counter);
-			m.checkHorizontal(board,m.getColumn(), m.getRow());
-			m.checkVertical(board, m.getColumn(), m.getRow());
-			m.checkDiagonal1(board, m.getColumn(), m.getRow());
-			m.checkDiagonal2(board, m.getColumn(), m.getRow());
+			m.checkHorizontal(board);
+			m.checkVertical(board);
+			m.checkDiagonal1(board);
+			m.checkDiagonal2(board);
 			if(m.getListLength() > 0){
 				moved = true;
 			}
