@@ -24,10 +24,12 @@ public abstract class Move {
 	public abstract int getRow();
 
 	// Devuelve si es posible formar tiles en celdas empty
+	/*
 	public boolean availableEmpty(Board board) {
 		return true;	// This method is written on Reversi
 	}
-
+	*/
+	
 	public Counter getCurrentPlayer() {
 		return this.currentPlayer;
 	}

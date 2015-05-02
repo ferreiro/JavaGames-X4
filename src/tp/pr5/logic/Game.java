@@ -48,7 +48,7 @@ public class Game implements Observable<GameObserver> {
 			}
 			
 			valid = mov.executeMove(board);
-			availableMoves = mov.availableEmpty(board);
+			// availableMoves = mov.availableEmpty(board);
 			
 			if (valid) { 
  
@@ -70,11 +70,12 @@ public class Game implements Observable<GameObserver> {
 					} 
 				}
 			}
-			else if (!availableMoves) {
+			/* else if (!availableMoves) {
 				// Change Turn for the reversi
 				turn = rules.nextTurn(mov.getPlayer(), board); // Change turn
 				// System.out.println("No hay movimientos disponibles. Cambiar turno");
 			}
+			*/
 			else if (!valid) {
 				for (GameObserver o : obsList) 
 					o.onMoveError("This is an invalid movement, please try again");
