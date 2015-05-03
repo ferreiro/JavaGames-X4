@@ -46,7 +46,7 @@ public class ReversiMove extends Move {
 	// Reescribe método para el reversi
 	// Comprueba si alguna de las celdas empty, con el color del jugador actual, forman un posible movimiento
 
-	public boolean availableEmpty(Board b) {
+	public boolean availableEmpty(Board b) { // como se usa desde main y se usa una read only board no usar ningun metodo que sea para cambiar la tabla
 		int c = 1, r = 1, total = 0;
 		boolean valid = false; 
 		

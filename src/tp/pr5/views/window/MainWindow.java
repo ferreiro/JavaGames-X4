@@ -9,6 +9,8 @@ import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+
+
 // Import javafx.scene.image.Image;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -16,6 +18,7 @@ import javax.swing.border.EmptyBorder;
 import tp.pr5.Resources.Resources;
 import tp.pr5.control.GameTypeFactory;
 import tp.pr5.control.WindowController;
+import tp.pr5.logic.Board;
 import tp.pr5.logic.Counter;
 import tp.pr5.logic.Game;
 import tp.pr5.logic.GameObserver;
@@ -23,6 +26,7 @@ import tp.pr5.logic.GameType;
 import tp.pr5.logic.PlayerType;
 import tp.pr5.logic.PlayersModel;
 import tp.pr5.logic.ReadOnlyBoard;
+import tp.pr5.logic.ReversiMove;
 
 @SuppressWarnings("serial")
 public class MainWindow extends JFrame implements GameObserver {
@@ -328,9 +332,14 @@ public class MainWindow extends JFrame implements GameObserver {
 	
 	@Override
 	public void moveExecFinished(ReadOnlyBoard board, Counter player, Counter nextPlayer) {
-		refresh(board);
+		refresh(board);	
+		
+		ReversiMove m = new ReversiMove(1, 1, nextPlayer);
+		if(!m.availableEmpty((Board)board) && wController.getGame().getWinner() == Counter.EMPTY){
+			wController.changePlayer();
+		}
 		String colorStr = "" + wController.getGame().getTurn(); 
-		currentColor.setText(colorStr + " to Move");		
+		currentColor.setText(colorStr + " to Move");
 	}
 
 	@Override
