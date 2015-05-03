@@ -301,10 +301,6 @@ public class MainWindow extends JFrame implements GameObserver {
 		this.setMinimumSize(new Dimension(800, 600)); 
 		this.setExtendedState(JFrame.MAXIMIZED_BOTH); 
 	}
-	
-	/**
-	 * Auxiliary Functions 
-	 */
 
 	final private void closeWindow() {
 		this.setVisible(false);
@@ -333,9 +329,8 @@ public class MainWindow extends JFrame implements GameObserver {
 	@Override
 	public void moveExecFinished(ReadOnlyBoard board, Counter player, Counter nextPlayer) {
 		refresh(board);
-		// Update player color on the label
 		String colorStr = "" + wController.getGame().getTurn(); 
-		currentColor.setText(colorStr + " to Move");
+		currentColor.setText(colorStr + " to Move");		
 	}
 
 	@Override
