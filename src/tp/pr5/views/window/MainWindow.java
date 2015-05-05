@@ -18,7 +18,6 @@ import javax.swing.border.EmptyBorder;
 import tp.pr5.Resources.Resources;
 import tp.pr5.control.GameTypeFactory;
 import tp.pr5.control.WindowController;
-import tp.pr5.logic.Board;
 import tp.pr5.logic.Counter;
 import tp.pr5.logic.Game;
 import tp.pr5.logic.GameObserver;
@@ -26,7 +25,6 @@ import tp.pr5.logic.GameType;
 import tp.pr5.logic.PlayerType;
 import tp.pr5.logic.PlayersModel;
 import tp.pr5.logic.ReadOnlyBoard;
-import tp.pr5.logic.ReversiMove;
 
 @SuppressWarnings("serial")
 public class MainWindow extends JFrame implements GameObserver {
@@ -153,7 +151,7 @@ public class MainWindow extends JFrame implements GameObserver {
 		
 		
 		//Combo box for the white player mode
-		whitePlayerList = new JComboBox<PlayerType>(new PlayersModel(Counter.WHITE));
+		whitePlayerList = new JComboBox<PlayerType>(new PlayersModel(Counter.WHITE, wController));
 		whitePlayerList.setSelectedIndex(0);
 		whitePlayerList.setPreferredSize(new Dimension(200, 100));
 		whitePlayerList.setFont(new Font("Arial", Font.BOLD, 24)); 
@@ -163,7 +161,7 @@ public class MainWindow extends JFrame implements GameObserver {
 		playersTypePanel.add(whitePlayerList, c);
 		
 		//Combo box for the black player mode
-		blackPlayerList = new JComboBox<PlayerType>(new PlayersModel(Counter.BLACK));
+		blackPlayerList = new JComboBox<PlayerType>(new PlayersModel(Counter.BLACK, wController));
 		blackPlayerList.setSelectedIndex(0);
 		blackPlayerList.setPreferredSize(new Dimension(200, 100));
 		blackPlayerList.setFont(new Font("Arial", Font.BOLD, 24)); 
