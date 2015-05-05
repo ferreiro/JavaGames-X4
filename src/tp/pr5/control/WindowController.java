@@ -76,7 +76,7 @@ public class WindowController extends Controller {
 	
 	private void stopAutoPlayer(){
 		if(autoThread != null){
-			//1.interrupt autoThread
+			autoThread.interrupt();
 			//2.wait for autoThread to terminate
 		}
 	}
