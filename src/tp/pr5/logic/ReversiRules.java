@@ -18,13 +18,15 @@ public class ReversiRules implements GameRules {
 
 	/**************************
 	 	Winning move
+	 * @throws InvalidMove 
 	***************************/
 	
 	public Counter winningMove(Move lastMove, Board b) {
 		Counter colorWinner = Counter.EMPTY;
 		int totalWhite, totalBlack;
-
-		if (b.isFull()) { // Si est· lleno el tablero, vemos quÈ color tiene m·s fichas
+		 
+		if (isGameOver(b)) { // Si est√° lleno el tablero o ya no hay movimientos disponibles para el blanco o negro...
+			
 			totalWhite = countTiles(Counter.WHITE, b);
 			totalBlack = countTiles(Counter.BLACK, b);
 			
@@ -32,10 +34,8 @@ public class ReversiRules implements GameRules {
 				colorWinner = Counter.BLACK; 
 			}
 			else if (totalWhite > totalBlack) {
-				colorWinner = Counter.WHITE;	// Hay m·s fichas BLANCAS! Gana
-			} 
-			System.out.println("w:" + totalWhite);
-			System.out.println("b:" + totalBlack);			
+				colorWinner = Counter.WHITE;	// Hay m√°s fichas BLANCAS! Gana
+			}  		
 		}
 		winner = colorWinner;
 		return colorWinner;
@@ -54,9 +54,13 @@ public class ReversiRules implements GameRules {
 		}
 
 		return total;
+	} 
+
+	private boolean isGameOver(Board b) {
+		return (b.isFull()) || (!Resources.canMakeMove(b, Counter.BLACK) && 
+				!Resources.canMakeMove(b, Counter.WHITE));
 	}
 	
-
 	/**************************
 	 	Other functions
 	***************************/
@@ -64,12 +68,15 @@ public class ReversiRules implements GameRules {
 	public boolean isDraw(Counter lastMove, Board b) {
 		boolean isDraw = false;
 		
-		if ((b.isFull()) && (winner == Counter.EMPTY)) {
-			isDraw = true;
+			if (isGameOver(b)) {
+
+			int totalWhite = countTiles(Counter.WHITE, b),
+			totalBlack = countTiles(Counter.BLACK, b);
+			 
+			if ((totalWhite == totalBlack)) {
+				isDraw = true;
+			} 
 		}
-		else {
-			isDraw = false;
-		} 
 		 
 		return isDraw;
 	}
