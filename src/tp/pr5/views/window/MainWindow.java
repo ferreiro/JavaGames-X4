@@ -40,7 +40,7 @@ public class MainWindow extends JFrame implements GameObserver {
 	private int numberColums;
 	private int numberRows;
 	private JLabel currentColor;
-	private JButton undoButton;
+	private JButton undoButton, resetButton, randomButton;
 	
 	public MainWindow(GameTypeFactory gType, Game game) {
 		super(); 
@@ -106,7 +106,7 @@ public class MainWindow extends JFrame implements GameObserver {
 		buttonsPannel.setPreferredSize(new Dimension(10,10));
 
 		// RANDOM USER
-		JButton randomButton = new JButton();
+		randomButton = new JButton();
 		randomButton = Resources.createAuxButton(120,  100, "Random", Resources.RESOURCES_URL + "random.png", new Color(255,255,0), true); 
 		c = Resources.configureConstraint(GridBagConstraints.CENTER, 0, 0, 0.1, 0.3); // gridX, gridY, weightX, weightY 
 		buttonsPannel.add(randomButton,c);
@@ -129,7 +129,7 @@ public class MainWindow extends JFrame implements GameObserver {
 		});
 
 		// RESET BUTTON
-		JButton resetButton = new JButton();
+		resetButton = new JButton();
 		resetButton = Resources.createAuxButton(120,  100, "Restart", Resources.RESOURCES_URL + "reset.png", new Color(255,255,0), true); 
 		c = Resources.configureConstraint(GridBagConstraints.NONE, 2, 0, 0.1, 0.3); // gridX, gridY, weightX, weightY 
 		buttonsPannel.add(resetButton,c);
@@ -317,7 +317,7 @@ public class MainWindow extends JFrame implements GameObserver {
 			button.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					if (active) {
+					if (active && wController.getGame().getTurn().getMode() == PlayerType.HUMAN) {
 						wController.makeMove(i + 1, j + 1, wController.getGame().getTurn());
 					}	
 				}
@@ -331,11 +331,16 @@ public class MainWindow extends JFrame implements GameObserver {
 	public void moveExecFinished(ReadOnlyBoard board, Counter player, Counter nextPlayer) {
 		refresh(board);	
 		setCurrentPlayerLabel();
+		if(wController.getGame().getNextPlayer().getMode() == PlayerType.HUMAN){
+			undoButton.setEnabled(true);
+			randomButton.setEnabled(true);
+		}
 	}
 	
 	@Override
 	public void moveExecStart(Counter player) {
-
+		undoButton.setEnabled(false);
+		randomButton.setEnabled(false);
 	}
 
 	@Override
@@ -352,8 +357,7 @@ public class MainWindow extends JFrame implements GameObserver {
 	@Override
 	public void onUndo(ReadOnlyBoard board, Counter nextPlayer, boolean undoPossible) {
 		refresh(board);
-		String colorStr = "" + wController.getGame().getTurn(); 
-		currentColor.setText(colorStr + " to Move");
+		setCurrentPlayerLabel();
 	}
 
 	@Override 
