@@ -317,7 +317,7 @@ public class MainWindow extends JFrame implements GameObserver {
 			button.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					if (active) {
+					if (active && wController.getGame().getTurn().getMode() == PlayerType.HUMAN) {
 						wController.makeMove(i + 1, j + 1, wController.getGame().getTurn());
 					}	
 				}
