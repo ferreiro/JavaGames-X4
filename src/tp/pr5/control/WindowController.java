@@ -8,16 +8,6 @@ import tp.pr5.logic.InvalidMove;
 import tp.pr5.logic.Move;
 import tp.pr5.logic.PlayerType;
  
-public class WindowController extepackage tp.pr5.control;																																							
-
-import tp.pr5.Resources.Resources;
-import tp.pr5.logic.Counter;
-import tp.pr5.logic.Game;
-import tp.pr5.logic.GameType;
-import tp.pr5.logic.InvalidMove;
-import tp.pr5.logic.Move;
-import tp.pr5.logic.PlayerType;
- 
 public class WindowController extends Controller {
 	static java.util.Scanner in;
 	Thread autoThread;
