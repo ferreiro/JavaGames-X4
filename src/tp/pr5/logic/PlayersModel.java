@@ -3,14 +3,18 @@ package tp.pr5.logic;
 import javax.swing.ComboBoxModel;
 import javax.swing.event.ListDataListener;
 
+import tp.pr5.control.WindowController;
+
 public class PlayersModel implements ComboBoxModel<PlayerType> {
 	
 	private Counter player;
 	private PlayerType selected;
+	private WindowController ctrl;
 	
-	public PlayersModel(Counter player){
+	public PlayersModel(Counter player, WindowController wCont){
 		this.player = player;
 		this.selected = player.getMode();
+		this.ctrl = wCont;
 	}
 
 	public int getSize() {
@@ -19,11 +23,12 @@ public class PlayersModel implements ComboBoxModel<PlayerType> {
 
 	@Override
 	public PlayerType getElementAt(int index) {
-		// TODO Auto-generated method stub
-		return null;
+		if (index == 0)
+			return PlayerType.HUMAN;
+		else
+			return PlayerType.AUTO;
 	}
 
-	@Override
 	public void addListDataListener(ListDataListener l) {
 		// TODO Auto-generated method stub
 
@@ -31,25 +36,16 @@ public class PlayersModel implements ComboBoxModel<PlayerType> {
 
 	public void setSelectedItem(Object anItem) {
 		this.selected = (PlayerType) anItem;
-		//ctrl.setPlayerMode(player, this.selected);
-		
-		//that upper line is supposed to belike that and call the controller but i cannot see how by now.
+		ctrl.setPlayerMode(player, this.selected);
 	}
 
-	@Override
 	public Object getSelectedItem() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.selected;
 	}
 	
-	@Override
 	public void removeListDataListener(ListDataListener l) {
 		// TODO Auto-generated method stub
 
-	}
-	
-	public String toString(){
-		return null;//TODO: this function
 	}
 
 }
