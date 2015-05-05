@@ -13,6 +13,9 @@ import tp.pr5.logic.Board;
 import tp.pr5.logic.Counter;
 import tp.pr5.logic.Game; 
 import tp.pr5.logic.GravityMove;
+import tp.pr5.logic.InvalidMove;
+import tp.pr5.logic.Move;
+import tp.pr5.logic.ReversiMove;
 
 public class Resources {
 	
@@ -215,35 +218,24 @@ public class Resources {
 	}
 	  
 	// Comprueba si alguna de las celdas empty, con el color del jugador actual, forman un posible movimiento
-	/*
-	public boolean availableEmpty(Board b, Counter c) { // como se usa desde main y se usa una read only board no usar ningun metodo que sea para cambiar la tabla
-		int c = 1, r = 1, total = 0;
+
+	public boolean availableEmpty(Board b, Counter color) throws InvalidMove { // como se usa desde main y se usa una read only board no usar ningun metodo que sea para cambiar la tabla
+		int c = 1, r = 1;
 		boolean valid = false; 
 		
-		while(r <= b.getHeight() && !valid) {
-			c = 1;
-			while(c <= b.getWidth() && !valid) {
+		while(c <= b.getWidth() && !valid) {
+			r = 1;
+			while(r <= b.getHeight() && !valid) {
 				if (b.getPosition(c, r) == Counter.EMPTY) {
-
-					total = 0;
-					boolean keepMove = false; // Aqu� no queremos guardar las direcciones (porque solo comprobamos si es posible los movimientos)
-					
-					total += checkHorizontal(b, c, r, keepMove);
-					total += checkVertical(b, c, r, keepMove); 		
-					total += checkDiagonal1(b, c, r, keepMove); 	// True = Top Left
-					total += checkDiagonal2(b, c, r, keepMove); 	// True = Top Right
-					
-					if (total >= 1) { // => Si se ha formado al menos una check, significa que hay alguna celda flrmDa, por tanto, el movimiento es valido
-						valid = true;		
-					}	
+					Move m = new ReversiMove(c, r, color);
+					valid = m.executeMove(b);
 				}
-				c++;
+				r++;
 			}
-			r++;
+			c++;
 		}
 		return valid;		
 	}
-	*/
 	
 	// He tenido que escribir de nuevo la funciÃ³n de pedro para 
 	// que funcione el conecta 4.

@@ -11,10 +11,9 @@ import tp.pr5.logic.Move;
 
 public class Game implements Observable<GameObserver> {
 	private Board board;
-	private Counter turn;
-	private Counter winner;
 	private boolean finished;
 	protected GameRules rules;
+	private Counter turn, winner;
 	private Collection<GameObserver> obsList; // ArrayList of Observers (En este proyecto, vamos a tener observadores en la vista)
 	private Deque<Move> stack = new ArrayDeque<>();
 	
@@ -31,8 +30,7 @@ public class Game implements Observable<GameObserver> {
 		winner = Counter.EMPTY;
 		finished = false;
 		stack.clear(); 
-				
-		for (GameObserver o : obsList)
+ 		for (GameObserver o : obsList)
 			o.reset(board, turn, false);
 	}
 	
