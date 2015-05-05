@@ -16,7 +16,7 @@ public enum Counter {
 		return mode;
 	}
 	
-	public void SetMode(PlayerType mode){
+	public void setMode(PlayerType mode){
 		this.mode = mode;
 	}
 	
