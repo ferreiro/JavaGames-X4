@@ -43,37 +43,6 @@ public class ReversiMove extends Move {
 		return valid;
 	}
 	
-	// Reescribe método para el reversi
-	// Comprueba si alguna de las celdas empty, con el color del jugador actual, forman un posible movimiento
-
-	public boolean availableEmpty(Board b) { // como se usa desde main y se usa una read only board no usar ningun metodo que sea para cambiar la tabla
-		int c = 1, r = 1, total = 0;
-		boolean valid = false; 
-		
-		while(r <= b.getHeight() && !valid) {
-			c = 1;
-			while(c <= b.getWidth() && !valid) {
-				if (b.getPosition(c, r) == Counter.EMPTY) {
-
-					total = 0;
-					boolean keepMove = false; // Aquí no queremos guardar las direcciones (porque solo comprobamos si es posible los movimientos)
-					
-					total += checkHorizontal(b, c, r, keepMove);
-					total += checkVertical(b, c, r, keepMove); 		
-					total += checkDiagonal1(b, c, r, keepMove); 	// True = Top Left
-					total += checkDiagonal2(b, c, r, keepMove); 	// True = Top Right
-					
-					if (total >= 1) { // => Si se ha formado al menos una check, significa que hay alguna celda flrmDa, por tanto, el movimiento es valido
-						valid = true;		
-					}	
-				}
-				c++;
-			}
-			r++;
-		}
-		return valid;		
-	}
-	
 	public void swapCells(Board b, int column, int row, SwappedMove m) {
 		int moveColumn = m.getX(), moveRow = m.getY(), iterations = 0;
 		Counter color = changeColor(m.getColor()); // El color de origen es el de los counters que envolvían a las fichas

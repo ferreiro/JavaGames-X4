@@ -23,7 +23,6 @@ public interface GameRules {
 	// Creemos que 
 	public int getDimX();
 	public int getDimY();
-	
 	public int intRules();
 	
 	

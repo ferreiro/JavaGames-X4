@@ -285,7 +285,6 @@ public class MainWindow extends JFrame implements GameObserver {
 		currentColor.setFont(new Font("Arial", Font.BOLD, 20));
 		bottomInfoPanel.add(currentColor);
 		
-
 		// BUTTON FOR EXIT
 		JButton exitButton = Resources.createAuxButton(150,  40, "Close", Resources.RESOURCES_URL + "exit.png", new Color(62,218,103), false);
 		exitButton.setForeground(Color.WHITE);
@@ -333,15 +332,9 @@ public class MainWindow extends JFrame implements GameObserver {
 	@Override
 	public void moveExecFinished(ReadOnlyBoard board, Counter player, Counter nextPlayer) {
 		refresh(board);	
-		
-		ReversiMove m = new ReversiMove(1, 1, nextPlayer);
-		if(!m.availableEmpty((Board)board) && wController.getGame().getWinner() == Counter.EMPTY){
-			wController.changePlayer();
-		}
-		String colorStr = "" + wController.getGame().getTurn(); 
-		currentColor.setText(colorStr + " to Move");
+		setCurrentPlayerLabel();
 	}
-
+	
 	@Override
 	public void moveExecStart(Counter player) {
 
@@ -394,7 +387,6 @@ public class MainWindow extends JFrame implements GameObserver {
 		}
 	}
 	
-	
 	@Override
 	public void reset(ReadOnlyBoard board, Counter player, Boolean undoPossible) { 
 		numberRows = board.getHeight();
@@ -404,10 +396,7 @@ public class MainWindow extends JFrame implements GameObserver {
 		
 		middlePanelLeft.removeAll(); // remove previous buttons from grid layout
 
-		// Update player color on the label
-		String colorStr = "" + wController.getGame().getTurn(); 
-		currentColor.setText(colorStr + " to Move");
-		
+		setCurrentPlayerLabel(); // Update player color on the label
 		
 		for(int i = 0; i < numberColums; i++) {
 			for (int j = 0; j < numberRows; j++) {
@@ -421,5 +410,12 @@ public class MainWindow extends JFrame implements GameObserver {
 		
 		refresh(board);
 	}
+
+	// Setea el color de la label
+	public void setCurrentPlayerLabel() {
+		String colorStr = "" + wController.getGame().getTurn(); 
+		currentColor.setText(colorStr + " to Move");
+	}
+	
 	
 }
