@@ -99,12 +99,42 @@ public class ReversiMove extends Move {
 		}
 	}
 	
+	// Comprueba si alguna de las celdas empty, con el color del jugador actual, forman un posible movimiento
+
+	public boolean availableEmpty(Board b, Counter color) { // como se usa desde main y se usa una read only board no usar ningun metodo que sea para cambiar la tabla
+		int c = 1, r = 1, total = 0;
+		boolean valid = false; 
+		
+		while(c <= b.getWidth() && !valid) {
+			r = 1;
+			while(r <= b.getHeight() && !valid) {
+				if (b.getPosition(c, r) == Counter.EMPTY) {
+					
+					total = 0;
+					boolean keepMove = false;
+					
+					total += checkHorizontal(b, column, row, keepMove);	// True  = Left
+					total += checkVertical(b, column, row, keepMove); 	// False = Down	
+					total += checkDiagonal1(b, column, row, keepMove);  // False = Bottom Right
+					total += checkDiagonal2(b, column, row, keepMove);  // False = Bottom Left
+
+					if (total >= 1) { // => Si se ha formado al menos una check, significa que hay alguna celda flrmDa, por tanto, el movimiento es valido
+						valid = true;	
+					}	
+				}
+				r++;
+			}
+			c++;
+		}
+		return valid;		
+	}
+	
 	public int absoluteValue(int a, int b) {
 		int total = a - b;
 		if (total < 0) total *= -1; // Change to positive value
 		return total;
 	}
-	  
+
 	// CheckHorizontal: Function to Check left and right colors given a fixed position
 	
 	public int checkHorizontal(Board b, int x, int y, boolean keepMove) {

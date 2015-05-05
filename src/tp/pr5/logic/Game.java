@@ -67,7 +67,8 @@ public class Game implements Observable<GameObserver> {
 					} 
 				}
 			}
-			else if (!valid) {
+			else {
+				// Si no hay movimiento disponibles para el color actual, cambiar
 				for (GameObserver o : obsList) 
 					o.onMoveError("This is an invalid movement, please try again");
 			}
