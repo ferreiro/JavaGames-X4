@@ -16,6 +16,7 @@ import tp.pr5.logic.GravityMove;
 import tp.pr5.logic.InvalidMove;
 import tp.pr5.logic.Move;
 import tp.pr5.logic.ReversiMove;
+import tp.pr5.logic.SwappedMove;
 
 public class Resources {
 	
@@ -33,7 +34,164 @@ public class Resources {
 		DIMX_CONNECT4 = 7, DIMY_CONNECT4 = 6,
 		DIMX_COMPLICA = 4, DIMY_COMPLICA = 7,
 		DIMX_REVERSI = 8, DIMY_REVERSI = 8;
+	
+	
+	// Comprueba si alguna de las celdas empty, con el color del jugador actual, forman un posible movimiento
 
+	public static boolean canMakeMove(Board b, Counter color) { // como se usa desde main y se usa una read only board no usar ningun metodo que sea para cambiar la tabla
+		int column = 1, row = 1, total = 0;
+		boolean valid = false; 
+		
+		while(column <= b.getWidth() && !valid) {
+			row = 1;
+			while(row <= b.getHeight() && !valid) {
+				if (b.getPosition(column, row) == Counter.EMPTY) {
+					
+					total = 0;
+					
+					total += checkHorizontal(b, color, column, row);	// True  = Left
+					total += checkVertical(b, color, column, row); 	// False = Down	
+					total += checkDiagonal1(b, color, column, row);  // False = Bottom Right
+					total += checkDiagonal2(b, color, column, row);  // False = Bottom Left
+
+					if (total >= 1) { // => Si se ha formado al menos una check, significa que hay alguna celda flrmDa, por tanto, el movimiento es valido
+						valid = true;	
+					}	
+				}
+				row++;
+			}
+			column++;
+		}
+		return valid;		
+	}
+
+	// CheckHorizontal: Function to Check left and right colors given a fixed position
+	
+	public static int checkHorizontal(Board b, Counter color, int x, int y) {
+		int total = 0, accumulateTiles = 0, auxColumn = x;
+		Counter nextColor = changeColor(color);
+		 
+		// Check Left tiles
+		while((auxColumn >= 1) && (b.getPosition(auxColumn - 1, y) == nextColor)) {
+			auxColumn--; accumulateTiles++;
+		}
+		if (accumulateTiles >= 1 && (b.getPosition(auxColumn - 1, y) == color)) {
+			total++;
+		} 
+		// Check Right tiles
+		while((auxColumn <= b.getWidth()) && (b.getPosition(auxColumn + 1, y) == nextColor)) {
+			auxColumn++; accumulateTiles++;
+		}
+		if (accumulateTiles >= 1 && (b.getPosition(auxColumn + 1, y) == color)) {
+			total++;
+		} 
+		
+		return total; // Sumar el número total de celdas válidas (formadas) 	
+	}
+
+	// CheckVertical: Function to Check top and bottom colors given a fixed position
+	
+	public static int checkVertical(Board b, Counter color, int x, int y) {
+		int total = 0, accumulateTiles = 0, auxRow = y;
+		Counter nextColor = changeColor(color);
+		 
+		// Check up Tiles
+		while((auxRow >= 1) && (b.getPosition(x, auxRow - 1) == nextColor)) {
+			auxRow--; accumulateTiles++;
+		}
+		if (accumulateTiles >= 1 && (b.getPosition(x, auxRow - 1) == color)) {
+			total++;
+		} 
+		// Check Down tiles
+		while((auxRow <= b.getHeight()) && (b.getPosition(x, auxRow + 1) == nextColor)) {
+			auxRow++; accumulateTiles++;
+		}
+		if (accumulateTiles >= 1 && (b.getPosition(x, auxRow + 1) == color)) {
+			total++;
+		} 
+		
+		return total;
+	}
+
+	// CheckDiagonal1: Function to Check diagonals given a fixed position
+	
+	public static int checkDiagonal1(Board b, Counter color, int x, int y) {
+		int total = 0, accumulateTiles = 0, auxColumn = x, auxRow = y;
+		Counter nextColor = changeColor(color);
+		
+		// Check UpLeft  
+		while((auxColumn >= 1) && (auxRow >= 1) && (b.getPosition(auxColumn - 1, auxRow - 1) == nextColor)) {
+			auxColumn--; auxRow--; accumulateTiles++;
+		}
+		if (accumulateTiles >= 1 && (b.getPosition(auxColumn - 1, auxRow - 1) == color)) {
+			total++;
+		}
+
+		// Check DownRight
+		while((auxColumn <= b.getWidth()) && (auxRow <= b.getHeight()) && (b.getPosition(auxColumn + 1, auxRow + 1) == nextColor)) {
+			auxColumn++; auxRow++; accumulateTiles++;
+		}
+		if (accumulateTiles >= 1 && (b.getPosition(auxColumn + 1, auxRow + 1) == color)) {
+			total++;
+		} 
+		
+		return total;		
+	}
+
+	// CheckDiagonal2: Function to Check diagonals given a fixed position
+	
+	public static int checkDiagonal2(Board b, Counter color, int x, int y) {
+		int total = 0, accumulateTitles = 0, auxColumn = x, auxRow = y;
+		Counter nextColor = changeColor(color);
+		
+		// Check Up Right
+		while((auxColumn <= b.getWidth()) && (auxRow >= 1) && (b.getPosition(auxColumn + 1, auxRow - 1) == nextColor)) {
+			auxColumn++; auxRow--; accumulateTitles++;
+		}
+		if (accumulateTitles >= 1 && (b.getPosition(auxColumn + 1, auxRow - 1) == color)) {
+			total++;
+		}
+		
+		// Check Bottom Left 
+		while((auxColumn >= 1) && (auxRow <= b.getHeight()) && (b.getPosition(auxColumn - 1, auxRow + 1) == nextColor)) {
+			auxColumn--; auxRow++; accumulateTitles++;
+		}
+		if (accumulateTitles >= 1 && (b.getPosition(auxColumn - 1, auxRow + 1) == color)) {
+			total++;
+		} 
+		
+		return total;	
+	}
+
+	public static Counter changeColor(Counter c) {
+		if (c == Counter.WHITE) return Counter.BLACK;
+		else if(c == Counter.BLACK) return Counter.WHITE;
+		else return Counter.EMPTY;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	// Checks if there's an empty cell given a column
 	
 	public static int freeRowPosition(int col, Board board) {
@@ -216,28 +374,8 @@ public class Resources {
 			board.setPosition(column, i, board.getPosition(column, i + 1));
 		}
 	}
-	  
-	// Comprueba si alguna de las celdas empty, con el color del jugador actual, forman un posible movimiento
-
-	public boolean availableEmpty(Board b, Counter color) throws InvalidMove { // como se usa desde main y se usa una read only board no usar ningun metodo que sea para cambiar la tabla
-		int c = 1, r = 1;
-		boolean valid = false; 
-		
-		while(c <= b.getWidth() && !valid) {
-			r = 1;
-			while(r <= b.getHeight() && !valid) {
-				if (b.getPosition(c, r) == Counter.EMPTY) {
-					Move m = new ReversiMove(c, r, color);
-					valid = m.executeMove(b);
-				}
-				r++;
-			}
-			c++;
-		}
-		return valid;		
-	}
-	
-	// He tenido que escribir de nuevo la funciÃ³n de pedro para 
+	 
+	// He tenido que escribir de nuevo la funciÃƒÂ³n de pedro para 
 	// que funcione el conecta 4.
 	
 	public static boolean fullColumn(int column, Board b) {
