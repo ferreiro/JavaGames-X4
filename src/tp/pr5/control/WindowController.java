@@ -6,6 +6,7 @@ import tp.pr5.logic.Game;
 import tp.pr5.logic.GameType;
 import tp.pr5.logic.InvalidMove;
 import tp.pr5.logic.Move;
+import tp.pr5.logic.PlayerType;
  
 public class WindowController extends Controller {
 	static java.util.Scanner in;
@@ -64,6 +65,11 @@ public class WindowController extends Controller {
 		if (undo){
 			changePlayer(); // Change Current player 
 		}
+	}
+	
+	public void setPlayerMode(Counter player, PlayerType mode){
+		player.setMode(mode);
+		//automaticMove();
 	}
 	
 }
