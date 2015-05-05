@@ -68,7 +68,7 @@ public class WindowController extends Controller {
 	}
 	
 	public void run() {
-		// Nothing here.
+		automaticMove();
 	}
 	
 	public void undo() {
