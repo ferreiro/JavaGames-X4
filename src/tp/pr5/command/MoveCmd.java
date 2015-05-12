@@ -4,6 +4,8 @@ import java.util.Scanner;
 
 import tp.pr5.control.ConsoleController;
 import tp.pr5.logic.Game;
+import tp.pr5.logic.InvalidMove;
+import tp.pr5.logic.Move;
 
 public class MoveCmd implements Command {
 	
@@ -13,8 +15,18 @@ public class MoveCmd implements Command {
 
 	@Override
 	public void execute(Game g, ConsoleController c, Scanner in) {
-		// TODO Auto-generated method stub
-
+		Move move = c.getPlayers()[c.getCurrentPlayer()].getMove(c.getGame().getBoard(), c.getC()[c.getCurrentPlayer()]);
+		try {
+			boolean valid = c.getGame().executeMove(move);
+			if (valid) {
+				c.changePlayer(); // Change Current player
+			}
+		}
+		catch(InvalidMove e) {
+		} 
+		if (c.getGame().isFinished()) {
+			c.requestQuit(false);
+		} 
 	}
 
 	@Override

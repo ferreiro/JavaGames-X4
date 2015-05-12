@@ -11,7 +11,7 @@ public class RestartCmd implements Command {
 
 	@Override
 	public void execute(Game g, ConsoleController c, Scanner in) {
-		g.reset(g.getRules());
+		c.initGame();
 	}
 
 	@Override

@@ -23,6 +23,7 @@ public class ChangeGameCmd implements Command {
 	@Override
 	public void execute(Game g, ConsoleController c, Scanner in) {
 		c.setGameType(f);
+		c.initGame();
 	}
 
 	@Override

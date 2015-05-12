@@ -11,7 +11,9 @@ public class UndoCmd implements Command{
 
 	@Override
 	public void execute(Game g, ConsoleController c, Scanner in) {
-		g.undo();
+		boolean undo = g.undo();
+		if (undo)
+			c.changePlayer();
 	}
 
 	@Override

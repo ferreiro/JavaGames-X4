@@ -3,6 +3,8 @@ package tp.pr5.control;
 import java.util.Scanner;
 
 import tp.pr5.Resources.Resources;
+import tp.pr5.command.Command;
+import tp.pr5.command.CommandSet;
 import tp.pr5.logic.Game;
 import tp.pr5.logic.InvalidMove;
 import tp.pr5.logic.Move;
@@ -16,7 +18,7 @@ public class ConsoleController extends Controller{
 		this.in= in;
 	}
 	
-	public void run() {
+	/*public void run() {
 		Move move = null;
 		int option;
 		boolean valid, undo;
@@ -60,7 +62,7 @@ public class ConsoleController extends Controller{
 				
 			case 3:
 				// Exit
-				requestQuit();
+				requestQuit(true);
 				break;
 
 			case 4://c4
@@ -120,10 +122,27 @@ public class ConsoleController extends Controller{
 			}  
 		} while(!exit);	
 		 
+	}*/
+	
+	public void run(){
+		while ( !exit ) {
+			System.out.print("> ");
+			String line = in.nextLine();
+			Command cmd = CommandSet.parse(line);
+			if ( cmd != null){
+				cmd.execute(this.getGame(),this,in);
+				getGame().getBoard().printBoard();
+			}
+				else 
+					System.err.print("Error: "+line);
+		}
+		in.close();
 	}
-	public void requestQuit() {
+	
+	public void requestQuit(boolean exitAsk) {
 		exit  = true;
-		System.out.println("Exit requested. ");
+		if (exitAsk)
+			System.out.println("Exit requested. ");
 	}
 
 }
