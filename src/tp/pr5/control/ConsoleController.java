@@ -9,6 +9,7 @@ import tp.pr5.logic.Move;
 
 public class ConsoleController extends Controller{
 	private Scanner in;
+	private boolean exit = false;
 	
 	public ConsoleController(GameTypeFactory factory, Game g, java.util.Scanner in) {
 		super(factory,g, in);
@@ -18,7 +19,8 @@ public class ConsoleController extends Controller{
 	public void run() {
 		Move move = null;
 		int option;
-		boolean exit = false, valid, undo;
+		boolean valid, undo;
+		exit = false;
 		
 		do {
 			option = Resources.menu(getGame(), in);
@@ -58,8 +60,7 @@ public class ConsoleController extends Controller{
 				
 			case 3:
 				// Exit
-				exit = true;
-				System.out.println("Exit requested. ");//es raro pero en console view no hay ninguna funcion para cuando se acaba el juego
+				requestQuit();
 				break;
 
 			case 4://c4
@@ -120,4 +121,9 @@ public class ConsoleController extends Controller{
 		} while(!exit);	
 		 
 	}
+	public void requestQuit() {
+		exit  = true;
+		System.out.println("Exit requested. ");
+	}
+
 }
