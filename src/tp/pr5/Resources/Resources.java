@@ -169,29 +169,6 @@ public class Resources {
 		else return Counter.EMPTY;
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	// Checks if there's an empty cell given a column
 	
 	public static int freeRowPosition(int col, Board board) {
