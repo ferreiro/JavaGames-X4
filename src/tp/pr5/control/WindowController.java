@@ -27,7 +27,8 @@ public class WindowController extends Controller {
 			Resources.setGravityDimX(dimX); 
 			Resources.setGravityDimY(dimY);
 		}
-		changeG(gameType, dimX, dimY);	
+		changeG(gameType, dimX, dimY);
+		automaticMove();
 	}
 	
 	public void makeMove(int col, int row, Counter turn) {
@@ -49,6 +50,7 @@ public class WindowController extends Controller {
 		try {
 			getGame().executeMove(rMove);
 		} catch (InvalidMove e) {}
+		automaticMove();
 	}
 	
 	// Quit the application.
@@ -60,6 +62,7 @@ public class WindowController extends Controller {
 		stopAutoPlayer();
 		initGame();	// Reset players, current player and 
 		game.resetGame(); // Notify the window that the reset is done
+		automaticMove();
 	}
 	
 	public void run() {

@@ -409,6 +409,8 @@ public class MainWindow extends JFrame implements GameObserver {
 		}
 		this.active = true;
 		middlePanelLeft.revalidate();
+		undoButton.setEnabled(true);
+		randomButton.setEnabled(true);
 		
 		refresh(board);
 	}
