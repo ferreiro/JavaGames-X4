@@ -1,5 +1,8 @@
 package tp.pr5.control;																																							
 
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
+
 import tp.pr5.Resources.Resources;
 import tp.pr5.logic.Counter;
 import tp.pr5.logic.Game;
@@ -10,10 +13,12 @@ import tp.pr5.logic.PlayerType;
  
 public class WindowController extends Controller {
 	static java.util.Scanner in;
-	Thread autoThread;
+//	Thread autoThread;
+	private static Executor exec;
 	
 	public WindowController(GameTypeFactory factory, Game g) {
 		super(factory,g, in);
+		 exec = Executors.newSingleThreadExecutor();
 	}
 	
 	@SuppressWarnings("static-access")
@@ -75,8 +80,8 @@ public class WindowController extends Controller {
 	}
 	
 	private void stopAutoPlayer(){
-		if(autoThread != null){
-			autoThread.interrupt();
+		if(Thread.currentThread() != null){
+			Thread.currentThread().interrupt();
 			//2.wait for autoThread to terminate
 		}
 	}
@@ -85,20 +90,19 @@ public class WindowController extends Controller {
 		if(game.getTurn().getMode() == PlayerType.HUMAN)
 			return;
 		
-		autoThread = new Thread(){
+		exec.execute(new Runnable(){
 			public void run(){
 				
-				while(game.getNextPlayer().getMode() == PlayerType.AUTO && !game.isFinished() && !autoThread.isInterrupted()){
+				while(game.getNextPlayer().getMode() == PlayerType.AUTO && !game.isFinished() && !Thread.currentThread().isInterrupted()){
 					try {
-						autoThread.sleep(2000);
-						if (!autoThread.isInterrupted()){
+						Thread.sleep(2000);
+						if (!Thread.currentThread().isInterrupted()){
 							randomMove();
 						}
 					} catch (InterruptedException e) {
 					}
 				}
-				
-			}
-		};
+			}	
+		});
 	}
 }
