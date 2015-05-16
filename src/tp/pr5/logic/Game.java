@@ -125,7 +125,6 @@ public class Game implements Observable<GameObserver> {
 	}
 	public Counter getNextPlayer(){
 		return nextPlayer(turn);
-		
 	}
 	
 	//  Undo and stack 

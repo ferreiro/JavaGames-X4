@@ -96,7 +96,7 @@ public class WindowController extends Controller {
 		exec.execute(new Runnable(){
 			public void run(){
 				
-				while(game.getNextPlayer().getMode() == PlayerType.AUTO && !game.isFinished() && !Thread.currentThread().isInterrupted()){
+				while(game.getTurn().getMode() == PlayerType.AUTO && !game.isFinished() && !Thread.currentThread().isInterrupted()){
 					try {
 						Thread.sleep(2000);
 						if (!Thread.currentThread().isInterrupted()){
