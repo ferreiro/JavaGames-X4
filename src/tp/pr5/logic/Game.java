@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Deque;
 
+import tp.pr5.Resources.Resources;
 import tp.pr5.logic.Counter;
 import tp.pr5.logic.Board;
 import tp.pr5.logic.Move; 
@@ -39,7 +40,11 @@ public class Game implements Observable<GameObserver> {
 	public boolean executeMove(Move mov) throws InvalidMove {  
 		boolean valid = false, draw; 
 		Counter wonColor, currentPlayer = mov.getPlayer();
-
+		
+		System.out.println("Can make move White?= " + Resources.canMakeMove(board, Counter.WHITE));
+		System.out.println("Can make move Black?= " + Resources.canMakeMove(board, Counter.BLACK));
+		System.out.println("----");
+		
 		if ((mov.getPlayer() == turn) && (!finished)) { // No puede permitir hacer movimientos fuera de turno o se ha terminado el juego
 			winner = Counter.EMPTY;  
 			
@@ -62,6 +67,7 @@ public class Game implements Observable<GameObserver> {
 					if (wonColor == Counter.EMPTY) {
 						increaseStack(mov); // Nobody wins, increase stack
 						turn = rules.nextTurn(mov.getPlayer(), board); // Change turn
+
 					}
 					else {
 						this.winner = wonColor;

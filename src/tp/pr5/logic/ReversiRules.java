@@ -25,7 +25,7 @@ public class ReversiRules implements GameRules {
 		Counter colorWinner = Counter.EMPTY;
 		int totalWhite, totalBlack;
 		  
-		if (isGameOver(b)) { // Si está lleno el tablero o ya no hay movimientos disponibles para el blanco o negro...
+		if (isGameOver(b)) { // Si esta lleno el tablero o ya no hay movimientos disponibles para el blanco o negro...
  			
 			totalWhite = countTiles(Counter.WHITE, b);
 			totalBlack = countTiles(Counter.BLACK, b);
@@ -94,12 +94,19 @@ public class ReversiRules implements GameRules {
 	}
 
 	public Counter nextTurn(Counter lastMove, Board b) {
-		Counter nextTurn = Counter.EMPTY;
-		
-		if (lastMove == Counter.WHITE) nextTurn = Counter.BLACK;
-		else if (lastMove == Counter.BLACK) nextTurn = Counter.WHITE; 
+		if (lastMove == Counter.EMPTY) {
+			return Counter.EMPTY;
+		}
 
-		return nextTurn;
+		Counter otherColor = (lastMove == Counter.WHITE) ? Counter.BLACK : Counter.WHITE;
+		boolean canMoveNextPlayer = Resources.canMakeMove(b, otherColor);
+		
+		if (canMoveNextPlayer) {
+			return otherColor;
+		} 
+		else {
+			return lastMove;
+		}
 	}
 
 	/**************************
