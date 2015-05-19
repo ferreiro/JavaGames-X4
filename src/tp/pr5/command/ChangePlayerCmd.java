@@ -3,7 +3,6 @@ package tp.pr5.command;
 import java.util.Scanner;
 
 import tp.pr5.control.ConsoleController;
-import tp.pr5.control.Player;
 import tp.pr5.logic.Game;
 
 public class ChangePlayerCmd implements Command {

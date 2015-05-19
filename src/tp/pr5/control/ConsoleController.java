@@ -2,12 +2,9 @@ package tp.pr5.control;
 
 import java.util.Scanner;
 
-import tp.pr5.Resources.Resources;
 import tp.pr5.command.Command;
 import tp.pr5.command.CommandSet;
 import tp.pr5.logic.Game;
-import tp.pr5.logic.InvalidMove;
-import tp.pr5.logic.Move;
 
 public class ConsoleController extends Controller{
 	private Scanner in;
