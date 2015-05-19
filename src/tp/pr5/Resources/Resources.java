@@ -34,7 +34,62 @@ public class Resources {
 		DIMX_CONNECT4 = 7, DIMY_CONNECT4 = 6,
 		DIMX_COMPLICA = 4, DIMY_COMPLICA = 7,
 		DIMX_REVERSI = 8, DIMY_REVERSI = 8;
+	
+	
+	// Comprueba si alguna de las celdas empty, con el color del jugador actual, forman un posible movimiento
 
+	public static boolean canMakeMove(Board b, Counter color) { // como se usa desde main y se usa una read only board no usar ningun metodo que sea para cambiar la tabla
+		int column = 1, row = 1, total = 0;
+		boolean valid = false; 
+		
+		while(column <= b.getWidth() && !valid) {
+			row = 1;
+			while(row <= b.getHeight() && !valid) {
+				if (b.getPosition(column, row) == Counter.EMPTY) {
+					
+					total = 0;
+					
+					total += checkHorizontal(b, color, column, row);	// True  = Left
+					total += checkVertical(b, color, column, row); 	// False = Down	
+					total += checkDiagonal1(b, color, column, row);  // False = Bottom Right
+					total += checkDiagonal2(b, color, column, row);  // False = Bottom Left
+
+					if (total >= 1) { // => Si se ha formado al menos una check, significa que hay alguna celda flrmDa, por tanto, el movimiento es valido
+						valid = true;	
+					}	
+				}
+				row++;
+			}
+			column++;
+		}
+		return valid;		
+	}
+
+	// CheckHorizontal: Function to Check left and right colors given a fixed position
+	
+	public static int checkHorizontal(Board b, Counter color, int x, int y) {
+		int total = 0, accumulateTiles = 0, auxColumn = x;
+		Counter nextColor = changeColor(color);
+		 
+		// Check Left tiles
+		while((auxColumn >= 1) && (b.getPosition(auxColumn - 1, y) == nextColor)) {
+			auxColumn--; accumulateTiles++;
+		}
+		if (accumulateTiles >= 1 && (b.getPosition(auxColumn - 1, y) == color)) {
+			total++;
+		} 
+		// Check Right tiles
+		while((auxColumn <= b.getWidth()) && (b.getPosition(auxColumn + 1, y) == nextColor)) {
+			auxColumn++; accumulateTiles++;
+		}
+		if (accumulateTiles >= 1 && (b.getPosition(auxColumn + 1, y) == color)) {
+			total++;
+		} 
+		
+		return total; // Sumar el número total de celdas válidas (formadas) 	
+	}
+
+<<<<<<< HEAD
 	
 	
 	
@@ -91,6 +146,8 @@ public class Resources {
 		return total; // Sumar el n�mero total de celdas v�lidas (formadas) 	
 	}
 
+=======
+>>>>>>> e7dc48fdee3c7da341594a15beeb353ddb13a84a
 	// CheckVertical: Function to Check top and bottom colors given a fixed position
 	
 	public static int checkVertical(Board b, Counter color, int x, int y) {
@@ -377,7 +434,11 @@ public class Resources {
 		}
 	}
 	 
+<<<<<<< HEAD
 	// He tenido que escribir de nuevo la funciÃ³n de pedro para 
+=======
+	// He tenido que escribir de nuevo la funciÃƒÂ³n de pedro para 
+>>>>>>> e7dc48fdee3c7da341594a15beeb353ddb13a84a
 	// que funcione el conecta 4.
 	
 	public static boolean fullColumn(int column, Board b) {

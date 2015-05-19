@@ -25,7 +25,11 @@ public class ReversiRules implements GameRules {
 		Counter colorWinner = Counter.EMPTY;
 		int totalWhite, totalBlack;
 		 
+<<<<<<< HEAD
 		if (isGameOver(b)) { // Si está lleno el tablero o ya no hay movimientos disponibles para el blanco o negro...
+=======
+		if (isGameOver(b)) { // Si estÃ¡ lleno el tablero o ya no hay movimientos disponibles para el blanco o negro...
+>>>>>>> e7dc48fdee3c7da341594a15beeb353ddb13a84a
 			
 			totalWhite = countTiles(Counter.WHITE, b);
 			totalBlack = countTiles(Counter.BLACK, b);
@@ -34,7 +38,11 @@ public class ReversiRules implements GameRules {
 				colorWinner = Counter.BLACK; 
 			}
 			else if (totalWhite > totalBlack) {
+<<<<<<< HEAD
 				colorWinner = Counter.WHITE;	// Hay más fichas BLANCAS! Gana
+=======
+				colorWinner = Counter.WHITE;	// Hay mÃ¡s fichas BLANCAS! Gana
+>>>>>>> e7dc48fdee3c7da341594a15beeb353ddb13a84a
 			}  		
 		}
 		winner = colorWinner;
