@@ -342,7 +342,7 @@ public class MainWindow extends JFrame implements GameObserver {
 	@Override
 	public void onGameOver(ReadOnlyBoard board, Counter winner) {
 		JFrame msgFrame = new JFrame();
-		JOptionPane.showMessageDialog(msgFrame, "The Winner is" + winner + ".");
+		JOptionPane.showMessageDialog(msgFrame, "The Winner is " + winner + ".");
 	}
 
 	@Override
