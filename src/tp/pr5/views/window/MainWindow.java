@@ -331,8 +331,7 @@ public class MainWindow extends JFrame implements GameObserver {
 	public void moveExecFinished(ReadOnlyBoard board, Counter player, Counter nextPlayer) {
 		refresh(board);	
 		setCurrentPlayerLabel();
-		if(wController.getGame().getTurn().getMode() == PlayerType.HUMAN){
-			undoButton.setEnabled(true);
+		if(wController.getGame().getTurn().getMode() == PlayerType.HUMAN) {
 			randomButton.setEnabled(true);
 		}
 	}
@@ -367,6 +366,12 @@ public class MainWindow extends JFrame implements GameObserver {
 	}
 	 
 	public void refresh(ReadOnlyBoard board) {	
+		if (wController.getGame().undoTotal() >= 1) {
+			undoButton.setEnabled(true);
+		}
+		else {
+			undoButton.setEnabled(false);
+		}
 		for(int i = 0; i < numberColums; i++) {
 			for (int j = 0; j < numberRows; j++) {
 				Counter colour = board.getPosition(i+1, j+1);
@@ -409,7 +414,7 @@ public class MainWindow extends JFrame implements GameObserver {
 		}
 		this.active = true;
 		middlePanelLeft.revalidate();
-		undoButton.setEnabled(true);
+		if (undoPossible) undoButton.setEnabled(true);
 		randomButton.setEnabled(true);
 		
 		refresh(board);

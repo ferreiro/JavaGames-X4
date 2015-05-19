@@ -151,6 +151,10 @@ public class Game implements Observable<GameObserver> {
 		return success;
 	}
 	
+	public int undoTotal() {
+		return this.stack.size();
+	}
+	
 	public void increaseStack(Move movement) {
 		stack.addLast(movement);
 	}
