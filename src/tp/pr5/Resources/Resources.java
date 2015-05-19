@@ -33,7 +33,7 @@ public class Resources {
 		TILES_TO_WIN = 4,
 		DIMX_CONNECT4 = 7, DIMY_CONNECT4 = 6,
 		DIMX_COMPLICA = 4, DIMY_COMPLICA = 7,
-		DIMX_REVERSI = 3, DIMY_REVERSI = 3;
+		DIMX_REVERSI = 8, DIMY_REVERSI = 8;
 	
 	
 	// Comprueba si alguna de las celdas empty, con el color del jugador actual, forman un posible movimiento
