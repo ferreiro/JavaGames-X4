@@ -19,7 +19,8 @@ public class Resources {
 	// Global Variables and Constants 
 	
 	public static int 
-		DIMX_GRAVITY = 10, DIMY_GRAVITY = 10; // Is not final, cause we can modify it on the program
+		DIMX_GRAVITY = 10, DIMY_GRAVITY = 10,
+		SLEEPTIME = 1000; // Is not final, cause we can modify it on the program
 	
 	public static final String 
 		RESOURCES_URL = "src/icons/";

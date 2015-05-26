@@ -11,6 +11,8 @@ import java.awt.event.ActionListener;
 
 
 
+import java.awt.event.WindowEvent;
+
 // Import javafx.scene.image.Image;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -304,7 +306,7 @@ public class MainWindow extends JFrame implements GameObserver {
 	}
 
 	final private void closeWindow() {
-		this.setVisible(false);
+		this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
 	}
 	
 	

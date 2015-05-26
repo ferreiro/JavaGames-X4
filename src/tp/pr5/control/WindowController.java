@@ -83,10 +83,7 @@ public class WindowController extends Controller {
 	}
 	
 	private void stopAutoPlayer(){
-		if(Thread.currentThread() != null){
-			Thread.currentThread().interrupt();
-			//2.wait for autoThread to terminate
-		}
+		
 	}
 	
 	private void automaticMove(){
@@ -98,7 +95,7 @@ public class WindowController extends Controller {
 				
 				while(game.getTurn().getMode() == PlayerType.AUTO && !game.isFinished() && !Thread.currentThread().isInterrupted()){
 					try {
-						Thread.sleep(2000);
+						Thread.sleep(Resources.SLEEPTIME);
 						if (!Thread.currentThread().isInterrupted()){
 							randomMove();
 						}
