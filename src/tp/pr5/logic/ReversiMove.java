@@ -151,6 +151,7 @@ public class ReversiMove extends Move {
 			if(keepMove) listCoordinates.add(s); // Guardar movimiento swappeado en la lista de coordenadas																			
 		} 
 		// Check Right tiles
+		auxColumn = x;
 		while((auxColumn <= b.getWidth()) && (b.getPosition(auxColumn + 1, y) == nextColor)) {
 			auxColumn++; accumulateTiles++;
 		}
@@ -179,6 +180,7 @@ public class ReversiMove extends Move {
 			if(keepMove) listCoordinates.add(s); // Guardar movimiento swappeado en la lista de coordenadas																										
 		} 
 		// Check Down tiles
+		auxRow = y;
 		while((auxRow <= b.getHeight()) && (b.getPosition(x, auxRow + 1) == nextColor)) {
 			auxRow++; accumulateTiles++;
 		}
@@ -208,6 +210,7 @@ public class ReversiMove extends Move {
 		}
 
 		// Check DownRight
+		auxColumn = x; auxRow = y;
 		while((auxColumn <= b.getWidth()) && (auxRow <= b.getHeight()) && (b.getPosition(auxColumn + 1, auxRow + 1) == nextColor)) {
 			auxColumn++; auxRow++; accumulateTiles++;
 		}
@@ -237,6 +240,7 @@ public class ReversiMove extends Move {
 		}
 		
 		// Check Bottom Left 
+		auxColumn = x; auxRow = y;
 		while((auxColumn >= 1) && (auxRow <= b.getHeight()) && (b.getPosition(auxColumn - 1, auxRow + 1) == nextColor)) {
 			auxColumn--; auxRow++; accumulateTitles++;
 		}
