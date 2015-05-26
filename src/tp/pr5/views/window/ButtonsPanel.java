@@ -14,7 +14,7 @@ import javax.swing.JPanel;
 import tp.pr5.Resources.Resources;
 import tp.pr5.control.WindowController;
 
-public class ButtonsPanel  extends JFrame{
+public class ButtonsPanel extends JFrame{
 
 	JButton undoButton, resetButton, randomButton;
 	GridBagConstraints c = new GridBagConstraints();

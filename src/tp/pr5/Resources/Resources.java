@@ -13,10 +13,6 @@ import tp.pr5.logic.Board;
 import tp.pr5.logic.Counter;
 import tp.pr5.logic.Game; 
 import tp.pr5.logic.GravityMove;
-import tp.pr5.logic.InvalidMove;
-import tp.pr5.logic.Move;
-import tp.pr5.logic.ReversiMove;
-import tp.pr5.logic.SwappedMove;
 
 public class Resources {
 	
@@ -206,133 +202,6 @@ public class Resources {
 		return row;
 	}
 	
-		
-	public static int menu(Game game, Scanner input) {
-		int option = - 1;
-		boolean valid = false;
-		String optionString = "", lowerCaseStr;
-		
-		while (!valid) {
-			
-			 game.getBoard().printBoard();
-			
-			whoMoves(game);
-			System.out.print ("Please enter a command: ");
-
-			optionString = input.nextLine().toUpperCase();
-			lowerCaseStr = optionString.toLowerCase();
-			String[] words = optionString.split(" ");
-
-			if (words.length == 1) {
-				if (words[0].equals("UNDO")) {
-					option = 1;
-				}
-				else if (words[0].equals("RESTART")) {
-					option = 2;
-				}
-				else if (words[0].equals("EXIT")) {
-					option = 3;
-				}
-				else if (words[0].equals("HELP")){
-					option = 7;
-				}
-				else {
-					System.err.println(lowerCaseStr + ": command not understood, please try again");
-				}
-			}
-			else if (words.length == 2) {
-				if (words[0].equals("PLAY")) {
-					if (words[1].equals("C4")) {
-						option = 4;
-					}
-					else if (words[1].equals("CO")) {
-						option = 5;
-					}
-					else if (words[1].equals("RV")) {
-						option = 12;
-					}
-					else {
-						System.err.println(lowerCaseStr + ": command not understood, please try again");
-					}
-				}
-				else {
-					System.err.println(lowerCaseStr + ": command not understood, please try again");
-				}
-			}
-			else if (words.length == 3) {
-				if (words[0].equals("MAKE")) {
-					if (words[1].equals("A")) {
-						if (words[2].equals("MOVE")) {
-							option = 0;
-						}
-						else {
-							System.err.println(lowerCaseStr + ": command not understood, please try again");
-						}	
-					}
-					else {
-						System.err.println(lowerCaseStr + ": command not understood, please try again");
-					}
-					
-				}
-				else if (words[0].equals("PLAYER")) {
-					if (words[1].equals("WHITE")) {
-						if(words[2].equals("HUMAN")) {
-							option = 8; // WHITE HUMAN
-						}
-						else {
-							option = 9; // WHITE RANDOM
-						}
-					} 
-					else if (words[1].equals("BLACK")) {
-						if(words[2].equals("HUMAN")) {
-							option = 10; // BLACK HUMAN
-						}
-						else {
-							option = 11; // BLACK RANDOM
-						}
-					} 
-				}
-				else {
-					System.err.println(lowerCaseStr + ": command not understood, please try again");
-				}
-				
-			}
-			else if (words.length == 4){
-				if (words[0].equals("PLAY")) {
-					if (words[1].equals("GR")) {
-						try {
-							   Integer.parseInt(words[2]);
-							   Integer.parseInt(words[3]);
-							   if (Integer.parseInt(words[2]) < 1){
-								   setGravityDimX(1);
-							   }
-							   else{
-								   setGravityDimX(Integer.parseInt(words[2]));
-							   }
-							   if (Integer.parseInt(words[3]) < 1){
-								   setGravityDimY(1);
-							   }
-							   else{
-								   setGravityDimY(Integer.parseInt(words[3]));
-							   }
-							   option = 6;
-							} catch (NumberFormatException e) {
-								System.err.println(lowerCaseStr + ": command not understood, please try again");
-							}
-					}
-				}
-			}
-			else {
-				System.err.println(lowerCaseStr + ": command not understood, please try again");
-			}
-			
-			if ((option >= 0) && (option <= 12)) {
-				valid = true;
-			}
-		}
-		return option;
-	}
-		
 	public static void whoMoves(Game game) {
 		if (game.getTurn() == Counter.WHITE)
 			System.out.println("White to move");
@@ -512,5 +381,134 @@ public class Resources {
 		if (!border) 	b.setBorder(null);
 		return b; 
 	}
+	
+
+/*
+	public static int menu(Game game, Scanner input) {
+		int option = - 1;
+		boolean valid = false;
+		String optionString = "", lowerCaseStr;
+		
+		while (!valid) {
+			
+			 game.getBoard().printBoard();
+			
+			whoMoves(game);
+			System.out.print ("Please enter a command: ");
+
+			optionString = input.nextLine().toUpperCase();
+			lowerCaseStr = optionString.toLowerCase();
+			String[] words = optionString.split(" ");
+
+			if (words.length == 1) {
+				if (words[0].equals("UNDO")) {
+					option = 1;
+				}
+				else if (words[0].equals("RESTART")) {
+					option = 2;
+				}
+				else if (words[0].equals("EXIT")) {
+					option = 3;
+				}
+				else if (words[0].equals("HELP")){
+					option = 7;
+				}
+				else {
+					System.err.println(lowerCaseStr + ": command not understood, please try again");
+				}
+			}
+			else if (words.length == 2) {
+				if (words[0].equals("PLAY")) {
+					if (words[1].equals("C4")) {
+						option = 4;
+					}
+					else if (words[1].equals("CO")) {
+						option = 5;
+					}
+					else if (words[1].equals("RV")) {
+						option = 12;
+					}
+					else {
+						System.err.println(lowerCaseStr + ": command not understood, please try again");
+					}
+				}
+				else {
+					System.err.println(lowerCaseStr + ": command not understood, please try again");
+				}
+			}
+			else if (words.length == 3) {
+				if (words[0].equals("MAKE")) {
+					if (words[1].equals("A")) {
+						if (words[2].equals("MOVE")) {
+							option = 0;
+						}
+						else {
+							System.err.println(lowerCaseStr + ": command not understood, please try again");
+						}	
+					}
+					else {
+						System.err.println(lowerCaseStr + ": command not understood, please try again");
+					}
+					
+				}
+				else if (words[0].equals("PLAYER")) {
+					if (words[1].equals("WHITE")) {
+						if(words[2].equals("HUMAN")) {
+							option = 8; // WHITE HUMAN
+						}
+						else {
+							option = 9; // WHITE RANDOM
+						}
+					} 
+					else if (words[1].equals("BLACK")) {
+						if(words[2].equals("HUMAN")) {
+							option = 10; // BLACK HUMAN
+						}
+						else {
+							option = 11; // BLACK RANDOM
+						}
+					} 
+				}
+				else {
+					System.err.println(lowerCaseStr + ": command not understood, please try again");
+				}
+				
+			}
+			else if (words.length == 4){
+				if (words[0].equals("PLAY")) {
+					if (words[1].equals("GR")) {
+						try {
+							   Integer.parseInt(words[2]);
+							   Integer.parseInt(words[3]);
+							   if (Integer.parseInt(words[2]) < 1){
+								   setGravityDimX(1);
+							   }
+							   else{
+								   setGravityDimX(Integer.parseInt(words[2]));
+							   }
+							   if (Integer.parseInt(words[3]) < 1){
+								   setGravityDimY(1);
+							   }
+							   else{
+								   setGravityDimY(Integer.parseInt(words[3]));
+							   }
+							   option = 6;
+							} catch (NumberFormatException e) {
+								System.err.println(lowerCaseStr + ": command not understood, please try again");
+							}
+					}
+				}
+			}
+			else {
+				System.err.println(lowerCaseStr + ": command not understood, please try again");
+			}
+			
+			if ((option >= 0) && (option <= 12)) {
+				valid = true;
+			}
+		}
+		return option;
+	}
+*/
 		
 }

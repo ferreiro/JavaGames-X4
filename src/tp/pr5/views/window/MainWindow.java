@@ -98,7 +98,7 @@ public class MainWindow extends JFrame implements GameObserver {
 		middlePanelRightTop.setBackground(new Color(0,0,0,0));
 		middlePanelRightTop.setPreferredSize(new Dimension(10,10));
 		
-//		ButtonsPanel bPanel = new ButtonsPanel(wController);
+		// ButtonsPanel bPanel = new ButtonsPanel(wController);
 		
 		//The panel that contains all three buttons 
 		JPanel buttonsPannel = new JPanel(new GridBagLayout());
@@ -331,6 +331,9 @@ public class MainWindow extends JFrame implements GameObserver {
 	public void moveExecFinished(ReadOnlyBoard board, Counter player, Counter nextPlayer) {
 		refresh(board);	
 		setCurrentPlayerLabel();
+		if(wController.getGame().getTurn().getMode() == PlayerType.HUMAN) {
+			randomButton.setEnabled(true);
+		}
 	}
 	
 	@Override

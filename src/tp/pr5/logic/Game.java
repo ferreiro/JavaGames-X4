@@ -41,10 +41,6 @@ public class Game implements Observable<GameObserver> {
 		boolean valid = false, draw; 
 		Counter wonColor, currentPlayer = mov.getPlayer();
 		
-		System.out.println("Can make move White?= " + Resources.canMakeMove(board, Counter.WHITE));
-		System.out.println("Can make move Black?= " + Resources.canMakeMove(board, Counter.BLACK));
-		System.out.println("----");
-		
 		if ((mov.getPlayer() == turn) && (!finished)) { // No puede permitir hacer movimientos fuera de turno o se ha terminado el juego
 			winner = Counter.EMPTY;  
 			

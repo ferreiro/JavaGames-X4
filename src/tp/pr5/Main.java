@@ -23,38 +23,7 @@ import tp.pr5.views.console.ConsoleView;
 import tp.pr5.views.window.MainWindow;
 
 public class Main {
-	
-	/*
-	public static void main(String[] args) throws InvalidMove {
-		GameTypeFactory factory = new ReversiFactory();
-		GameRules rules = new ReversiRules();
-		Game g = new Game( rules );
-		Controller c = new WindowController(factory, g );
-		
-		for (int i = 1; i <= g.getBoard().getWidth(); i++) {
-			for (int j = 1; j <= g.getBoard().getHeight(); j++) {
-				Counter c1 = Counter.BLACK;
-				if (i % 2 == 0 && j % 2 == 0) {
-					c1 = Counter.WHITE;
-				}
-				g.getBoard().setPosition(i, j, c1);
-			}
-		}
-		
-		g.getBoard().setPosition(2, 1, Counter.EMPTY);		
-		g.getBoard().printBoard();
-		c.getGame().setTurn(Counter.BLACK);
-		
-		ReversiMove mov = new ReversiMove(2, 1, Counter.BLACK);
-		
-		c.getGame().executeMove(mov);
-		g.getBoard().printBoard();
-		
-		System.out.println(g.getWinner());
-		
-	}
-	*/
-	
+
 	public static void main(String[] args) {
 		boolean valid = true;
 		Deque<String> deque = new ArrayDeque<>();
