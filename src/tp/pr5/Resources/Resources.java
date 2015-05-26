@@ -42,17 +42,13 @@ public class Resources {
 			row = 1;
 			while(row <= b.getHeight() && !valid) {
 				if (b.getPosition(column, row) == Counter.EMPTY) {
-					
 					total = 0;
-					
 					total += checkHorizontal(b, color, column, row);	// True  = Left
 					total += checkVertical(b, color, column, row); 	// False = Down	
 					total += checkDiagonal1(b, color, column, row);  // False = Bottom Right
 					total += checkDiagonal2(b, color, column, row);  // False = Bottom Left
 
-					if (total >= 1) { // => Si se ha formado al menos una check, significa que hay alguna celda flrmDa, por tanto, el movimiento es valido
-						valid = true;	
-					}	
+					if (total >= 1) valid = true;				
 				}
 				row++;
 			}
@@ -217,7 +213,6 @@ public class Resources {
 		for (int i = board.getHeight(); i > 1; i--){
 			board.setPosition(column, i, board.getPosition(column , i - 1));
 		}
-		board.printBoard();
 	}
 	public static void moveColumnUp(Board board, int column) {
 		for (int i = 1 ; i < board.getHeight(); i++){

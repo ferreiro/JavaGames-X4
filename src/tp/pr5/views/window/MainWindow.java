@@ -334,6 +334,10 @@ public class MainWindow extends JFrame implements GameObserver {
 		if(wController.getGame().getTurn().getMode() == PlayerType.HUMAN) {
 			randomButton.setEnabled(true);
 		}
+		if(wController.getGame().isFinished()) {
+			randomButton.setEnabled(false);
+			undoButton.setEnabled(false);
+		}
 	}
 	
 	@Override
