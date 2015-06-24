@@ -2,8 +2,7 @@ package tp.pr5.Resources;
 
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.GridBagConstraints;
-import java.util.Scanner;
+import java.awt.GridBagConstraints; 
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
