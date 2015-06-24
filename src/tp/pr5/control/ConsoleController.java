@@ -17,11 +17,12 @@ public class ConsoleController extends Controller{
 	
 	public void run(){
 		while ( !exit ) {
+			System.out.println(getGame().getTurn() + " to move");
 			System.out.print("> ");
 			String line = in.nextLine();
 			Command cmd = CommandSet.parse(line);
 			if ( cmd != null){
-				cmd.execute(this.getGame(),this,in);
+				cmd.execute(this.getGame(),this,in); 
 				getGame().getBoard().printBoard();
 			}
 			else {
