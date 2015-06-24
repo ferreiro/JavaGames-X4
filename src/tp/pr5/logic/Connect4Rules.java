@@ -17,8 +17,9 @@ public class Connect4Rules implements GameRules {
 	}
 	
 	public Board newBoard() {
-		return new Board(dimX, dimY);	// Return a new board with connect4 dimensions
+		return new Board(dimX, dimY);	// Creates a new board with connect4 dimensions
 	}
+	
 	public Counter initialPlayer() {
 		return Counter.WHITE;
 	}
@@ -356,4 +357,4 @@ public class Connect4Rules implements GameRules {
 		return isFormed;
 	}	
 	
-}
+} 
