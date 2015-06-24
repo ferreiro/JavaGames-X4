@@ -1,5 +1,6 @@
 package tp.pr5.logic;
 
+import tp.pr5.Resources.Counter;
 import tp.pr5.Resources.Resources;
 
 public class GravityRules implements GameRules{

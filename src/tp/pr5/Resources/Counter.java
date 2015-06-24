@@ -1,4 +1,5 @@
-package tp.pr5.logic;
+package tp.pr5.Resources;
+
 
 public enum Counter {
 	EMPTY("Empty"), 

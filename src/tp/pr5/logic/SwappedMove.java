@@ -1,5 +1,7 @@
 package tp.pr5.logic;
 
+import tp.pr5.Resources.Counter;
+
 public class SwappedMove {
 	private int x;
 	private int y;

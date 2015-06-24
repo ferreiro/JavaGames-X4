@@ -1,5 +1,7 @@
 package tp.pr5.logic;
 
+import tp.pr5.Resources.Counter;
+
 public interface GameObserver {
 	
 	// When the execution of a move finishes, the observer receives a notification through this method.

@@ -1,6 +1,7 @@
 package tp.pr5.logic;
 
 import tp.pr5.logic.Board;
+import tp.pr5.Resources.Counter;
 import tp.pr5.Resources.Resources;
 
 public class ComplicaRules implements GameRules {

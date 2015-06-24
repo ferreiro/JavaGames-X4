@@ -2,6 +2,7 @@ package tp.pr5.logic;
 
 import java.util.ArrayList;
 
+import tp.pr5.Resources.Counter;
 import tp.pr5.Resources.Resources;
 
 public class ReversiMove extends Move {

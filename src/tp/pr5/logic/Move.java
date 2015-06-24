@@ -1,5 +1,7 @@
 package tp.pr5.logic;
 
+import tp.pr5.Resources.Counter;
+
 public abstract class Move {
 	protected int column;
 	protected int row;

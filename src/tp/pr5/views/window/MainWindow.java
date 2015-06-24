@@ -13,18 +13,21 @@ import java.awt.event.ActionListener;
 
 import java.awt.event.WindowEvent;
 
+
+
+
 // Import javafx.scene.image.Image;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
+import tp.pr5.Resources.Counter;
+import tp.pr5.Resources.GameType;
+import tp.pr5.Resources.PlayerType;
 import tp.pr5.Resources.Resources;
 import tp.pr5.control.GameTypeFactory;
 import tp.pr5.control.WindowController;
-import tp.pr5.logic.Counter;
 import tp.pr5.logic.Game;
 import tp.pr5.logic.GameObserver;
-import tp.pr5.logic.GameType;
-import tp.pr5.logic.PlayerType;
 import tp.pr5.logic.PlayersModel;
 import tp.pr5.logic.ReadOnlyBoard;
 

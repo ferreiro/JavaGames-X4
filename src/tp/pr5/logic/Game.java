@@ -4,7 +4,8 @@ import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Deque;
-import tp.pr5.logic.Counter;
+
+import tp.pr5.Resources.Counter;
 import tp.pr5.logic.Board;
 import tp.pr5.logic.Move; 
 

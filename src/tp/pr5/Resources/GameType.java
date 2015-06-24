@@ -1,4 +1,4 @@
-package tp.pr5.logic;
+package tp.pr5.Resources;
 
 public enum GameType {
 	connect4("Connect4"), complica("Complica"), gravity("Gravity"), reversi("Reversi");

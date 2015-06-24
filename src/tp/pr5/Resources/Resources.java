@@ -10,7 +10,6 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import tp.pr5.logic.Board;
-import tp.pr5.logic.Counter;
 import tp.pr5.logic.Game; 
 import tp.pr5.logic.GravityMove;
 

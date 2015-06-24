@@ -1,4 +1,4 @@
-package tp.pr5.logic;
+package tp.pr5.Resources;
 
 public enum PlayerType {
 	HUMAN("Human"), AUTO("Automatic");

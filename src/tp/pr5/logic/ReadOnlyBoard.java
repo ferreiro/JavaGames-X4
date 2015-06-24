@@ -1,5 +1,7 @@
 package tp.pr5.logic;
 
+import tp.pr5.Resources.Counter;
+
 public interface ReadOnlyBoard {
 
 	// Accessor method which returns the width of the board.

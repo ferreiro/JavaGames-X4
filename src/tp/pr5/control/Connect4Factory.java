@@ -2,9 +2,9 @@ package tp.pr5.control;
 
 import java.util.Scanner;
 
+import tp.pr5.Resources.Counter;
 import tp.pr5.logic.Connect4Move;
 import tp.pr5.logic.Connect4Rules;
-import tp.pr5.logic.Counter;
 import tp.pr5.logic.GameRules;
 import tp.pr5.logic.Move;
 

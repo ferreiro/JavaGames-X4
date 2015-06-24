@@ -2,8 +2,8 @@ package tp.pr5.control;
 
 import java.util.Scanner;
 
+import tp.pr5.Resources.Counter;
 import tp.pr5.logic.Board;
-import tp.pr5.logic.Counter;
 import tp.pr5.logic.Move;
 
 public class HumanPlayer implements Player {

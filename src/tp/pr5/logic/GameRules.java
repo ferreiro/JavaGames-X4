@@ -1,4 +1,6 @@
 package tp.pr5.logic;
+
+import tp.pr5.Resources.Counter;
   
 public interface GameRules {
 		

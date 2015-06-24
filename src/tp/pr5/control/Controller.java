@@ -2,9 +2,9 @@ package tp.pr5.control;
 
 import java.util.Scanner;
 
-import tp.pr5.logic.Counter;
+import tp.pr5.Resources.Counter;
+import tp.pr5.Resources.GameType;
 import tp.pr5.logic.Game;
-import tp.pr5.logic.GameType;
 
 public abstract class Controller {
 	protected Game game;

@@ -1,6 +1,6 @@
 package tp.pr5.views.console;
 
-import tp.pr5.logic.Counter;
+import tp.pr5.Resources.Counter;
 import tp.pr5.logic.GameObserver;
 import tp.pr5.logic.Observable;
 import tp.pr5.logic.ReadOnlyBoard;

@@ -1,6 +1,6 @@
 package tp.pr5.logic;
 
-import tp.pr5.logic.Counter;
+import tp.pr5.Resources.Counter;
 
 public class Board implements ReadOnlyBoard {
 	private int width, 

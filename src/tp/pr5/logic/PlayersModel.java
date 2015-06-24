@@ -3,6 +3,8 @@ package tp.pr5.logic;
 import javax.swing.ComboBoxModel;
 import javax.swing.event.ListDataListener;
 
+import tp.pr5.Resources.Counter;
+import tp.pr5.Resources.PlayerType;
 import tp.pr5.control.WindowController;
 
 public class PlayersModel implements ComboBoxModel<PlayerType> {
