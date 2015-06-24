@@ -17,13 +17,13 @@ public class ConsoleController extends Controller{
 	
 	public void run(){
 		while ( !exit ) {
-			System.out.println(getGame().getTurn() + " to move");
+			getGame().getBoard().printBoard();
 			System.out.print("> ");
+			
 			String line = in.nextLine();
 			Command cmd = CommandSet.parse(line);
 			if ( cmd != null){
 				cmd.execute(this.getGame(),this,in); 
-				getGame().getBoard().printBoard();
 			}
 			else {
 				System.err.print("Error: "+line);

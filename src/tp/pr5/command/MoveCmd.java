@@ -14,6 +14,7 @@ public class MoveCmd implements Command {
 	
 	@Override
 	public void execute(Game g, ConsoleController c, Scanner in) {
+		System.out.println(c.getGame().getTurn() + " to move");
 		Move move = c.getPlayers()[c.getCurrentPlayer()].getMove(c.getGame().getBoard(), c.getC()[c.getCurrentPlayer()]);
 		try {
 			boolean valid = c.getGame().executeMove(move);
