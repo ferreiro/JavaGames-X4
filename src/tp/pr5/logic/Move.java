@@ -28,7 +28,7 @@ public abstract class Move {
 	// Devuelve si es posible formar tiles en celdas empty
 	
 	public boolean availableEmpty(Board board) {
-		return true;	// This method is written on Reversi
+		return true; 
 	}
 	
 	
