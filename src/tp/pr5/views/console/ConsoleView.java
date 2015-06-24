@@ -19,7 +19,7 @@ public class ConsoleView implements GameObserver {
 	@Override
 	// When a move starts executing, the observer receives a notification through this method.
 	public void moveExecStart(Counter player) {
-		// To be implemented
+		
 	}
 	
 	@Override

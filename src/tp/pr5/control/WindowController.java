@@ -45,7 +45,7 @@ public class WindowController extends Controller {
 	}
 	
 	public void randomMove() {
-		Move rMove = getGameTypeFactory().createRandomPlayer().getMove(getGame().getBoard(), getGame().getTurn());
+		Move rMove = getGameTypeFactory().createRandomPlayer().getMove( getGame().getBoard(), getGame().getTurn());
 		try {
 			getGame().executeMove(rMove);
 		} catch (InvalidMove e) {}
