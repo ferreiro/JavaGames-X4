@@ -25,21 +25,28 @@ import tp.pr5.views.window.MainWindow;
 public class Main {
 
 	public static void main(String[] args) {
-		boolean valid = true;
-		Deque<String> deque = new ArrayDeque<>();
-		int modeInt = 0; // 0 window, 1 console
-		int gameInt = 0; // 0 c4, 1 co, 2 gr
+		
+		// Program arguments through args.
 		int counter = 0;
+		Deque<String> deque = new ArrayDeque<>();
 		Scanner in = new Scanner(System.in);
+		
+		for (int i = 0; i< args.length; i++) {
+			deque.addLast(args[i].toLowerCase());	// Set all the arguments to lowercase (for avoiding possible prolems)
+		}
+
+		// Game stuff.
+		boolean valid = true;
+		int modeInt = 0, gameInt = 0;	// ModeInt: 0 = window, 1 = Console | gameInt: 0 = c4, 1 = c0, 2 = gr.
 		GameRules r = new Connect4Rules();
 		Game g = new Game(r);	// The game is the model
 		GameTypeFactory factory = new Connect4Factory();
 		Controller controller;
 		
-		for (int i = 0; i< args.length; i++) {
-			deque.addLast(args[i].toLowerCase());
-		}
-		
+		/**************************************
+		 **********	PROGRAM ARGUMENTS *********
+		 **************************************/
+ 
 		while (counter < args.length && valid) {
 			if (deque.getFirst().equals("-h") || deque.getFirst().equals("--help")){
 				deque.removeFirst();
@@ -117,22 +124,36 @@ public class Main {
 			}
 			counter++;
 		}
+
+		/*******************************************
+		 **********	CREATE A SPEFICIC GAME *********
+		 ******************************************/
 		
-		if (gameInt == 1) {
+		// By default a connect4 game is created. BUt, if the program arguments wants to create
+		// another game, we have to change here. */
+		
+		if (gameInt == 0) {
+			/** Connect4 is created by default. **/
+		}
+		if (gameInt == 1) { // Creates a Complica Game.
 			r = new ComplicaRules();
 			g = new Game(r);	// The game is the model
 			factory = new ComplicaFactory();
 		}
-		else if (gameInt == 2) {
+		else if (gameInt == 2) { // Creates a Gravity Game.
 			r = new GravityRules(Resources.DIMX_GRAVITY, Resources.DIMY_GRAVITY);
 			g = new Game(r);	// The game is the model
 			factory = new GravityFactory(Resources.DIMX_GRAVITY, Resources.DIMY_GRAVITY);
 		}
-		else if (gameInt == 3) {
+		else if (gameInt == 3) { // Creates a Reversi Game.
 			r = new ReversiRules();
 			g = new Game(r);	// The game is the model
 			factory = new ReversiFactory();
 		}
+		 
+		/*****************************************************************************************
+		    MODE OF GAME: Depending on the arguments passing, we can play from console or from UI 
+		******************************************************************************************/
 		
 		if (modeInt == 0) {
 			controller = new WindowController(factory, g);
@@ -141,6 +162,11 @@ public class Main {
 			controller = new ConsoleController(factory, g, in);
 			g.addObserver(new ConsoleView(g));
 		}
+
+		/*****************************************************************************************
+		    If there wasn't a problem, then we launch the controller.
+		    Otherwise, we exit
+		******************************************************************************************/
 		
 		if(valid) {
 			g = new Game(r);
@@ -149,8 +175,6 @@ public class Main {
 		else{
 			System.exit(1);
 		}
-	}
-	
-	 
+	}	 
 	
 }

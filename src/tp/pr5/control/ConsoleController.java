@@ -24,8 +24,9 @@ public class ConsoleController extends Controller{
 				cmd.execute(this.getGame(),this,in);
 				getGame().getBoard().printBoard();
 			}
-				else 
-					System.err.print("Error: "+line);
+			else {
+				System.err.print("Error: "+line);
+			} 
 		}
 		in.close();
 	}

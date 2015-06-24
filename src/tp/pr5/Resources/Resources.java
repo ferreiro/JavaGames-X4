@@ -1,4 +1,4 @@
- package tp.pr5.Resources;
+package tp.pr5.Resources;
 
 import java.awt.Color;
 import java.awt.Dimension;

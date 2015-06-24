@@ -12,7 +12,6 @@ public class MoveCmd implements Command {
 	
 	public MoveCmd(){}
 	
-
 	@Override
 	public void execute(Game g, ConsoleController c, Scanner in) {
 		Move move = c.getPlayers()[c.getCurrentPlayer()].getMove(c.getGame().getBoard(), c.getC()[c.getCurrentPlayer()]);

@@ -13,7 +13,6 @@ import tp.pr5.logic.PlayerType;
  
 public class WindowController extends Controller {
 	static java.util.Scanner in;
-//	Thread autoThread;
 	private static Executor exec;
 	
 	public WindowController(GameTypeFactory factory, Game g) {

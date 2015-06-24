@@ -5,15 +5,14 @@ import java.util.Scanner;
 import tp.pr5.control.ConsoleController;
 import tp.pr5.logic.Game;
 
-public class UndoCmd implements Command{
+public class UndoCmd implements Command {
 
 	public UndoCmd(){}
 
 	@Override
 	public void execute(Game g, ConsoleController c, Scanner in) {
 		boolean undo = g.undo();
-		if (undo)
-			c.changePlayer();
+		if (undo) c.changePlayer();
 	}
 
 	@Override
