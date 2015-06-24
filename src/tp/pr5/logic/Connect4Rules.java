@@ -3,6 +3,7 @@ package tp.pr5.logic;
 import tp.pr5.Resources.Resources;
 
 public class Connect4Rules implements GameRules {
+	
 	private int dimX = Resources.DIMX_CONNECT4;
 	private int dimY = Resources.DIMY_CONNECT4;
 	private Counter winner;
