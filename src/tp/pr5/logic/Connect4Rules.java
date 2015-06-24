@@ -1,13 +1,16 @@
 package tp.pr5.logic;
  
 import tp.pr5.Resources.Resources;
- 
 
 public class Connect4Rules implements GameRules {
 	private int dimX = Resources.DIMX_CONNECT4;
 	private int dimY = Resources.DIMY_CONNECT4;
 	private Counter winner;
 	
+	/*************************************/
+	/********* CONSTRUCTOR ***************/
+	/*************************************/
+
 	public Connect4Rules() {  
 		winner = Counter.EMPTY; 
 	}
@@ -15,61 +18,8 @@ public class Connect4Rules implements GameRules {
 	public Board newBoard() {
 		return new Board(dimX, dimY);	// Return a new board with connect4 dimensions
 	}
-	
-	public boolean isDraw(Counter lastMove, Board b) {
-		boolean isDraw = false, fullBoard;
- 
-		fullBoard = b.isFull(); // comprueba si el tablero esta lleno (imagino que en complica habrá que cambiarlo.)
-		
-		if ((fullBoard) && (winner == Counter.EMPTY))
-			isDraw = true;
-		else
-			isDraw = false;
-		
-		return isDraw;
-	}
-
-	public int intRules() {
-		return 0;
-	}
-	
-	// Checks whether or not, with the current board, one of the players has won and, if so, returns the colour of the winner
-	
-	public Counter winningMove(Move lastMove, Board b) {	// Checks whether or not, with the current board, one of the players has won and, if so, returns the colour of the winner
-		boolean won = false;
-		winner = Counter.EMPTY; // No ha ganado nadie
-		 
-		// LastMove?? Puede ser para actualizar el tablero con ese movimiento?
-		// Ni idea tio
-		
-		won = checkHorizontal(b);
-		
-		if (!won) {
-			won = checkVertical(b);
-			if (!won) {
-				won = checkDiagonal1(b);
-				if (!won) {
-					won = checkDiagonal2(b);
-				}
-			}
-		} 
-			
-		return this.winner; // El color del ganador lo actualizan las funciones: checkhorizontal, etc... Actualizan el atributo winner
-							// Devuelve Empty si no ha ganado nadie
-	}
-	
 	public Counter initialPlayer() {
 		return Counter.WHITE;
-	}
- 
-	public Counter nextTurn(Counter lastMove, Board b) {
-		Counter nextTurn = Counter.EMPTY;
-		
-		if (lastMove == Counter.WHITE)
-			nextTurn = Counter.BLACK;
-		else if (lastMove == Counter.BLACK)
-			nextTurn = Counter.WHITE;
-		return nextTurn;
 	}
 	
 	/*************************************/
@@ -82,7 +32,58 @@ public class Connect4Rules implements GameRules {
 	public int getDimY() {
 		return this.dimY;
 	}
+	public int intRules() {
+		return 0;
+	}
+
+	/*************************************/
+	/********* OTHER METHODS *************/
+	/*************************************/
+
+	public boolean isDraw(Counter lastMove, Board b) {
+		boolean isDraw = false, fullBoard = b.isFull(); // (Is board full?)
+		
+		if ((fullBoard) && (winner == Counter.EMPTY))
+			isDraw = true;
+		else
+			isDraw = false;
+		
+		return isDraw;
+	}
 	
+	// Checks whether or not, with the current board, one of the players has won and, if so, returns the colour of the winner
+	
+	public Counter winningMove(Move lastMove, Board b) {	
+		boolean won = false;
+		this.winner = Counter.EMPTY; // Updating attribute winner to EMPTY. No one win.
+	
+		won = checkHorizontal(b);
+		
+		if (!won) {
+			won = checkVertical(b);
+			if (!won) {
+				won = checkDiagonal1(b);
+				if (!won) {
+					won = checkDiagonal2(b);
+				}
+			}
+		} 
+			
+		return this.winner; // Winner is updated by the checkHorizontal, vertical... functions. So returns the color Empty if nobody win.
+
+	}
+	
+ 	public Counter nextTurn(Counter colorMove, Board b) {
+		Counter nextTurn = Counter.EMPTY;
+		
+		if (colorMove == Counter.WHITE) 
+			nextTurn = Counter.BLACK;
+		else if (colorMove == Counter.BLACK)
+			nextTurn = Counter.WHITE;
+		
+		return nextTurn;
+	}
+	 
 	/*************************************/
 	/*********** EXTRA METHODS ***********/
 	/*************************************/
@@ -122,7 +123,6 @@ public class Connect4Rules implements GameRules {
 		}
 		return isWinner;
 	}
-
 	public boolean checkVertical(Board board) {
 		boolean isWinner = false;
 		int tilesCounter, y, x;
@@ -158,7 +158,6 @@ public class Connect4Rules implements GameRules {
 		}
 		return isWinner;
 	}
-	
 	/***
 	 * Check Diagonal 1
 	 * Sentido:  \
@@ -168,7 +167,6 @@ public class Connect4Rules implements GameRules {
 	 * pero para abajo (desde la esquina superior derecha hasta abajo)
 	 * 
 	 */
-		
 	public boolean checkDiagonal1(Board board) {
 		boolean isFormed = false;
 		int y, x, tilesCounter, aux_Y, aux_X, numIterations;
@@ -260,7 +258,6 @@ public class Connect4Rules implements GameRules {
 		
 		return isFormed;
 	}	
-	
 	/***
 	 * Check Diagonal 2
 	 * Sentido /
@@ -270,7 +267,6 @@ public class Connect4Rules implements GameRules {
 	 * pero para abajo (desde la esquina superior derecha hasta abajo)
 	 * 
 	 */
-	
 	public boolean checkDiagonal2(Board board) {
 		boolean isFormed = false;
 		int y, x, tilesCounter, aux_X, aux_Y, numIterations;
@@ -360,5 +356,3 @@ public class Connect4Rules implements GameRules {
 	}	
 	
 }
-
-
