@@ -6,19 +6,45 @@ public class GravityRules implements GameRules{
 	
 	private int dimX, dimY;
 	private Counter winner;
+
+	/*************************************/
+	/********* CONSTRUCTOR ***************/
+	/*************************************/
 	
-	public GravityRules(int dimX, int dimY){
+	public GravityRules(int dimX, int dimY) {
 		this.dimX = dimX;
 		this.dimY = dimY;
-		Resources.DIMX_GRAVITY = dimX;
+		Resources.DIMX_GRAVITY = dimX;	// Updating constants for gravity
 		Resources.DIMY_GRAVITY = dimY;
 		winner = Counter.EMPTY; 
 	}
+
+	public Board newBoard() {  
+		return new Board(dimX, dimY);	// Creates a new board with connect4 dimensions 
+	}
 	
-	public Board newBoard() { // Este metodo yo creo que al final se puede borrar porque en el gravity se especifica de que tamaño se quiere crear la tabla
-		return new Board(dimX, dimY);
+	public Counter initialPlayer() {
+		return Counter.WHITE;
 	}
 
+	/**************************
+	 	Getters and setters 
+	***************************/
+	
+	public int getDimX() {
+		return this.dimX;
+	}
+	public int getDimY() {
+		return this.dimY;
+	}
+	public int intRules() {
+		return 2;
+	}
+
+	/*************************************/
+	/********* OTHER METHODS *************/
+	/*************************************/
+	
 	public boolean isDraw(Counter lastMove, Board b) {
 		boolean isDraw = false;
 		
@@ -48,33 +74,20 @@ public class GravityRules implements GameRules{
 			}
 		} 
 			
-		return this.winner; // El color del ganador lo actualizan las funciones: checkhorizontal, etc... Actualizan el atributo winner
-							// Devuelve Empty si no ha ganado nadie
+		return this.winner; // Winner is updated by the checkHorizontal, vertical... functions. So returns the color Empty if nobody win.
 	}
 
-	public Counter initialPlayer() {
-		return Counter.WHITE;
-	}
-
-	public Counter nextTurn(Counter lastMove, Board b) {
+	public Counter nextTurn(Counter colorMove, Board b) {
 		Counter nextTurn = Counter.EMPTY;
 		
-		if (lastMove == Counter.WHITE) {
+		if (colorMove == Counter.WHITE) {
 			nextTurn = Counter.BLACK;
 		}
-		else if (lastMove == Counter.BLACK) {
+		else if (colorMove == Counter.BLACK) {
 			nextTurn = Counter.WHITE;
 		}
 
 		return nextTurn;
-	}
-
-	public int getDimX() {
-		return this.dimX;
-	}
-
-	public int getDimY() {
-		return this.dimY;
 	}
 
 	/*************************************/
@@ -162,7 +175,6 @@ public class GravityRules implements GameRules{
 	 * pero para abajo (desde la esquina superior derecha hasta abajo)
 	 * 
 	 */
-		
 	public boolean checkDiagonal1(Board board) {
 		boolean isFormed = false;
 		int y, x, tilesCounter, aux_Y, aux_X, numIterations;
@@ -264,7 +276,6 @@ public class GravityRules implements GameRules{
 	 * pero para abajo (desde la esquina superior derecha hasta abajo)
 	 * 
 	 */
-	
 	public boolean checkDiagonal2(Board board) {
 		boolean isFormed = false;
 		int y, x, tilesCounter, aux_X, aux_Y, numIterations;
@@ -352,9 +363,6 @@ public class GravityRules implements GameRules{
 		
 		return isFormed;
 	}
-	
-	public int intRules() {
-		return 2;
-	}
+
 	
 }
