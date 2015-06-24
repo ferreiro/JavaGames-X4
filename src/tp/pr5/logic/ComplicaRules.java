@@ -6,52 +6,68 @@ import tp.pr5.Resources.Resources;
 public class ComplicaRules implements GameRules {
 	
 	private int whiteCounter, blackCounter;
-	private int	dimX = Resources.DIMX_COMPLICA;
+	private int dimX = Resources.DIMX_COMPLICA;
 	private int dimY = Resources.DIMY_COMPLICA;
 	private Counter winner;  
+
+	/*************************************/
+	/********* CONSTRUCTOR ***************/
+	/*************************************/
 
 	public ComplicaRules() {  
 		winner = Counter.EMPTY;
 	}
-		 
-	public Board newBoard() {
-		return new Board(dimX, dimY); // Creates a new Board
-	}
-	
-	public boolean isDraw(Counter lastMove, Board b) {
-		return false; // Nunca puede haber empate en complica.
-	}
-	
-	public int intRules() {
-		return 1;
-	}
 
-	// Players method
+	public Board newBoard() {
+		return new Board(dimX, dimY); // Creates a new board with Complica dimensions
+	}
 
 	public Counter initialPlayer() {
 		return Counter.WHITE;
 	}
 	
-	public Counter nextTurn(Counter lastMove, Board b) {
+	/*************************************/
+	/********* GETTERS / SETTERS *********/
+	/*************************************/
+
+	public int getDimX() {
+		return this.dimX;
+	}
+	public int getDimY() {
+		return this.dimY;
+	}
+	public int intRules() {
+		return 1;
+	}
+
+	/*************************************/
+	/********* OTHER METHODS *************/
+	/*************************************/
+ 
+	public boolean isDraw(Counter lastMove, Board b) {
+		return false; // Can't be a draw in Complica
+	}
+	
+	public Counter nextTurn(Counter colorMove, Board b) {
 		Counter nextTurn = Counter.EMPTY;
 		
-		if (lastMove == Counter.WHITE) {
+		if (colorMove == Counter.WHITE) {
 			nextTurn = Counter.BLACK;
 		}
-		else if (lastMove == Counter.BLACK) {
+		else if (colorMove == Counter.BLACK) {
 			nextTurn = Counter.WHITE;
 		}
 
 		return nextTurn;
 	}
 	
-	// Somebody wins or is finished? 
+	// Checks whether or not, with the current board, one of the players has won and, if so, returns the colour of the winner
 
 	public Counter winningMove(Move lastMove, Board b) {
 		winner = Counter.EMPTY; // Nobody Wins
 		blackCounter = whiteCounter = 0;
 		
-		checkHorizontal(b);
+		checkHorizontal(b);	
 		checkVertical(b);
 		checkDiagonal1(b);		
 		checkDiagonal2(b);
@@ -64,8 +80,8 @@ public class ComplicaRules implements GameRules {
 		boolean isWinner = false;
 		
 		if ((blackCounter > 0) && (whiteCounter > 0)) {
-			isWinner = false; 
-			winner = Counter.EMPTY; // Nadie gana si ambos tienen celdas formadas
+			isWinner = false; 		// Each color has formed tiles. 
+			winner = Counter.EMPTY; // Nobody win.
 		}
 		else {
 			isWinner = true;
@@ -80,16 +96,12 @@ public class ComplicaRules implements GameRules {
 		return isWinner;
 	}
 	
-	/*************************************/
-	/********* GETTERS / SETTERS *********/
-	/*************************************/
-
-	public int getDimX() { return this.dimX; }
-	public int getDimY() { return this.dimY; }
 	
 	/**************************************/
 	/************ EXTRA METHODS ***********/
 	/**************************************/
+	
+	// Calculates how much Horizontal tiles of a color has been made.
 	
 	public void checkHorizontal(Board board) {
 		int tilesCounter, y, x;
@@ -354,5 +366,6 @@ public class ComplicaRules implements GameRules {
 				y--;
 			}			
 	}
+
 	
 }
