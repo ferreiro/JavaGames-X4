@@ -6,8 +6,11 @@ You can play up to four games: Connect4, Commplicaica, Gravity and Reversi. Each
 * Complica: the objetive is the same as Connect 4. However, we have include a new feature. Now if you try to put a disc on a full column, the column moves down and your disc is placed on top.
 * Gravity: In the game, whenever you place a disc on the board, it's automatically moves to the neareaset walls. That's because We have applied some "gravity" stuff.
 * Reversi: The game is won by the player who has more discs of their color. 
+
 ![alt text](/assets/slide1_2.jpg)
 
+### Automatic players.
+Are you bored and nobody want to play with you? No problem! We've created an awesome feature that allows you to use an "automatic player" that will place a disc in a position of the board.
 
 ![alt text](/assets/slide2_2.jpg)
 ![alt text](/assets/slide3_2.jpg)
