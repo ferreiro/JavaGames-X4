@@ -15,7 +15,6 @@ Are you bored and nobody want to play with you? No problem! We've created an awe
 
 ![alt text](/assets/slide2_2.jpg)
 ![alt text](/assets/slide4_2.jpg) 
-
-![alt text](/assets/credits.jpg)
+![alt text](/assets/credits_2.jpg)
 
 <b>Isssues: </b> Check the issues here: <a href="/issues">Issues on Project4</a>
