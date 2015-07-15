@@ -8,13 +8,14 @@ You can play up to four games: Connect4, Commplicaica, Gravity and Reversi. Each
 * Reversi: The game is won by the player who has more discs of their color. 
 
 ![alt text](/assets/slide1_2.jpg)
+![alt text](/assets/slide3_2.jpg)
 
 ### Automatic players.
 Are you bored and nobody want to play with you? No problem! We've created an awesome feature that allows you to use an "automatic player" that will place a disc in a position of the board.
 
 ![alt text](/assets/slide2_2.jpg)
-![alt text](/assets/slide3_2.jpg)
 ![alt text](/assets/slide4_2.jpg) 
+
 ![alt text](/assets/credits.jpg)
 
 <b>Isssues: </b> Check the issues here: <a href="/issues">Issues on Project4</a>
