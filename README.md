@@ -1,5 +1,6 @@
 # Java Games x4
-GamesX4 is a GUI (Graphical User Interface) program on Java to play up to 4 addictive Games.
+<b>"GamesX4"</b>, is Java program to play up to 4 games addictive Games. Developed using
+MVC (Model View Controller) pattern and Swing for GUI (Graphical User Interface).
 
 ### Hours of fun guaranteed. Choose your Game!
 You can play up to four nice and funny games: Connect4, Complica, Gravity and Reversi. Each game have different mechanics (the most difficult one is the Gravity :P).
